@@ -1,3 +1,6 @@
+/** @type {HTMLCanvasElement} */
+/** @type {CanvasRenderingContext2D} */
+
 //Класс 2D плоскости
 class Plane{
     constructor(canvas){
@@ -8,18 +11,17 @@ class Plane{
 
 class Game {
     constructor(canvas) {
-        this.window = Plane(canvas);
+        this.window = new Plane(canvas);
     }  
     
     Init(){
-
+        this.window.ctx.fillRect(20, 10, 150, 100);
     }
 
-    Update()
-    {
+
+    Update() {
         
     }
-
 
     Draw(){
         ClearCanvas();
