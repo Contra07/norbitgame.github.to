@@ -1,11 +1,35 @@
 /** @type {HTMLCanvasElement} */
 /** @type {CanvasRenderingContext2D} */
 
+
+//Элемент canvas на странице
 canvas = document.getElementById('mycanvas');
+//Контекст, который содержит функции отрисовки
 ctx = canvas.getContext("2d");
 
-let time = 0;
+//Тестовый класс объекта для отрисовки
+
+class Square{
+    constructor(x,y,h,w){
+        this.x = x;
+        this.y = y;
+        this.h = h;
+        this.w = w;
+        this.v = 0.03;
+    }
+}
+
+
+
+//Time and fps
+let then = 0;
+let dt = 0;
 let fps = 0;
+
+///тестовый объект
+let square = null;
+
+
 //Функции отрисовки
 
 function clear() {
@@ -13,8 +37,11 @@ function clear() {
 }
 
 function drawText(text,x,y){
-    ctx.font = "20px serif";
     ctx.fillText(text,x,y);
+}
+
+function setFont(font){
+    ctx.font = font;
 }
 
 function drawSquare(x,y,h,w){
@@ -24,95 +51,61 @@ function drawSquare(x,y,h,w){
 //Основная логика
 
 function init(){
-    time = performance.now();
-    requestAnimationFrame(update);
+    //------Your code---
+    //Инициализируем тестовый объект
+    square = new Square(20,150,100,100);
+    //Выставляем шрифт
+    setFont("20px serif");
+    //------------------
+    requestAnimationFrame(gameloop);
 }
 
 function update(dt) {
-    this.square.x += 0.1;
-    fps = 1 / (dt / 1000);
-    requestAnimationFrame(update);
+    fps = 1000 / dt;
+    //----Logic Here---
+    square.x += square.v*dt;
+    //square.y += 0.001;
+    //console.log(dt);
+    //------------
 }
 
 function draw(){
+    //Очищаем
     clear();
-    //this.window.ctx.fillRect(20, 10, 150, 100);
-    drawText(fps,20,20)
-    //DrawSquare(this.square);
+    //Выводим fps
+    drawText("FPS: " + fps,20,20);
+    //Выводим dt
+    drawText("Delta T: " + dt,20,40);
+    //Выводим позицию тестового объекта
+    drawText("X: " + square.x,20,60);
+    drawText("Y: " + square.y,20,80);
+    //Отрисовываем тестовый объект
+    drawSquare(square.x, square.y,square.h,square.w);
 }
 
-function getDeltaTime(){
-    let dt = timeStamp - game.time
-    time = timeStamp;
+//Время между прошлым и текущим кадром
+function getDeltaTime(now){
+    //Решение бага, что каждый второй кадр почему-то dt = 0
+    if(now != then){
+        dt = now - then
+        then = now;
+    }
+    //console.log(dt + ' ' + then + ' ' + now + ' ')
     return dt;
 }
 
 
-function gameloop(){
-    dt = getDeltaTime();
-    game.Update(dt);
-    game.Draw();
-    requestAnimationFrame(this.GameLoop);
+function gameloop(timeStamp){
+    if(timeStamp != undefined)
+    {
+        update(getDeltaTime(timeStamp));
+    }
+    draw();
+    //https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#return_value
+    requestAnimationFrame(gameloop);
 }
 
 init();
 gameloop();
-
-
-//Класс 2D плоскости
-class Plane{
-    constructor(canvas){
-        this.canvas = canvas;
-        this.ctx = canvas.getContext("2d");
-    }
-
-    Clear() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
-
-    DrawText(text,x,y){
-        this.ctx.font = "20px serif";
-        this.ctx.fillText(text,x,y)
-    }
-
-    DrawSquare(square){
-        this.ctx.fillRect(square.x*10, square.y, square.h, square.w);
-    }
-
-}
-
-class Square{
-    constructor(x,y,h,w){
-        this.x = x;
-        this.y = y;
-        this.h = h;
-        this.w = w;
-    }
-}
-
-class Game {
-    constructor(canvas) {
-        this.window = new Plane(canvas);
-        this.time = 0;
-        this.fps = 0;
-        this.square = new Square(10,100,20,20)
-    }  
-    
-    Init(){
-        this.time = performance.now()
-    }
-
-    Update(dt) {
-        this.square.x += 0.1;
-    }
-
-    Draw(){
-        this.window.Clear();
-        //this.window.ctx.fillRect(20, 10, 150, 100);
-        this.window.DrawText(this.fps,20,20)
-        this.window.DrawSquare(this.square);
-    }
-}
-
 
 
