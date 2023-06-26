@@ -41,12 +41,15 @@ class Square {
     
     update(dt){
         //Коллизия со стенами
-        if (this.x + this.w >= width) {
+        if (this.x + this.w > width) {
             this.x = width - this.w;
-            this.dx *= -1;
-        } else if (this.x <= 0) {
+            this.dx = 0;
+            this.d2x *= -1;
+        } 
+        if (this.x < 0) {
             this.x = 0;
-            this.dx *= -1;
+            this.dx = 0;
+            this.d2x *= -1;
         }
         //Движение объекта
         this.dx += this.d2x*dt
