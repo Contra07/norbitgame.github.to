@@ -9,28 +9,31 @@ const ctx = canvas.getContext('2d')
 canvas.width = 423
 canvas.height = 423
 
-// Соотношение сторон
-const ASPECT_RATIO = canvas.width / canvas.height
 //Коэфицент масштабирование
-const SCALE = 100
-//Ширина игроаого мира
+const SCALE = 1000
+//Соотношение сторон
+const ASPECT_RATIO = canvas.width / canvas.height
+//Ширина игрового мира
 const VIRTUAL_WIDTH = ASPECT_RATIO * SCALE
 //Высота игрового мира
 const VIRTUAL_HEIGHT = (1 / ASPECT_RATIO) * SCALE
-//Коэфиценты проекции (Мир игры больше разрешения)
+//Коэфиценты проекции (Мир игры отличается от разрешения)
 const SCALE_X = canvas.width / VIRTUAL_WIDTH
 const SCALE_Y = canvas.height / VIRTUAL_HEIGHT
+
 //Шрифты
-const DEBUG_FONT = '15px serif'
+const DEBUG_FONT = '10px serif'
 
 //Время прошлого кадра
 let then = 0
 //Фпс
 let fps = 0
+
 //Тестовый объект
 let square = null
-//Время между предыдущим и текущим кадром
-//let dt = 0;
+//Гравитация
+const GRAVITY = - VIRTUAL_HEIGHT / 80000
+
 
 //Тестовый класс объекта для отрисовки
 class Square {
@@ -43,32 +46,60 @@ class Square {
         this.d2y = d2y
         this.h = h
         this.w = w
+        this.jump = false;
     }
 
     init() { }
 
     update(dt) {
-        //Коллизия со стенами
-        if (this.x + this.w > VIRTUAL_WIDTH) {
-            this.x = VIRTUAL_WIDTH - this.w
-            this.dx = 0
-            this.d2x *= -1
-        }
-        if (this.x < 0) {
-            this.x = 0
-            this.dx = 0
-            this.d2x *= -1
-        }
         //Движение объекта
         this.dx += this.d2x * dt
         this.x += this.dx * dt
         this.dy += this.d2y * dt
         this.y += this.dy * dt
+
+        //Коллизия со стенами
+        if (this.x + this.w > VIRTUAL_WIDTH) {
+            this.x = VIRTUAL_WIDTH - this.w
+            this.dx = 0
+        }
+        if (this.x < 0) {
+            this.dx = 0
+            this.x = 0
+        }
+        if (this.y > VIRTUAL_HEIGHT) {
+            this.dy = 0
+            this.y = VIRTUAL_HEIGHT
+        }
+        if (this.y < 0) {
+            this.dy = 0
+            this.y = 0
+            this.jump = false
+        }
     }
 
     draw() {
+        setFont(DEBUG_FONT)
+        //Дебаг
+        let pos1 = projectCoords(this.x, this.y + this.h)
+        for (let key in this) {
+            drawText(key + ': ' + this[key], pos1.x, pos1.y)
+            pos1.y -= 10
+        }
         //Отрисовываем тестовый объект
-        drawSquare(this.x, this.y, this.h, this.w)
+        drawSquare(this.x, this.y + this.h, this.h, this.w)
+    }
+
+    //Нажатие кнопки
+    keyDown(keyCode){
+        if(keyCode == 32 && !this.jump){
+            this.jump = true;
+            this.dy = 4;
+        }
+    }
+
+    keyUp(keycode){
+        
     }
 }
 
@@ -119,15 +150,17 @@ function projectSize(h, w) {
 
 //Инициализация переменных перед запуском игры
 function init() {
+    window.addEventListener("keydown", keyDown, true);
+    window.addEventListener("keyup", keyUp, true);    
     //------Ваш код-----
     //Инициализируем тестовый объект
     square = new Square(
+        VIRTUAL_WIDTH * 0.2,
+        VIRTUAL_HEIGHT * 0.5,
         0,
-        VIRTUAL_HEIGHT * 0.3,
         0,
         0,
-        VIRTUAL_WIDTH * 0.000001,
-        0,
+        GRAVITY,
         100 / SCALE_Y,
         100 / SCALE_X
     )
@@ -149,16 +182,10 @@ function draw() {
     //Индикаторы
     const indicators = {
         fps: 'FPS: ' + Math.round(fps),
-        //dt: "Delta T: " + dt,
-        kx: 'kx: ' + SCALE_X,
-        ky: 'ky: ' + SCALE_Y,
-        squarex: 'x: ' + Math.round(square.x),
-        squarey: 'y: ' + Math.round(square.y),
-        squarecanvasx: 'X: ' + Math.round(projectCoords(square.x, square.y).x),
-        squarecanvasy: 'Y: ' + Math.round(projectCoords(square.x, square.y).y),
         ascpectRatio: 'AS: ' + ASPECT_RATIO,
         width: 'W: ' + VIRTUAL_WIDTH,
-        height: 'H: ' + VIRTUAL_HEIGHT
+        height: 'H: ' + VIRTUAL_HEIGHT,
+        gravity: 'G: ' + GRAVITY
     }
     setFont(DEBUG_FONT)
     let posy = 20
@@ -166,6 +193,7 @@ function draw() {
         drawText(indicators[key], 5, posy)
         posy += 20
     }
+    //Вывод
     square.draw()
 }
 
@@ -176,7 +204,17 @@ function getDeltaTime(now) {
     return dt
 }
 
-//Игровой цикл (Не модифицировать)
+//-----User Inputs-----
+
+function keyDown(e){
+    square.keyDown(e.keyCode)
+}
+
+function keyUp(e){
+    
+}
+//-----Игровой цикл----
+
 function gameloop(timeStamp) {
     update(getDeltaTime(timeStamp))
     draw()
@@ -184,4 +222,5 @@ function gameloop(timeStamp) {
     requestAnimationFrame(gameloop)
 }
 
+//-----Запуск игры----
 init()
