@@ -1,6 +1,64 @@
 /** @type {HTMLCanvasElement} */
 /** @type {CanvasRenderingContext2D} */
 
+canvas = document.getElementById('mycanvas');
+ctx = canvas.getContext("2d");
+
+let time = 0;
+let fps = 0;
+//Функции отрисовки
+
+function clear() {
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+}
+
+function drawText(text,x,y){
+    ctx.font = "20px serif";
+    ctx.fillText(text,x,y);
+}
+
+function drawSquare(x,y,h,w){
+    ctx.fillRect(x, y, h, w);
+}
+
+//Основная логика
+
+function init(){
+    time = performance.now();
+    requestAnimationFrame(update);
+}
+
+function update(dt) {
+    this.square.x += 0.1;
+    fps = 1 / (dt / 1000);
+    requestAnimationFrame(update);
+}
+
+function draw(){
+    clear();
+    //this.window.ctx.fillRect(20, 10, 150, 100);
+    drawText(fps,20,20)
+    //DrawSquare(this.square);
+}
+
+function getDeltaTime(){
+    let dt = timeStamp - game.time
+    time = timeStamp;
+    return dt;
+}
+
+
+function gameloop(){
+    dt = getDeltaTime();
+    game.Update(dt);
+    game.Draw();
+    requestAnimationFrame(this.GameLoop);
+}
+
+init();
+gameloop();
+
+
 //Класс 2D плоскости
 class Plane{
     constructor(canvas){
@@ -54,25 +112,7 @@ class Game {
         this.window.DrawText(this.fps,20,20)
         this.window.DrawSquare(this.square);
     }
-
-    keyDownListener(e) {
-        if(e.keyCode == 32){
-            player.dy = -50  ;
-        }
-    }
-}
-
-function GameLoop(timeStamp){
-    dt = timeStamp - game.time;
-    game.time = timeStamp;
-    game.fps = 1 / (dt / 1000);
-    game.Update(dt);
-    game.Draw();
-    requestAnimationFrame(this.GameLoop);
 }
 
 
-let game = new Game(document.getElementById('mycanvas'));
-game.Init();
-GameLoop();
 
