@@ -6,13 +6,13 @@ const canvas = document.getElementById('mycanvas')
 //Контекст, который содержит функции отрисовки
 const ctx = canvas.getContext('2d')
 //Размер холста в пикселях
-canvas.width = 450
-canvas.height = 600
+canvas.width = window.screen.width/2 
+canvas.height = window.screen.height/2
 
-//Коэфицент масштабирование
-const SCALE = 1000
+//Коэфицент масштабирование 
+const SCALE = 1
 //Соотношение сторон
-const ASPECT_RATIO = 600/450
+const ASPECT_RATIO = canvas.width/canvas.height
 //Ширина игрового мира
 const VIRTUAL_WIDTH = ASPECT_RATIO * SCALE
 //Высота игрового мира
@@ -32,7 +32,7 @@ let fps = 0
 //Тестовый объект
 let square = null
 //Гравитация
-const GRAVITY = - VIRTUAL_HEIGHT / 80000
+const GRAVITY = - VIRTUAL_HEIGHT * 0.000008
 
 
 //Тестовый класс объекта для отрисовки
@@ -91,11 +91,17 @@ class Square {
         drawSquare(this.x, this.y + this.h, this.h, this.w)
     }
 
+    #jump() {
+        if(!square.jump){
+            square.jump = true;
+            square.dy = VIRTUAL_HEIGHT/300;
+        }
+    }
+
     //Нажатие кнопки
     keyDown(keyCode){
-        if(keyCode == 32 && !this.jump){
-            this.jump = true;
-            this.dy = 4;
+        if(keyCode == 32){
+            this.#jump()
         }
     }
 
@@ -103,6 +109,22 @@ class Square {
         
     }
 }
+
+
+class Rect extends Square{
+    constructor(x, y, dx, dy, d2x, d2y, h, w){
+        super(x, y, dx, dy, d2x, d2y, h, w)
+    }
+    #jump() {
+        if(!square.jump){
+            square.jump = true;
+            square.dy = VIRTUAL_HEIGHT
+        }
+    }
+    
+}
+
+
 
 //-------Функции отрисовки--------
 
@@ -156,7 +178,7 @@ function init() {
     window.addEventListener("keyup", keyUp, true);    
     //------Ваш код-----
     //Инициализируем тестовый объект
-    square = new Square(
+    square = new Rect(
         VIRTUAL_WIDTH * 0.2,
         VIRTUAL_HEIGHT/20,
         0,
