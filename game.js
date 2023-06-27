@@ -6,23 +6,23 @@ const canvas = document.getElementById('mycanvas')
 //Контекст, который содержит функции отрисовки
 const ctx = canvas.getContext('2d')
 //Размер холста в пикселях
-canvas.width = 423
-canvas.height = 423
+canvas.width = 450
+canvas.height = 600
 
 //Коэфицент масштабирование
 const SCALE = 1000
 //Соотношение сторон
-const ASPECT_RATIO = canvas.width / canvas.height
+const ASPECT_RATIO = 600/450
 //Ширина игрового мира
 const VIRTUAL_WIDTH = ASPECT_RATIO * SCALE
 //Высота игрового мира
 const VIRTUAL_HEIGHT = (1 / ASPECT_RATIO) * SCALE
-//Коэфиценты проекции (Мир игры отличается от разрешения)
+//Коэфиценты проекции (Мир игры отличается от разрешения) 
 const SCALE_X = canvas.width / VIRTUAL_WIDTH
-const SCALE_Y = canvas.height / VIRTUAL_HEIGHT
+const SCALE_Y = (canvas.width / ASPECT_RATIO) / VIRTUAL_HEIGHT
 
 //Шрифты
-const DEBUG_FONT = '10px serif'
+const DEBUG_FONT = '13 px serif'
 
 //Время прошлого кадра
 let then = 0
@@ -86,6 +86,7 @@ class Square {
             drawText(key + ': ' + this[key], pos1.x, pos1.y)
             pos1.y -= 10
         }
+        ctx.fillStyle = "rgba(255, 0,0, 0.4)";
         //Отрисовываем тестовый объект
         drawSquare(this.x, this.y + this.h, this.h, this.w)
     }
@@ -118,6 +119,7 @@ function drawText(text, x, y) {
 
 //Устанвока шрифта
 function setFont(font) {
+    ctx.fillStyle = "rgba(0, 0, 0 , 1)";
     ctx.font = font
 }
 
@@ -125,7 +127,7 @@ function setFont(font) {
 function drawSquare(x, y, h, w) {
     let coords = projectCoords(x, y)
     let size = projectSize(h, w)
-    ctx.fillRect(coords.x, coords.y, size.height, size.width)
+    ctx.fillRect(coords.x, coords.y, size.width, size.height)
 }
 
 //-------Проекция--------
@@ -134,8 +136,8 @@ function drawSquare(x, y, h, w) {
 function projectCoords(x, y) {
     return {
         x: x * SCALE_X,
-        y: (VIRTUAL_HEIGHT - y) * SCALE_Y
-    }
+        y: (VIRTUAL_HEIGHT - y ) * SCALE_Y + canvas.height - canvas.width / ASPECT_RATIO 
+    } 
 }
 
 //Проекция размера
@@ -156,13 +158,13 @@ function init() {
     //Инициализируем тестовый объект
     square = new Square(
         VIRTUAL_WIDTH * 0.2,
-        VIRTUAL_HEIGHT * 0.5,
+        VIRTUAL_HEIGHT/20,
         0,
         0,
         0,
         GRAVITY,
-        100 / SCALE_Y,
-        100 / SCALE_X
+        VIRTUAL_HEIGHT/3,
+        VIRTUAL_WIDTH/20
     )
     //------------------
     requestAnimationFrame(gameloop)
