@@ -1,6 +1,6 @@
-import { KeyManager } from "./classes/keys.js";
-import { RenderManager } from "./classes/render.js";
-import { GameManager } from "./game.js";
+import { KeyManager } from "./classes/managers/keys.js";
+import { RenderManager } from "./classes/managers/render.js";
+import { GameManager } from "./classes/managers/game.js";
 //Ширина игрового мира
 let VIRTUAL_WIDTH = 600;
 //Высота игрового мира
@@ -19,6 +19,7 @@ function init() {
     keys = new KeyManager();
     game = new GameManager(render, keys);
     window.addEventListener("keydown", keyDown, true);
+    game.init();
     requestAnimationFrame(gameloop);
 }
 function gameloop(timeStamp) {

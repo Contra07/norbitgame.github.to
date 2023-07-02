@@ -1,4 +1,4 @@
-import { RenderManager } from "./render.js"
+import { RenderManager } from "../managers/render.js"
 
 export class Actor {
     //--------Поля--------   

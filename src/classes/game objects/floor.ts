@@ -1,5 +1,5 @@
 import { Actor } from "./actor.js";
-import { RenderManager } from "./render.js";
+import { RenderManager } from "../managers/render.js";
 
 export class Floor extends Actor{
 

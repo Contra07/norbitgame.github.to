@@ -1,6 +1,6 @@
 import { Actor } from "./actor.js";
-import { KeyManager } from "./keys.js";
-import { RenderManager } from "./render.js";
+import { KeyManager } from "../managers/keys.js";
+import { RenderManager } from "../managers/render.js";
 
 export class Player extends Actor{
     
