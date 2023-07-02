@@ -1,9 +1,13 @@
-import { Actor } from "./classes/actor.js";
 import { Render } from "./classes/render.js";
+import { KeyManager } from "./classes/keys.js";
+import { Player } from "./classes/player.js";
+import { Floor } from "./classes/floor.js";
 //Объект рендера на экран
-export let renderManager;
+let renderManager;
+let keys;
 //Тестовый объект
-let square;
+let player;
+let floor;
 //Соотношение сторон
 let ASPECT_RATIO;
 //Ширина игрового мира
@@ -20,25 +24,32 @@ let GRAVITY;
 //Инициализация переменных перед запуском игры
 function init() {
     window.addEventListener("keydown", keyDown, true);
-    window.addEventListener("keyup", keyUp, true);
-    VIRTUAL_HEIGHT = 50;
-    VIRTUAL_WIDTH = 50;
-    //------Ваш код-----
-    //Инициализируем тестовый объект
-    square = new Actor(10, 2, 0, 0, 0, 0, 40, 25);
+    VIRTUAL_HEIGHT = 100;
+    VIRTUAL_WIDTH = 100;
     renderManager = new Render(document.getElementById('mycanvas'), VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
     //Размер холста в пикселях
-    renderManager.WINDOW_HEIGHT = 500;
-    renderManager.WINDOW_WIDTH = 500;
+    renderManager.WINDOW_HEIGHT = 700;
+    renderManager.WINDOW_WIDTH = 600;
     ASPECT_RATIO = renderManager.ASPECT_RATIO;
-    GRAVITY = 0;
+    keys = new KeyManager();
+    //------Ваш код-----
+    GRAVITY = -VIRTUAL_HEIGHT * 0.000005;
+    let startPossitionY = 15;
+    //Инициализируем тестовый объект
+    player = new Player(renderManager, keys, 10, startPossitionY, GRAVITY, 20, 10, "rgba(255,0,0,0.5)");
+    floor = new Floor(renderManager, startPossitionY, "rgba(0,255,0,0.5)");
     //------------------
     requestAnimationFrame(gameloop);
 }
 //Игровая логика
 function update(dt) {
     fps = 1000 / dt;
-    square.update(dt);
+    floor.update(dt);
+    player.update(dt);
+    if (player.collides(floor) || player.y < 0) {
+        player.onFloor(floor.y + floor.hitboxHeight);
+    }
+    keys.clear();
 }
 //Отрисовка объектов
 function draw() {
@@ -54,11 +65,13 @@ function draw() {
     };
     let posy = 20;
     for (let key in indicators) {
-        renderManager.drawDebugText(key, 5, posy);
+        //renderManager.drawDebugText(key, 5, posy)
         posy += 20;
     }
+    renderManager.drawRenderDebugText();
     //Вывод
-    square.draw();
+    player.draw();
+    floor.draw();
 }
 //Время между прошлым и текущим кадром
 function getDeltaTime(now) {
@@ -68,10 +81,7 @@ function getDeltaTime(now) {
 }
 //-----User Inputs-----
 function keyDown(e) {
-    //console.log(e.key)
-    square.keyDown(e.key);
-}
-function keyUp(e) {
+    keys.press(e.key);
 }
 //-----Игровой цикл----
 function gameloop(timeStamp) {

@@ -14,9 +14,9 @@ export class Render {
     private _scaleX: number
     private _scaleY: number
     private _debugFont: string = '13 px serif'
-    private _smallFont: string = ""
-    private _middleFont: string = ""
-    private _bigFont: string = ""
+    private _smallFont: string = "10 px serif"
+    private _middleFont: string = "15 px serif"
+    private _bigFont: string = "20 px serif"
 
     //--------Конструктор--------
 
@@ -54,6 +54,16 @@ export class Render {
     public set WINDOW_HEIGHT(height: number) {
         this._canvas.height = height
         this._ascpectRatio = this._canvas.width / this._canvas.height;
+    }
+
+    //Высота мира
+    public get VIRTUAL_HEIGHT(): number {
+        return this._virtualHeight
+    }
+
+    //Ширина мира
+    public get VIRTUAL_WIDTH(): number {
+        return this._virtualWidth
     }
 
     //Соотношение сторон
@@ -98,22 +108,45 @@ export class Render {
 
     //Вывод текста (без проекции)
     public drawMiddleText(text: string, x: number, y: number): void {
+        let tmpFont: string = <string> this._ctx.font
         this.setFont(this._middleFont)
-        //coords = projectCoords(x,y);
-        this._ctx.fillText(text, x, y)
+        let coords = this.projectCoords(x,y);
+        this._ctx.fillText(text, coords.x, coords.y)
+        this.setFont(tmpFont)
     }
 
     //Вывод дебаг текста (без проекции)
     public drawDebugText(text: string, x: number, y: number): void {
+        let tmpColor: string = <string>this._ctx.fillStyle
+        let tmpFont: string = <string> this._ctx.font
+        this.setColor("black")
         this.setFont(this._debugFont)
-        //coords = projectCoords(x,y);
         this._ctx.fillText(text, x, y)
+        this.setColor(tmpColor)
+        this.setFont(tmpFont)
     }
 
     //Отрисовка квадрата (с учетом проекции)
-    public drawSquare(x: number, y: number, h: number, w: number): void {
+    public drawSquare(x: number, y: number, h: number, w: number, color: string): void {
+        let tmpColor: string = <string>this._ctx.fillStyle
+        this.setColor(color)
         let coords = this.projectCoords(x, y)
         let size = this.projectSize(w, h)
         this._ctx.fillRect(coords.x, coords.y-size.height, size.width, size.height)
+        this.setColor(tmpColor)
+    }
+
+    //-------Дебаг информация--------
+    public drawRenderDebugText(): void {
+        let tmpColor: string = <string>this._ctx.fillStyle
+        let tmpFont: string = <string> this._ctx.font
+        this.setColor("black")
+        this.setFont(this._debugFont)
+        let posy = 20
+        this.drawDebugText(this._virtualWidth.toString() + " x "+this._virtualHeight.toString(), 5, posy)
+        posy += 20
+        this.drawDebugText(this.WINDOW_WIDTH.toString() + " x "+this.WINDOW_HEIGHT.toString(), 5, posy)
+        this.setColor(tmpColor)
+        this.setFont(tmpFont)
     }
 }
