@@ -1,4 +1,4 @@
-export class Render {
+export class RenderManager {
     //--------Поля--------
     //Элемент Canvas на странице 
     _canvas;
@@ -17,11 +17,13 @@ export class Render {
     _middleFont = "15 px serif";
     _bigFont = "20 px serif";
     //--------Конструктор--------
-    constructor(canvas, virtualWidth, virtualHeight) {
+    constructor(canvas, virtualWidth, virtualHeight, window_w, window_h) {
         this._canvas = canvas;
         this._ctx = canvas.getContext("2d");
         this._virtualHeight = virtualHeight;
         this._virtualWidth = virtualWidth;
+        this._canvas.height = window_h;
+        this._canvas.width = window_w;
         this._ascpectRatio = this._canvas.width / this._canvas.height;
         this._scaleX = this._canvas.width / this._virtualWidth;
         this._scaleY = this._canvas.width / this._virtualWidth;

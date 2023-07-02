@@ -1,24 +1,26 @@
 import { Actor } from "./actor.js";
 import { KeyManager } from "./keys.js";
-import { Render } from "./render.js";
+import { RenderManager } from "./render.js";
 
 export class Player extends Actor{
     
     private _keys: KeyManager
     private _gravity: number
     private _isJump: boolean
+    private _jumpHight: number
     
-    constructor(render: Render, keys: KeyManager, x: number, y: number, gravity:number ,h: number, w: number, color: string){
+    constructor(render: RenderManager, keys: KeyManager, x: number, y: number, gravity:number, jumpHight: number, h: number, w: number, color: string){
         super(render, x,y,h,w,color)
         this._keys = keys
         this._gravity = gravity
         this._isJump = false
         this.d2y = this._gravity
+        this._jumpHight = jumpHight
     }
 
     public update(dt: number): void {
         if(this._keys.wasPressed(" ")){
-            this.jump(0.2)
+            this.jump(this._jumpHight)
         }
 
         this.move(dt)

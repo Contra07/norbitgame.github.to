@@ -1,4 +1,4 @@
-export class Render {
+export class RenderManager {
     //--------Поля--------
 
     //Элемент Canvas на странице 
@@ -20,11 +20,13 @@ export class Render {
 
     //--------Конструктор--------
 
-    constructor(canvas: HTMLCanvasElement, virtualWidth: number, virtualHeight: number) {
+    constructor(canvas: HTMLCanvasElement, virtualWidth: number, virtualHeight: number, window_w: number, window_h: number) {
         this._canvas = canvas
         this._ctx = <CanvasRenderingContext2D>canvas.getContext("2d")
         this._virtualHeight = virtualHeight
         this._virtualWidth = virtualWidth
+        this._canvas.height = window_h
+        this._canvas.width = window_w
         this._ascpectRatio = this._canvas.width / this._canvas.height;
         this._scaleX = this._canvas.width / this._virtualWidth
         this._scaleY = this._canvas.width / this._virtualWidth

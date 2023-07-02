@@ -1,4 +1,4 @@
-import { Render } from "./classes/render.js";
+import { RenderManager } from "./classes/render.js";
 import { KeyManager } from "./classes/keys.js";
 import { Player } from "./classes/player.js";
 import { Floor } from "./classes/floor.js";
@@ -26,7 +26,7 @@ function init() {
     window.addEventListener("keydown", keyDown, true);
     VIRTUAL_HEIGHT = 100;
     VIRTUAL_WIDTH = 100;
-    renderManager = new Render(document.getElementById('mycanvas'), VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+    renderManager = new RenderManager(document.getElementById('mycanvas'), VIRTUAL_WIDTH, VIRTUAL_HEIGHT, 600, 700);
     //Размер холста в пикселях
     renderManager.WINDOW_HEIGHT = 700;
     renderManager.WINDOW_WIDTH = 600;

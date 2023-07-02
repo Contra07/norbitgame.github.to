@@ -1,10 +1,10 @@
-import { Render } from "./render.js"
+import { RenderManager } from "./render.js"
 
 export class Actor {
     //--------Поля--------   
     
     //Менеджер отрисовки
-    private  _render: Render
+    private  _render: RenderManager
     //Координаты
     private _x: number
     private _y: number
@@ -21,7 +21,7 @@ export class Actor {
 
     //--------Конструктор--------
 
-    constructor(render: Render, x: number, y: number, h: number, w: number, color: string) {
+    constructor(render: RenderManager, x: number, y: number, h: number, w: number, color: string) {
         this._x = x
         this._y = y
         this._dx = 0
@@ -108,7 +108,7 @@ export class Actor {
         this._hitboxColor = color
     }
 
-    public get render(): Render{
+    public get render(): RenderManager{
         return this._render
     }
 
