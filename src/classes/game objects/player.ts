@@ -29,12 +29,7 @@ export class Player extends Actor{
 
     public draw(): void {
         this.render.drawSquare(this.x, this.y, this.hitboxHeight, this.hitboxWidht, this.hitboxColor)
-        let posx = 10
-        let posy = 300
-        for (let key in this) {
-            this.render.drawDebugText(key + ': ' + this[key], posx, posy+this.hitboxHeight)
-            posy -= 10
-        }
+
     }
 
     public onFloor(h: number){

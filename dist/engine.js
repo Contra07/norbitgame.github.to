@@ -4,7 +4,7 @@ import { GameManager } from "./classes/managers/game.js";
 //Ширина игрового мира
 let VIRTUAL_WIDTH = 600;
 //Высота игрового мира
-let VIRTUAL_HEIGHT = 600;
+let VIRTUAL_HEIGHT = 400;
 //Размер холста в пикселях
 let WINDOW_HEIGHT = 600;
 let WINDOW_WIDTH = 600;
@@ -27,7 +27,6 @@ function gameloop(timeStamp) {
     game.update(getDeltaTime(timeStamp));
     game.draw();
     keys.clear();
-    //Что за timeStamp - https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#return_value
     requestAnimationFrame(gameloop);
 }
 //Время между прошлым и текущим кадром
