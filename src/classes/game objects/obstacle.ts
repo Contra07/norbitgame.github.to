@@ -29,12 +29,6 @@ export class Obstacle extends Actor{
         if(!this._isDestroy){
             this.drawHitbox()
         }
-        let posx = 10
-        let posy = 300
-        for (let key in this) {
-            this.render.drawDebugText(key + ': ' + this[key], posx, posy+this.hitboxHeight)
-            posy -= 10
-        }
     }
     
 }

@@ -5,6 +5,6 @@ export class Floor extends Actor {
     }
     draw() {
         this.drawHitbox();
-        this.drawDebug();
+        //this.drawDebug();
     }
 }

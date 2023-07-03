@@ -15,7 +15,7 @@ export class RenderManager {
     private _scaleY: number
     private _debugFont: string = '13 px serif'
     private _smallFont: string = "10 px serif"
-    private _middleFont: string = "15 px serif"
+    private _middleFont: string = "60 px serif"
     private _bigFont: string = "20 px serif"
 
     //--------Конструктор--------

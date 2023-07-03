@@ -1,13 +1,11 @@
 import { KeyManager } from "../managers/keys.js";
 import { RenderManager } from "../managers/render.js";
-import { StateMachine } from "../managers/state machine.js";
 import { BaseState } from "./base.js";
 
-export class TitleState extends BaseState{
-
+export class LoseState extends BaseState{
     private _render: RenderManager
     private _keys: KeyManager
-    private welcome: string = "Добро пожаловать в игру! Нажмите Enter"
+    private welcome: string = "Вы проиграли! Нажмите Enter"
 
     constructor(name: string, render: RenderManager, keys: KeyManager){
         super(name)

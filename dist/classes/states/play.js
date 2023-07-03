@@ -6,9 +6,12 @@ export class PlayState extends BaseState {
     //Гравитация
     _keys;
     _render;
+    _height;
+    _width;
     _player;
     _floor;
     _gravity;
+    _gamespeed;
     _pause;
     _obstacles;
     get name() {
@@ -16,22 +19,32 @@ export class PlayState extends BaseState {
     }
     constructor(name, render, keys) {
         super(name);
-        this._pause = false;
         this._render = render;
         this._keys = keys;
-        this._gravity = -this._render.VIRTUAL_HEIGHT * 0.000008;
-        let startPossitionY = this._render.VIRTUAL_HEIGHT * 0.15;
-        this._player = new Player(this._render, this._keys, this._render.VIRTUAL_WIDTH * 0.15, startPossitionY, this._gravity, this._render.VIRTUAL_HEIGHT * 0.002, this._render.VIRTUAL_HEIGHT * 0.1, this._render.VIRTUAL_HEIGHT * 0.1, "rgba(255,0,0,0.5)");
-        this._floor = new Floor(render, startPossitionY, "rgba(0,255,0,0.5)");
-        this._obstacles = new Obstacles(render, 10, 0.3, this._player.hitboxHeight / 2, this._player.hitboxWidht / 2, startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)");
+        this._height = render.VIRTUAL_HEIGHT;
+        this._width = render.VIRTUAL_WIDTH;
     }
     enter() {
+        this._pause = false;
+        let spawnrate = 3;
+        let targetFPS = 60;
+        let startPossitionX = this._width * 0.15;
+        let startPossitionY = this._height * 0.15;
+        this._gamespeed = (this._width / targetFPS) * 0.05;
+        this._gravity = -this._width / targetFPS / targetFPS / 16;
+        let jumph = this._width / targetFPS / 6;
+        this._player = new Player(this._render, this._keys, startPossitionX, startPossitionY, this._gravity, jumph, this._height * 0.1, this._height * 0.1, "rgba(255,0,0,0.5)");
+        this._floor = new Floor(this._render, startPossitionY, "rgba(0,255,0,0.5)");
+        this._obstacles = new Obstacles(this._render, targetFPS / spawnrate, this._gamespeed, this._player.hitboxHeight / 2, this._player.hitboxWidht / 2, startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)");
     }
     exit() {
     }
     update(dt) {
         if (this._keys.wasPressed("Escape")) {
             this._pause = !this._pause;
+        }
+        if (this._keys.wasPressed("Enter")) {
+            this._states.change("play");
         }
         if (!this._pause) {
             this._floor.update(dt);
@@ -41,7 +54,7 @@ export class PlayState extends BaseState {
                 this._player.onFloor(this._floor.y + this._floor.hitboxHeight);
             }
             if (this._obstacles.collide(this._player)) {
-                this._pause = true;
+                this._states.change("lose");
             }
         }
     }

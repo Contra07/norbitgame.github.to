@@ -1,4 +1,4 @@
-import { State } from "../../interfaces/state.js"
+import { State } from "./state.js"
 import { RenderManager } from "../managers/render.js"
 import { StateMachine } from "../managers/state machine.js"
 export class BaseState implements State{

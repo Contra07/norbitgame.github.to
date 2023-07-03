@@ -9,6 +9,6 @@ export class Floor extends Actor{
 
     public draw(): void {
         this.drawHitbox();
-        this.drawDebug();
+        //this.drawDebug();
     }
 }

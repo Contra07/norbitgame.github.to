@@ -14,7 +14,7 @@ export class RenderManager {
     _scaleY;
     _debugFont = '13 px serif';
     _smallFont = "10 px serif";
-    _middleFont = "15 px serif";
+    _middleFont = "60 px serif";
     _bigFont = "20 px serif";
     //--------Конструктор--------
     constructor(canvas, virtualWidth, virtualHeight, window_w, window_h) {

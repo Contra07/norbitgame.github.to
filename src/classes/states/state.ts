@@ -1,4 +1,4 @@
-import { StateMachine } from "../classes/managers/state machine"
+import { StateMachine } from "../managers/state machine"
 
 export interface State{
     enter(): void

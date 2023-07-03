@@ -2,7 +2,7 @@ import { BaseState } from "./base.js";
 export class TitleState extends BaseState {
     _render;
     _keys;
-    welcome = "Добро пожаловать в игру! <br/> Нажмите Enter";
+    welcome = "Добро пожаловать в игру! Нажмите Enter";
     constructor(name, render, keys) {
         super(name);
         this._render = render;
@@ -18,6 +18,6 @@ export class TitleState extends BaseState {
         }
     }
     draw() {
-        this._render.drawMiddleText(this.welcome, this._render.WINDOW_WIDTH / 2, this._render.WINDOW_HEIGHT / 2);
+        this._render.drawMiddleText(this.welcome, this._render.WINDOW_WIDTH / 2 - 100, this._render.WINDOW_HEIGHT / 2);
     }
 }

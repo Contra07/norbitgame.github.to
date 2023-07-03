@@ -1,6 +1,7 @@
 import { StateMachine } from "./state machine.js";
 import { PlayState } from "../states/play.js";
 import { TitleState } from "../states/title.js";
+import { LoseState } from "../states/lose.js";
 export class GameManager {
     _states;
     _keys;
@@ -10,7 +11,8 @@ export class GameManager {
         this._keys = keys;
         let states = [
             new PlayState("play", this._render, this._keys),
-            new TitleState("title", this._render, this._keys)
+            new TitleState("title", this._render, this._keys),
+            new LoseState("lose", this._render, this._keys)
         ];
         this._states = new StateMachine(states);
         for (let state of states) {

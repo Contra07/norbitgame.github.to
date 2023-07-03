@@ -1,4 +1,4 @@
-import { State } from "../../interfaces/state.js";
+import { State } from "../states/state.js";
 import { BaseState } from "../states/base.js";
 
 export class StateMachine{

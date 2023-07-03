@@ -1,20 +1,23 @@
 import { BaseState } from "./base.js";
-export class TitleState extends BaseState {
+export class LoseState extends BaseState {
     _render;
-    welcome = "Добро пожаловать в игру! <br/> Нажмите Enter";
-    constructor(states, name, render) {
-        super(states, name);
+    _keys;
+    welcome = "Вы проиграли! Нажмите Enter";
+    constructor(name, render, keys) {
+        super(name);
         this._render = render;
+        this._keys = keys;
     }
     enter() {
     }
     exit() {
     }
-    init() {
-    }
     update(dt) {
+        if (this._keys.wasPressed("Enter")) {
+            this._states.change("play");
+        }
     }
     draw() {
-        this._render.drawMiddleText(this.welcome, this._render.WINDOW_WIDTH / 2, this._render.WINDOW_HEIGHT / 2);
+        this._render.drawMiddleText(this.welcome, this._render.WINDOW_WIDTH / 2 - 100, this._render.WINDOW_HEIGHT / 2);
     }
 }
