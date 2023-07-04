@@ -4,6 +4,7 @@ import { Obstacles } from "../../game objects/obstacles.js";
 import { Player } from "../../game objects/player.js";
 import { BaseState } from "./base.js";
 import { StateName } from "../names.js";
+import { BackgroundImage } from "../../game objects/bgimage.js";
 export class PlayState extends BaseState {
     //Гравитация
     _height;
@@ -14,6 +15,7 @@ export class PlayState extends BaseState {
     _gamespeed;
     _pause;
     _obstacles;
+    _background;
     constructor(states) {
         super(states);
         this._height = render.VIRTUAL_HEIGHT;
@@ -31,6 +33,12 @@ export class PlayState extends BaseState {
         this._player = new Player(startPossitionX, startPossitionY, this._gravity, jumph, this._height * 0.1, this._height * 0.1, "rgba(255,0,0,0.5)");
         this._floor = new Floor(startPossitionY, "rgba(0,255,0,0.5)");
         this._obstacles = new Obstacles(targetFPS / spawnrate, this._gamespeed, this._player.hitboxHeight / 2, this._player.hitboxWidht / 2, startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)");
+        this._background = [
+            new BackgroundImage("../../../resurses/1_1.png", startPossitionY, -this._gamespeed / 4, 1602, 131),
+            new BackgroundImage("../../../resurses/2.png", startPossitionY, -this._gamespeed / 6, 800, 354),
+            new BackgroundImage("../../../resurses/3.png", startPossitionY, -this._gamespeed / 8, 579, 471),
+            new BackgroundImage("../../../resurses/4.png", startPossitionY, 0, 1200, 600),
+        ];
     }
     exit() {
     }
@@ -49,11 +57,19 @@ export class PlayState extends BaseState {
                 this._player.onFloor(this._floor.y + this._floor.hitboxHeight);
             }
             if (this._obstacles.collide(this._player)) {
-                this._states.change(StateName.lose);
+                //this._states.change(StateName.lose)
+            }
+            let i;
+            for (i = 0; i < this._background.length; i++) {
+                this._background[i].update(dt);
             }
         }
     }
     draw() {
+        let i;
+        for (i = this._background.length - 1; i >= 0; i--) {
+            this._background[i].draw();
+        }
         this._player.draw();
         this._floor.draw();
         this._obstacles.draw();

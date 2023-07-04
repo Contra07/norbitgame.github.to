@@ -5,6 +5,7 @@ import { Player } from "../../game objects/player.js"
 import { BaseState } from "./base.js"
 import { StateName } from "../names.js"
 import { StateMachine } from "../statem.js"
+import { BackgroundImage } from "../../game objects/bgimage.js"
 
 export class PlayState extends BaseState{
 
@@ -18,6 +19,7 @@ export class PlayState extends BaseState{
     private _gamespeed!: number 
     private _pause!: boolean
     private _obstacles!: Obstacles
+    private _background!: BackgroundImage[]
 
     constructor(states: StateMachine){
         super(states)
@@ -58,6 +60,13 @@ export class PlayState extends BaseState{
             this._player.hitboxHeight,
             "rgba(0,0,255,0.5)"
         )
+
+        this._background = [
+            new BackgroundImage("../../../resurses/1_1.png",startPossitionY, -this._gamespeed/4,1602,131),
+            new BackgroundImage("../../../resurses/2.png",startPossitionY,-this._gamespeed/6,800,354),
+            new BackgroundImage("../../../resurses/3.png",startPossitionY,-this._gamespeed/8,579,471),
+            new BackgroundImage("../../../resurses/4.png",startPossitionY,0,1200,600),
+        ]
     }
 
     exit(): void {
@@ -84,10 +93,20 @@ export class PlayState extends BaseState{
             if(this._obstacles.collide(this._player)){
                 this._states.change(StateName.lose)
             }
+
+            let i: number
+            for(i = 0; i < this._background.length; i++){
+                this._background[i].update(dt)
+            }
         }
     }
 
     draw(): void {
+        let i: number
+        for(i = this._background.length-1; i >= 0 ; i--){
+            this._background[i].draw()
+        }
+
         this._player.draw()
         this._floor.draw()
         this._obstacles.draw()

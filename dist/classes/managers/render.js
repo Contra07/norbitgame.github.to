@@ -116,6 +116,10 @@ export class RenderManager {
         this._ctx.fillRect(coords.x, coords.y - size.height, size.width, size.height);
         this.setColor(tmpColor);
     }
+    drawImage(image, x, y) {
+        //let coords = this.projectCoords(x, y)
+        this._ctx.drawImage(image, x, this.WINDOW_HEIGHT - y - image.height);
+    }
     //-------Дебаг информация--------
     drawRenderDebugText() {
         let tmpColor = this._ctx.fillStyle;

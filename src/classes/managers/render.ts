@@ -138,6 +138,12 @@ export class RenderManager {
         this.setColor(tmpColor)
     }
 
+    public drawImage(image: HTMLImageElement, x: number, y: number){
+        //let coords = this.projectCoords(x, y)
+        
+        this._ctx.drawImage(image, x, this.WINDOW_HEIGHT-y-image.height)
+    }
+
     //-------Дебаг информация--------
     public drawRenderDebugText(): void {
         let tmpColor: string = <string>this._ctx.fillStyle
@@ -151,4 +157,5 @@ export class RenderManager {
         this.setColor(tmpColor)
         this.setFont(tmpFont)
     }
+    
 }
