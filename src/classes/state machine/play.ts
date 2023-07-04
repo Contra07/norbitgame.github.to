@@ -1,15 +1,14 @@
+import { keys, render } from "../../engine.js"
 import { Floor } from "../game objects/floor.js"
 import { Obstacles } from "../game objects/obstacles.js"
 import { Player } from "../game objects/player.js"
-import { KeyManager } from "../managers/keys.js"
-import { RenderManager } from "../managers/render.js"
 import { BaseState } from "./base.js"
+import { StateName } from "./names.js"
+import { StateMachine } from "./states.js"
 
 export class PlayState extends BaseState{
 
     //Гравитация
-    private _keys: KeyManager
-    private _render: RenderManager
     private _height: number
     private _width: number
 
@@ -20,15 +19,8 @@ export class PlayState extends BaseState{
     private _pause!: boolean
     private _obstacles!: Obstacles
 
-
-    public get name(): string{
-        return this._name
-    }
-
-    constructor(name: string, render: RenderManager, keys: KeyManager){
-        super(name)
-        this._render = render
-        this._keys = keys
+    constructor(states: StateMachine){
+        super(states)
         this._height = render.VIRTUAL_HEIGHT
         this._width = render.VIRTUAL_WIDTH
     }
@@ -43,8 +35,6 @@ export class PlayState extends BaseState{
         this._gravity = -this._width/targetFPS/targetFPS/16
         let jumph = this._width/targetFPS/6
         this._player = new Player(
-            this._render, 
-            this._keys, 
             startPossitionX,
             startPossitionY,
             this._gravity,
@@ -55,13 +45,11 @@ export class PlayState extends BaseState{
             )
 
         this._floor = new Floor(
-            this._render,
             startPossitionY,
             "rgba(0,255,0,0.5)"
         )
 
         this._obstacles = new Obstacles(
-            this._render, 
             targetFPS/spawnrate, 
             this._gamespeed,
             this._player.hitboxHeight/2,
@@ -77,11 +65,11 @@ export class PlayState extends BaseState{
     }
 
     update(dt: number): void {
-        if(this._keys.wasPressed("Escape")){
+        if(keys.wasPressed("Escape")){
             this._pause = !this._pause 
         }
-        if(this._keys.wasPressed("Enter")){
-            this._states.change("play")
+        if(keys.wasPressed("Enter")){
+            this._states.change(StateName.play)
         }
 
         if(!this._pause){
@@ -94,7 +82,7 @@ export class PlayState extends BaseState{
             }
 
             if(this._obstacles.collide(this._player)){
-                this._states.change("lose")
+                this._states.change(StateName.lose)
             }
         }
     }

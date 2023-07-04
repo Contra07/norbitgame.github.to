@@ -1,10 +1,10 @@
+import { render } from "../../engine.js";
 import { Actor } from "./actor.js";
-import { RenderManager } from "../managers/render.js";
 
 export class Floor extends Actor{
 
-    constructor(render: RenderManager, h: number, color: string){
-        super(render, 0,0,h,render.VIRTUAL_WIDTH, color )
+    constructor(h: number, color: string){
+        super(0,0,h,render.VIRTUAL_WIDTH, color )
     }
 
     public draw(): void {

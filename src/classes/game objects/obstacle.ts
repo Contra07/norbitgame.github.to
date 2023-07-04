@@ -1,12 +1,12 @@
-import { RenderManager } from "../managers/render.js";
+import { render } from "../../engine.js";
 import { Actor } from "./actor.js";
 
 export class Obstacle extends Actor{
     
     private _isDestroy: boolean
 
-    constructor(render: RenderManager,y: number, h: number, w: number, color: string) {
-        super(render,render.VIRTUAL_WIDTH,y,h,w,color);
+    constructor(y: number, h: number, w: number, color: string) {
+        super(render.VIRTUAL_WIDTH,y,h,w,color);
         this._isDestroy = false
     }
 

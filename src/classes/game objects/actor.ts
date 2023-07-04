@@ -1,10 +1,8 @@
-import { RenderManager } from "../managers/render.js"
+import { render } from "../../engine.js"
 
 export class Actor {
     //--------Поля--------   
     
-    //Менеджер отрисовки
-    private  _render: RenderManager
     //Координаты
     private _x: number
     private _y: number
@@ -21,7 +19,7 @@ export class Actor {
 
     //--------Конструктор--------
 
-    constructor(render: RenderManager, x: number, y: number, h: number, w: number, color: string) {
+    constructor(x: number, y: number, h: number, w: number, color: string) {
         this._x = x
         this._y = y
         this._dx = 0
@@ -30,7 +28,6 @@ export class Actor {
         this._d2y = 0
         this._hitboxHeight = h
         this._hitboxWidht = w
-        this._render = render
         this._hitboxColor = color
     }
 
@@ -108,10 +105,6 @@ export class Actor {
         this._hitboxColor = color
     }
 
-    public get render(): RenderManager{
-        return this._render
-    }
-
     //--------Основные функции--------
     
     public init(): void { }
@@ -135,14 +128,14 @@ export class Actor {
         let posx = this._x
         let posy = this._y 
         for (let key in this) {
-            this._render.drawMiddleText(key + ': ' + this[key], posx, posy+this._hitboxHeight)
+            render.drawMiddleText(key + ': ' + this[key], posx, posy+this._hitboxHeight)
             posy -= this.hitboxHeight /12
         }
     }
 
     //Визуализация хитбокса
     protected drawHitbox():void{
-        this._render.drawSquare(this._x, this._y , this._hitboxHeight, this._hitboxWidht, this.hitboxColor)
+        render.drawSquare(this._x, this._y , this._hitboxHeight, this._hitboxWidht, this.hitboxColor)
     }
 
     //AABB Коллизия

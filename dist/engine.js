@@ -10,18 +10,18 @@ let WINDOW_HEIGHT = 600;
 let WINDOW_WIDTH = 600;
 //Время прошлого кадра
 let thenTime = 0;
-let render;
-let keys;
-let game;
-//-----Игровой цикл----
+export let render;
+export let keys;
+export let game;
+//Инициализация
 function init() {
     render = new RenderManager(document.getElementById('mycanvas'), VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
     keys = new KeyManager();
-    game = new GameManager(render, keys);
+    game = new GameManager();
     window.addEventListener("keydown", keyDown, true);
-    game.init();
     requestAnimationFrame(gameloop);
 }
+//Игрвой цикл
 function gameloop(timeStamp) {
     render.clear();
     game.update(getDeltaTime(timeStamp));

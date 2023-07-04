@@ -1,17 +1,13 @@
+import { keys, render } from "../../engine.js";
 import { Actor } from "./actor.js";
-import { KeyManager } from "../managers/keys.js";
-import { RenderManager } from "../managers/render.js";
 
 export class Player extends Actor{
-    
-    private _keys: KeyManager
     private _gravity: number
     private _isJump: boolean
     private _jumpHight: number
     
-    constructor(render: RenderManager, keys: KeyManager, x: number, y: number, gravity:number, jumpHight: number, h: number, w: number, color: string){
-        super(render, x,y,h,w,color)
-        this._keys = keys
+    constructor(x: number, y: number, gravity:number, jumpHight: number, h: number, w: number, color: string){
+        super(x,y,h,w,color)
         this._gravity = gravity
         this._isJump = false
         this.d2y = this._gravity
@@ -19,7 +15,7 @@ export class Player extends Actor{
     }
 
     public update(dt: number): void {
-        if(this._keys.wasPressed(" ")){
+        if(keys.wasPressed(" ")){
             this.jump(this._jumpHight)
         }
 
@@ -28,7 +24,7 @@ export class Player extends Actor{
     }
 
     public draw(): void {
-        this.render.drawSquare(this.x, this.y, this.hitboxHeight, this.hitboxWidht, this.hitboxColor)
+        render.drawSquare(this.x, this.y, this.hitboxHeight, this.hitboxWidht, this.hitboxColor)
         //let posx = 10
         //let posy = 300
         //for (let key in this) {

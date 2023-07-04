@@ -1,27 +1,11 @@
-import { StateMachine } from "./state machine.js";
-import { PlayState } from "../states/play.js";
-import { TitleState } from "../states/title.js";
-import { LoseState } from "../states/lose.js";
+import { StateMachine } from "../state machine/states.js";
+import { StateName } from "../state machine/names.js";
 export class GameManager {
     _states;
-    _keys;
-    _render;
-    constructor(render, keys) {
-        this._render = render;
-        this._keys = keys;
-        let states = [
-            new PlayState("play", this._render, this._keys),
-            new TitleState("title", this._render, this._keys),
-            new LoseState("lose", this._render, this._keys)
-        ];
-        this._states = new StateMachine(states);
-        for (let state of states) {
-            state.init(this._states);
-        }
+    constructor() {
+        this._states = new StateMachine(StateName.title);
     }
-    init() {
-        this._states.change("title");
-    }
+    init() { }
     update(dt) {
         this._states.update(dt);
     }

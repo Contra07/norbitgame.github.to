@@ -1,5 +1,5 @@
-import { RenderManager } from "../managers/render";
-import { Actor } from "./actor";
+import { render } from "../../engine.js";
+import { Actor } from "./actor.js";
 import { Obstacle } from "./obstacle.js";
 
 type CreateParams = {
@@ -14,15 +14,13 @@ export class Obstacles{
     private _obstacles: Set<Obstacle>
     private _timer: number
     private _spawnTime: number
-    private _render: RenderManager
     private _step: number
     private _createParams: CreateParams
 
-    constructor(render: RenderManager, spawnTime: number, step: number, h1: number, w: number, fH:number, pH: number, color: string) {
+    constructor(spawnTime: number, step: number, h1: number, w: number, fH:number, pH: number, color: string) {
         this._obstacles = new Set<Obstacle>()
         this._timer = 0
         this._spawnTime = spawnTime 
-        this._render = render
         this._step = step
         this._createParams = {
             height: h1,
@@ -57,13 +55,12 @@ export class Obstacles{
     public update(dt:number): void{
         if(this._timer >= this._spawnTime){
             let obstacle = new Obstacle(
-                this._render,
                 Obstacles.startY(this._createParams.floorHeight, this._createParams.playerHeight),
                 this._createParams.height,
                 this._createParams.width,
                 this._createParams.color
             )
-            obstacle.dx = - this._render.VIRTUAL_WIDTH/1000
+            obstacle.dx = - render.VIRTUAL_WIDTH/1000
             this._obstacles.add(obstacle)
             this._timer = 0
         }

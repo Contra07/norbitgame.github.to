@@ -1,8 +1,9 @@
+import { render } from "../../engine.js";
 import { Actor } from "./actor.js";
 export class Obstacle extends Actor {
     _isDestroy;
-    constructor(render, y, h, w, color) {
-        super(render, render.VIRTUAL_WIDTH, y, h, w, color);
+    constructor(y, h, w, color) {
+        super(render.VIRTUAL_WIDTH, y, h, w, color);
         this._isDestroy = false;
     }
     get isDestroy() {

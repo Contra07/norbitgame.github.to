@@ -1,7 +1,6 @@
+import { render } from "../../engine.js";
 export class Actor {
     //--------Поля--------   
-    //Менеджер отрисовки
-    _render;
     //Координаты
     _x;
     _y;
@@ -16,7 +15,7 @@ export class Actor {
     _hitboxWidht;
     _hitboxColor;
     //--------Конструктор--------
-    constructor(render, x, y, h, w, color) {
+    constructor(x, y, h, w, color) {
         this._x = x;
         this._y = y;
         this._dx = 0;
@@ -25,7 +24,6 @@ export class Actor {
         this._d2y = 0;
         this._hitboxHeight = h;
         this._hitboxWidht = w;
-        this._render = render;
         this._hitboxColor = color;
     }
     //--------Свойства--------
@@ -83,9 +81,6 @@ export class Actor {
     set hitboxColor(color) {
         this._hitboxColor = color;
     }
-    get render() {
-        return this._render;
-    }
     //--------Основные функции--------
     init() { }
     update(dt) { }
@@ -103,13 +98,13 @@ export class Actor {
         let posx = this._x;
         let posy = this._y;
         for (let key in this) {
-            this._render.drawMiddleText(key + ': ' + this[key], posx, posy + this._hitboxHeight);
+            render.drawMiddleText(key + ': ' + this[key], posx, posy + this._hitboxHeight);
             posy -= this.hitboxHeight / 12;
         }
     }
     //Визуализация хитбокса
     drawHitbox() {
-        this._render.drawSquare(this._x, this._y, this._hitboxHeight, this._hitboxWidht, this.hitboxColor);
+        render.drawSquare(this._x, this._y, this._hitboxHeight, this._hitboxWidht, this.hitboxColor);
     }
     //AABB Коллизия
     collides(actor) {

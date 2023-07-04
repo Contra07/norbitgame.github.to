@@ -1,16 +1,15 @@
+import { render } from "../../engine.js";
 import { Obstacle } from "./obstacle.js";
 export class Obstacles {
     _obstacles;
     _timer;
     _spawnTime;
-    _render;
     _step;
     _createParams;
-    constructor(render, spawnTime, step, h1, w, fH, pH, color) {
+    constructor(spawnTime, step, h1, w, fH, pH, color) {
         this._obstacles = new Set();
         this._timer = 0;
         this._spawnTime = spawnTime;
-        this._render = render;
         this._step = step;
         this._createParams = {
             height: h1,
@@ -39,8 +38,8 @@ export class Obstacles {
     }
     update(dt) {
         if (this._timer >= this._spawnTime) {
-            let obstacle = new Obstacle(this._render, Obstacles.startY(this._createParams.floorHeight, this._createParams.playerHeight), this._createParams.height, this._createParams.width, this._createParams.color);
-            obstacle.dx = -this._render.VIRTUAL_WIDTH / 1000;
+            let obstacle = new Obstacle(Obstacles.startY(this._createParams.floorHeight, this._createParams.playerHeight), this._createParams.height, this._createParams.width, this._createParams.color);
+            obstacle.dx = -render.VIRTUAL_WIDTH / 1000;
             this._obstacles.add(obstacle);
             this._timer = 0;
         }
