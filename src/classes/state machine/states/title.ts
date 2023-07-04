@@ -1,7 +1,7 @@
-import { StateMachine } from "./states.js";
+import { StateMachine } from "../statem.js";
 import { BaseState } from "./base.js";
-import { keys, render } from "../../engine.js";
-import { StateName } from "./names.js";
+import { keys, render } from "../../../engine.js";
+import { StateName } from "../names.js";
 
 export class TitleState extends BaseState{
 

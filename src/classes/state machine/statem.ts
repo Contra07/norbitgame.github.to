@@ -1,9 +1,9 @@
-import { BaseState } from "./base.js";
-import { LoseState } from "./lose.js";
+import { BaseState } from "./states/base.js";
+import { LoseState } from "./states/lose.js";
 import { StateName } from "./names.js";
-import { PlayState } from "./play.js";
-import { State } from "./state.js";
-import { TitleState } from "./title.js";
+import { PlayState } from "./states/play.js";
+import { State } from "./istate.js";
+import { TitleState } from "./states/title.js";
 
 export class StateMachine{
     private _states: Map<StateName, State>

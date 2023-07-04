@@ -1,7 +1,7 @@
-import { keys, render } from "../../engine.js";
+import { keys, render } from "../../../engine.js";
 import { BaseState } from "./base.js";
-import { StateName } from "./names.js";
-import { StateMachine } from "./states.js";
+import { StateName } from "../names.js";
+import { StateMachine } from "../statem.js";
 
 export class LoseState extends BaseState{
     private welcome: string = "Вы проиграли! Нажмите Enter"

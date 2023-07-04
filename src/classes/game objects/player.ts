@@ -3,8 +3,10 @@ import { Actor } from "./actor.js";
 
 export class Player extends Actor{
     private _gravity: number
-    private _isJump: boolean
     private _jumpHight: number
+
+    private _isDoubleJump: boolean
+    private _isJump: boolean
     
     constructor(x: number, y: number, gravity:number, jumpHight: number, h: number, w: number, color: string){
         super(x,y,h,w,color)
@@ -12,6 +14,7 @@ export class Player extends Actor{
         this._isJump = false
         this.d2y = this._gravity
         this._jumpHight = jumpHight
+        this._isDoubleJump = false
     }
 
     public update(dt: number): void {
@@ -38,13 +41,21 @@ export class Player extends Actor{
         this.dy = 0
         this.d2y = 0
         this._isJump = false
+        this._isDoubleJump = false
     }
 
     private jump(hight: number){
+        if(this._isJump && !this._isDoubleJump){
+            this.dy = hight
+            this.d2y = this._gravity
+            this._isDoubleJump = true
+        }
         if(!this._isJump){
             this.dy = hight
             this.d2y = this._gravity
             this._isJump = true
-        } 
+        }
+
+
     }
 }

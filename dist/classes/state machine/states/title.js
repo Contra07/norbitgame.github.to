@@ -1,8 +1,8 @@
-import { keys, render } from "../../engine.js";
-import { BaseState } from "./states/base.js";
-import { StateName } from "./names.js";
-export class LoseState extends BaseState {
-    welcome = "Вы проиграли! Нажмите Enter";
+import { BaseState } from "./base.js";
+import { keys, render } from "../../../engine.js";
+import { StateName } from "../names.js";
+export class TitleState extends BaseState {
+    welcome = "Добро пожаловать в игру! Нажмите Enter";
     constructor(states) {
         super(states);
     }

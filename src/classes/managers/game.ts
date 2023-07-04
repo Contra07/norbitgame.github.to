@@ -1,4 +1,4 @@
-import { StateMachine } from "../state machine/states.js";
+import { StateMachine } from "../state machine/statem.js";
 import { StateName } from "../state machine/names.js";
 
 export class GameManager{

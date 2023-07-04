@@ -1,10 +1,10 @@
-import { keys, render } from "../../engine.js"
-import { Floor } from "../game objects/floor.js"
-import { Obstacles } from "../game objects/obstacles.js"
-import { Player } from "../game objects/player.js"
+import { keys, render } from "../../../engine.js"
+import { Floor } from "../../game objects/floor.js"
+import { Obstacles } from "../../game objects/obstacles.js"
+import { Player } from "../../game objects/player.js"
 import { BaseState } from "./base.js"
-import { StateName } from "./names.js"
-import { StateMachine } from "./states.js"
+import { StateName } from "../names.js"
+import { StateMachine } from "../statem.js"
 
 export class PlayState extends BaseState{
 

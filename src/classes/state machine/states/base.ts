@@ -1,5 +1,5 @@
-import { State } from "./state.js"
-import { StateMachine } from "./states.js"
+import { State } from "../istate.js"
+import { StateMachine } from "../statem.js"
 
 export class BaseState implements State{
 
