@@ -5,6 +5,7 @@ export class Player extends Actor {
     _jumpHight;
     _isDoubleJump;
     _isJump;
+    _isInvincible;
     constructor(x, y, gravity, jumpHight, h, w, color) {
         super(x, y, h, w, color);
         this._gravity = gravity;
@@ -12,10 +13,17 @@ export class Player extends Actor {
         this.d2y = this._gravity;
         this._jumpHight = jumpHight;
         this._isDoubleJump = false;
+        this._isInvincible = false;
+    }
+    get isInvincible() {
+        return this._isInvincible;
     }
     update(dt) {
         if (keys.wasPressed(" ")) {
             this.jump(this._jumpHight);
+        }
+        if (keys.wasPressed("i") || keys.wasPressed("I")) {
+            this._isInvincible = !this._isInvincible;
         }
         this.move(dt);
     }

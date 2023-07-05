@@ -7,6 +7,7 @@ export class Player extends Actor{
 
     private _isDoubleJump: boolean
     private _isJump: boolean
+    private _isInvincible: boolean
     
     constructor(x: number, y: number, gravity:number, jumpHight: number, h: number, w: number, color: string){
         super(x,y,h,w,color)
@@ -15,11 +16,20 @@ export class Player extends Actor{
         this.d2y = this._gravity
         this._jumpHight = jumpHight
         this._isDoubleJump = false
+        this._isInvincible = false
+    }
+
+    public get isInvincible(): boolean{
+        return this._isInvincible
     }
 
     public update(dt: number): void {
         if(keys.wasPressed(" ")){
             this.jump(this._jumpHight)
+        }
+
+        if(keys.wasPressed("i") || keys.wasPressed("I")){
+            this._isInvincible = !this._isInvincible
         }
 
         this.move(dt)

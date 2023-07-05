@@ -9,7 +9,7 @@ export class BackgroundImage extends Actor{
     private _actual_width: number
     private _actual_height: number
 
-    constructor(source: string, y: number, speed:number, w:number, h:number) {
+    constructor(source: string, y: number, speed:number) {
         super(0,y,0,0,"white")
         this._image = <HTMLImageElement>new Image()
         this._image.src = source
@@ -17,8 +17,8 @@ export class BackgroundImage extends Actor{
         this._actual_width = this._image.width
         this._actual_height = this._image.height
         this.dx = speed
-        this._width = w
-        this._height = h
+        this._width = this._actual_width/2
+        this._height = this._actual_height
     }
 
     public update(dt: number): void {

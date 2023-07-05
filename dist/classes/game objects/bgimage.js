@@ -7,7 +7,7 @@ export class BackgroundImage extends Actor {
     _height;
     _actual_width;
     _actual_height;
-    constructor(source, y, speed, w, h) {
+    constructor(source, y, speed) {
         super(0, y, 0, 0, "white");
         this._image = new Image();
         this._image.src = source;
@@ -15,8 +15,8 @@ export class BackgroundImage extends Actor {
         this._actual_width = this._image.width;
         this._actual_height = this._image.height;
         this.dx = speed;
-        this._width = w;
-        this._height = h;
+        this._width = this._actual_width / 2;
+        this._height = this._actual_height;
     }
     update(dt) {
         this.move(dt);
