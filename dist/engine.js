@@ -33,7 +33,7 @@ function gameloop(timeStamp) {
 function getDeltaTime(nowTime) {
     let deltaTime = nowTime - thenTime;
     thenTime = nowTime;
-    return deltaTime;
+    return deltaTime / 1000;
 }
 //-----User Inputs-----
 function keyDown(e) {

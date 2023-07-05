@@ -1,3 +1,5 @@
+import { Sprite } from "../game objects/sprite"
+
 export class RenderManager {
     //--------Поля--------
 
@@ -15,7 +17,7 @@ export class RenderManager {
     private _scaleY: number
     private _debugFont: string = '13 px serif'
     private _smallFont: string = "10 px serif"
-    private _middleFont: string = "60 px serif"
+    private _middleFont: string = "bold 20px Arial"
     private _bigFont: string = "20 px serif"
 
     //--------Конструктор--------
@@ -142,6 +144,10 @@ export class RenderManager {
         //let coords = this.projectCoords(x, y)
         
         this._ctx.drawImage(image, x, this.WINDOW_HEIGHT-y-image.height)
+    }
+
+    public drawSprite(sprite: Sprite, x: number, y: number){
+        this._ctx.drawImage(sprite.image, x, this.WINDOW_HEIGHT-y-sprite.height)
     }
 
     //-------Дебаг информация--------

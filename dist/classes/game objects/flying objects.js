@@ -29,6 +29,12 @@ export class FlyingObjects {
         }
         return y;
     }
+    static mulberry32(a) {
+        let t = a += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    }
     static randomNumber(min, max) {
         return Math.random() * (max - min) + min;
     }
@@ -42,7 +48,7 @@ export class FlyingObjects {
             obstacle.d2x = this._createParams.acs;
             this._createParams.speed += dt * this._createParams.acs;
             this._obstacles.add(obstacle);
-            this._timer = 0;
+            this._timer = Math.random() * this._spawnTime / 2;
         }
         else {
             this._timer += dt;

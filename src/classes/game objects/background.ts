@@ -1,11 +1,11 @@
 import { Actor } from "./actor.js";
-import { BackgroundImage } from "./bgimage.js";
+import { BackgroundSprite } from "./background sprite.js";
 
 export class Background extends Actor{
     
-    private _images: BackgroundImage[]
+    private _images: BackgroundSprite[]
     
-    constructor(images: BackgroundImage[], speed: number) {
+    constructor(images: BackgroundSprite[], speed: number) {
         super(0,0,0,0,"white");
         this._images = images
     }

@@ -18,6 +18,6 @@ export class TitleState extends BaseState{
     }
 
     draw(): void {
-        render.drawMiddleText(this.welcome, render.WINDOW_WIDTH/2-100, render.WINDOW_HEIGHT/2)
+        render.drawMiddleText(this.welcome, render.WINDOW_WIDTH/2-250, render.WINDOW_HEIGHT/2)
     }
 }

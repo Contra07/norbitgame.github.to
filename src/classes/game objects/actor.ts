@@ -1,4 +1,5 @@
 import { render } from "../../engine.js"
+import { Sprite } from "./sprite.js"
 
 export class Actor {
     //--------Поля--------   
@@ -16,6 +17,8 @@ export class Actor {
     private _hitboxHeight: number
     private _hitboxWidht: number
     private _hitboxColor: string
+    //Картинка
+    protected _sprite!: Sprite
 
     //--------Конструктор--------
 

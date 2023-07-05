@@ -1,7 +1,7 @@
 import { render } from "../../engine.js";
 import { Actor } from "./actor.js";
 
-export class Obstacle extends Actor{
+export class FlyingObject extends Actor{
     
     private _isDestroy: boolean
 

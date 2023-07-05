@@ -14,7 +14,7 @@ export class RenderManager {
     _scaleY;
     _debugFont = '13 px serif';
     _smallFont = "10 px serif";
-    _middleFont = "60 px serif";
+    _middleFont = "bold 20px Arial";
     _bigFont = "20 px serif";
     //--------Конструктор--------
     constructor(canvas, virtualWidth, virtualHeight, window_w, window_h) {
@@ -119,6 +119,9 @@ export class RenderManager {
     drawImage(image, x, y) {
         //let coords = this.projectCoords(x, y)
         this._ctx.drawImage(image, x, this.WINDOW_HEIGHT - y - image.height);
+    }
+    drawSprite(sprite, x, y) {
+        this._ctx.drawImage(sprite.image, x, this.WINDOW_HEIGHT - y - sprite.height);
     }
     //-------Дебаг информация--------
     drawRenderDebugText() {

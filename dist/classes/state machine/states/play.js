@@ -1,48 +1,51 @@
 import { keys, render } from "../../../engine.js";
 import { Floor } from "../../game objects/floor.js";
-import { Obstacles } from "../../game objects/obstacles.js";
+import { FlyingObjects } from "../../game objects/flying objects.js";
 import { Player } from "../../game objects/player.js";
 import { BaseState } from "./base.js";
 import { StateName } from "../names.js";
-import { BackgroundImage } from "../../game objects/bgimage.js";
+import { BackgroundSprite } from "../../game objects/background sprite.js";
 export class PlayState extends BaseState {
-    //Гравитация
-    _height;
-    _width;
-    _player;
+    //Типа константы
+    _gravity = -3000;
+    _gamespeed = 500;
+    _height = render.VIRTUAL_HEIGHT;
+    _width = render.VIRTUAL_WIDTH;
+    _pause = false;
+    _targetFPS = 60;
+    //Игрок
+    _startPossitionX = this._width * 0.15;
+    _startPossitionY = this._height * 0.05;
+    _playerHitboxH = this._height * 0.15;
+    _playerHitboxW = this._width * 0.08;
+    _jumpHight = 150;
+    //Препятствия
+    _obstacleHitboxH = this._height * 0.05;
+    _obstacleHitboxW = this._width * 0.05;
+    _spawntime = 2;
+    //Сущности
     _floor;
-    _gravity;
-    _gamespeed;
-    _pause;
+    _player;
+    _coins;
     _obstacles;
     _background;
+    _coinCounter;
     constructor(states) {
         super(states);
-        this._height = render.VIRTUAL_HEIGHT;
-        this._width = render.VIRTUAL_WIDTH;
     }
     enter() {
         this._pause = false;
-        let spawnrate = 3;
-        let targetFPS = 60;
-        let startPossitionX = this._width * 0.15;
-        let startPossitionY = this._height * 0.05;
-        this._gamespeed = (this._width / targetFPS) * 0.05;
-        this._gravity = -this._width / targetFPS / targetFPS / 16;
-        let jumph = this._width / targetFPS / 6;
-        this._player = new Player(startPossitionX, startPossitionY, this._gravity, jumph, this._height * 0.15, this._height * 0.08, "rgba(255,0,0,0.5)");
-        this._floor = new Floor(startPossitionY, "rgba(255,255,0,0.5)");
-        this._obstacles = new Obstacles(targetFPS / spawnrate, this._gamespeed, this._height * 0.05, this._height * 0.05, startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)");
-        //src\resurses
-        //src\classes\state machine\states\play.ts
+        this._player = new Player(this._startPossitionX, this._startPossitionY, this._gravity, this._jumpHight, this._playerHitboxH, this._playerHitboxW, "rgba(255,0,0,0.5)");
+        this._floor = new Floor(this._startPossitionY, "rgba(255,255,0,0.5)");
+        this._obstacles = new FlyingObjects(this._spawntime, -this._width, -this._width * 0.0001, this._obstacleHitboxH, this._obstacleHitboxW, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)");
+        this._coins = new FlyingObjects(this._spawntime * 2, -this._width, -this._width * 0.0001, this._obstacleHitboxH, this._obstacleHitboxW, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,255,0.5)");
         this._background = [
-            new BackgroundImage("./dist/resurses/1.png", startPossitionY, -this._gamespeed / 4),
-            new BackgroundImage("./dist/resurses/2.png", startPossitionY, -this._gamespeed / 6),
-            new BackgroundImage("./dist/resurses/3.png", startPossitionY, -this._gamespeed / 8),
-            new BackgroundImage("./dist/resurses/4.png", startPossitionY, 0)
+            new BackgroundSprite("./dist/resurses/1.png", this._startPossitionY, -this._gamespeed / 4),
+            new BackgroundSprite("./dist/resurses/2.png", this._startPossitionY, -this._gamespeed / 6),
+            new BackgroundSprite("./dist/resurses/3.png", this._startPossitionY, -this._gamespeed / 8),
+            new BackgroundSprite("./dist/resurses/4.png", this._startPossitionY, 0)
         ];
-    }
-    exit() {
+        this._coinCounter = 0;
     }
     update(dt) {
         if (keys.wasPressed("Escape")) {
@@ -56,15 +59,19 @@ export class PlayState extends BaseState {
             this._floor.update(dt);
             this._player.update(dt);
             this._obstacles.update(dt);
+            this._coins.update(dt);
             if (this._player.collides(this._floor) || this._player.y < 0) {
                 this._player.onFloor(this._floor.y + this._floor.hitboxHeight);
             }
             if (this._obstacles.collide(this._player) && !this._player.isInvincible) {
                 this._states.change(StateName.lose);
             }
+            if (this._coins.collide(this._player)) {
+                this._coinCounter++;
+            }
             let i;
             for (i = 0; i < this._background.length; i++) {
-                this._background[i].dx *= 1.00005;
+                this._background[i].dx *= 1.00001;
                 this._background[i].update(dt);
             }
         }
@@ -74,8 +81,10 @@ export class PlayState extends BaseState {
         for (i = this._background.length - 1; i >= 0; i--) {
             this._background[i].draw();
         }
-        this._player.draw();
         this._floor.draw();
         this._obstacles.draw();
+        this._coins.draw();
+        this._player.draw();
+        render.drawMiddleText("Монет: " + this._coinCounter, 0, this._height - 200);
     }
 }

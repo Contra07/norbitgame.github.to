@@ -45,7 +45,7 @@ function gameloop(timeStamp: number) {
 function getDeltaTime(nowTime: number): number {
     let deltaTime: number = nowTime - thenTime
     thenTime = nowTime
-    return deltaTime
+    return deltaTime / 1000
 }
 
 //-----User Inputs-----

@@ -14,6 +14,8 @@ export class Actor {
     _hitboxHeight;
     _hitboxWidht;
     _hitboxColor;
+    //Картинка
+    _sprite;
     //--------Конструктор--------
     constructor(x, y, h, w, color) {
         this._x = x;

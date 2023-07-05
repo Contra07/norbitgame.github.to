@@ -2,19 +2,21 @@ import { keys, render } from "../../engine.js";
 import { Actor } from "./actor.js";
 
 export class Player extends Actor{
+    //Атрибуты
     private _gravity: number
-    private _jumpHight: number
+    private _jumpSpeed: number
 
+    //Состояния
     private _isDoubleJump: boolean
     private _isJump: boolean
     private _isInvincible: boolean
     
-    constructor(x: number, y: number, gravity:number, jumpHight: number, h: number, w: number, color: string){
+    constructor(x: number, y: number, gravity:number, jumpHeight: number, h: number, w: number, color: string){
         super(x,y,h,w,color)
         this._gravity = gravity
         this._isJump = false
         this.d2y = this._gravity
-        this._jumpHight = jumpHight
+        this._jumpSpeed = Math.sqrt(2*jumpHeight*gravity*(-1))
         this._isDoubleJump = false
         this._isInvincible = false
     }
@@ -25,25 +27,16 @@ export class Player extends Actor{
 
     public update(dt: number): void {
         if(keys.wasPressed(" ")){
-            this.jump(this._jumpHight)
+            this.jump()
         }
-
-        if(keys.wasPressed("i") || keys.wasPressed("I")){
+        if(keys.wasPressed("i") || keys.wasPressed("I") || keys.wasPressed("Ш") || keys.wasPressed("ш")){
             this._isInvincible = !this._isInvincible
         }
-
         this.move(dt)
-
     }
 
     public draw(): void {
         render.drawSquare(this.x, this.y, this.hitboxHeight, this.hitboxWidht, this.hitboxColor)
-        //let posx = 10
-        //let posy = 300
-        //for (let key in this) {
-        //    this.render.drawDebugText(key + ': ' + this[key], posx, posy+this.hitboxHeight)
-        //    posy -= 10
-        //}
     }
 
     public onFloor(h: number){
@@ -54,18 +47,12 @@ export class Player extends Actor{
         this._isDoubleJump = false
     }
 
-    private jump(hight: number){
-        if(this._isJump && !this._isDoubleJump){
-            this.dy = hight
+    private jump(){
+        if(!this._isJump || !this._isDoubleJump){
+            this.dy = this._jumpSpeed
             this.d2y = this._gravity
-            this._isDoubleJump = true
-        }
-        if(!this._isJump){
-            this.dy = hight
-            this.d2y = this._gravity
+            this._isDoubleJump = this._isJump
             this._isJump = true
         }
-
-
     }
 }
