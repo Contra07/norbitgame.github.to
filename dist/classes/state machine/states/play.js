@@ -57,7 +57,7 @@ export class PlayState extends BaseState {
                 this._player.onFloor(this._floor.y + this._floor.hitboxHeight);
             }
             if (this._obstacles.collide(this._player)) {
-                //this._states.change(StateName.lose)
+                this._states.change(StateName.lose);
             }
             let i;
             for (i = 0; i < this._background.length; i++) {
