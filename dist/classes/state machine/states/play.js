@@ -33,11 +33,13 @@ export class PlayState extends BaseState {
         this._player = new Player(startPossitionX, startPossitionY, this._gravity, jumph, this._height * 0.1, this._height * 0.1, "rgba(255,0,0,0.5)");
         this._floor = new Floor(startPossitionY, "rgba(0,255,0,0.5)");
         this._obstacles = new Obstacles(targetFPS / spawnrate, this._gamespeed, this._player.hitboxHeight / 2, this._player.hitboxWidht / 2, startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)");
+        //src\resurses
+        //src\classes\state machine\states\play.ts
         this._background = [
-            new BackgroundImage("../../../resurses/1_1.png", startPossitionY, -this._gamespeed / 4, 1602, 131),
-            new BackgroundImage("../../../resurses/2.png", startPossitionY, -this._gamespeed / 6, 800, 354),
-            new BackgroundImage("../../../resurses/3.png", startPossitionY, -this._gamespeed / 8, 579, 471),
-            new BackgroundImage("../../../resurses/4.png", startPossitionY, 0, 1200, 600),
+            new BackgroundImage("./dist/resurses/1_1.png", startPossitionY, -this._gamespeed / 4, 1602, 131),
+            new BackgroundImage("./dist/resurses/2.png", startPossitionY, -this._gamespeed / 6, 800, 354),
+            new BackgroundImage("./dist/resurses/3.png", startPossitionY, -this._gamespeed / 8, 579, 471),
+            new BackgroundImage("./dist/resurses/4.png", startPossitionY, 0, 1200, 600),
         ];
     }
     exit() {
