@@ -3,14 +3,14 @@ import { BaseState } from "./base.js";
 import { StateName } from "../names.js";
 export class LoseState extends BaseState {
     lose = "Вы проиграли! Нажмите Enter";
-    collected = "Собрано монет: ";
+    collected = "Очки: ";
     message = "";
     constructor(states) {
         super(states);
     }
     enter(params) {
         if (params) {
-            this.message = this.collected + params;
+            this.message = this.collected + (params * 100);
         }
     }
     update(dt) {

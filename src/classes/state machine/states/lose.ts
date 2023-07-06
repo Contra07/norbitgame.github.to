@@ -5,7 +5,7 @@ import { StateMachine } from "../statem.js";
 
 export class LoseState extends BaseState{
     private lose: string = "Вы проиграли! Нажмите Enter"
-    private collected: string = "Собрано монет: "
+    private collected: string = "Очки: "
     private message: string = ""
 
     constructor(states: StateMachine){
@@ -14,7 +14,7 @@ export class LoseState extends BaseState{
 
     enter(params: any): void {
         if(params){
-            this.message = this.collected + <number>params
+            this.message = this.collected + (<number>params*100)
         }
     }
 
