@@ -1,5 +1,7 @@
 import { State } from "../state machine/state.js";
 export class Level extends State {
+    //TODO: Transition
+    //TODO: Level mashine class
     //Сущности
     _coins;
     _obstacles;

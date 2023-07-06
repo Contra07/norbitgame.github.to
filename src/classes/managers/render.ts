@@ -150,6 +150,12 @@ export class RenderManager {
         this._ctx.drawImage(sprite.image, x, this.WINDOW_HEIGHT-y-sprite.height)
     }
 
+    public drawPlayerSprite(sprite: Sprite, x: number, y: number, w: number, h: number){
+        let coords = this.projectCoords(x,y)
+        let size = this.projectSize(w, h) 
+        this._ctx.drawImage(sprite.image,0, 0, sprite.width, sprite.height, coords.x, coords.y-size.height, size.width, size.height)
+    }
+
     //-------Дебаг информация--------
     public drawRenderDebugText(): void {
         let tmpColor: string = <string>this._ctx.fillStyle

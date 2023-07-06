@@ -4,7 +4,10 @@ import { StateMachine } from "../state machine/machine.js";
 import { State } from "../state machine/state.js";
 
 export class Level extends State{
-        
+    
+    //TODO: Transition
+    //TODO: Level mashine class
+
     //Сущности
     private _coins: FlyingObjects
     private _obstacles: FlyingObjects

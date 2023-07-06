@@ -123,6 +123,11 @@ export class RenderManager {
     drawSprite(sprite, x, y) {
         this._ctx.drawImage(sprite.image, x, this.WINDOW_HEIGHT - y - sprite.height);
     }
+    drawPlayerSprite(sprite, x, y, w, h) {
+        let coords = this.projectCoords(x, y);
+        let size = this.projectSize(w, h);
+        this._ctx.drawImage(sprite.image, 0, 0, sprite.width, sprite.height, coords.x, coords.y - size.height, size.width, size.height);
+    }
     //-------Дебаг информация--------
     drawRenderDebugText() {
         let tmpColor = this._ctx.fillStyle;
