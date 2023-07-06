@@ -1,7 +1,7 @@
-export var StateName;
-(function (StateName) {
-    StateName[StateName["base"] = 0] = "base";
-    StateName[StateName["title"] = 1] = "title";
-    StateName[StateName["play"] = 2] = "play";
-    StateName[StateName["lose"] = 3] = "lose";
-})(StateName || (StateName = {}));
+export var GameStateName;
+(function (GameStateName) {
+    GameStateName[GameStateName["base"] = 0] = "base";
+    GameStateName[GameStateName["title"] = 1] = "title";
+    GameStateName[GameStateName["play"] = 2] = "play";
+    GameStateName[GameStateName["lose"] = 3] = "lose";
+})(GameStateName || (GameStateName = {}));

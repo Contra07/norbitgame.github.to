@@ -1,6 +1,9 @@
 import { KeyManager } from "./classes/managers/keys.js"
 import { RenderManager } from "./classes/managers/render.js"
-import { GameManager } from "./classes/managers/game.js"
+import { GameManager } from "./classes/game.js"
+
+
+//TODO: Singleton game
 
 //Ширина игрового мира
 let VIRTUAL_WIDTH: number = 600
@@ -28,6 +31,7 @@ function init(): void {
     )
     keys = new KeyManager()
     game = new GameManager()
+    game.init()
     window.addEventListener("keydown", keyDown, true);
     requestAnimationFrame(gameloop);
 }

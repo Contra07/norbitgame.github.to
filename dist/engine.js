@@ -1,6 +1,7 @@
 import { KeyManager } from "./classes/managers/keys.js";
 import { RenderManager } from "./classes/managers/render.js";
-import { GameManager } from "./classes/managers/game.js";
+import { GameManager } from "./classes/game.js";
+//TODO: Singleton game
 //Ширина игрового мира
 let VIRTUAL_WIDTH = 600;
 //Высота игрового мира
@@ -18,6 +19,7 @@ function init() {
     render = new RenderManager(document.getElementById('mycanvas'), VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
     keys = new KeyManager();
     game = new GameManager();
+    game.init();
     window.addEventListener("keydown", keyDown, true);
     requestAnimationFrame(gameloop);
 }

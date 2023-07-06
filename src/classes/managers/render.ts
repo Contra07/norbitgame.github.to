@@ -1,4 +1,4 @@
-import { Sprite } from "../game objects/sprite"
+import { Sprite } from "../core/sprite"
 
 export class RenderManager {
     //--------Поля--------

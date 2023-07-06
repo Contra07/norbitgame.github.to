@@ -1,7 +1,7 @@
-import { StateMachine } from "../state machine/machine.js";
-import { LoseState } from "../game states/lose.js";
-import { PlayState } from "../game states/play.js";
-import { TitleState } from "../game states/title.js";
+import { StateMachine } from "./state machine/machine.js";
+import { LoseState } from "./game states/lose.js";
+import { PlayState } from "./game states/play.js";
+import { TitleState } from "./game states/title.js";
 export class GameManager {
     _gameStates;
     constructor() {
