@@ -9,7 +9,7 @@ export class BaseState implements State{
         this._states = states
     }
 
-    enter(): void { }
+    enter(params: any): void { }
 
     exit(): void { }
 

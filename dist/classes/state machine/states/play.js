@@ -29,7 +29,9 @@ export class PlayState extends BaseState {
     _coins;
     _obstacles;
     _background;
+    //Очки
     _coinCounter;
+    _lifesCounter;
     constructor(states) {
         super(states);
     }
@@ -37,8 +39,8 @@ export class PlayState extends BaseState {
         this._pause = false;
         this._player = new Player(this._startPossitionX, this._startPossitionY, this._gravity, this._jumpHight, this._playerHitboxH, this._playerHitboxW, "rgba(255,0,0,0.5)");
         this._floor = new Floor(this._startPossitionY, "rgba(255,255,0,0.5)");
-        this._obstacles = new FlyingObjects(this._spawntime, -this._width, -this._width * 0.0001, this._obstacleHitboxH, this._obstacleHitboxW, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)");
-        this._coins = new FlyingObjects(this._spawntime * 2, -this._width, -this._width * 0.0001, this._obstacleHitboxH, this._obstacleHitboxW, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,255,0.5)");
+        this._obstacles = new FlyingObjects(this._spawntime, -this._width, this._obstacleHitboxH, this._obstacleHitboxW, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)");
+        this._coins = new FlyingObjects(this._spawntime * 2, -this._width, this._obstacleHitboxH * 1.2, this._obstacleHitboxW, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)");
         this._background = [
             new BackgroundSprite("./dist/resurses/1.png", this._startPossitionY, -this._gamespeed / 4),
             new BackgroundSprite("./dist/resurses/2.png", this._startPossitionY, -this._gamespeed / 6),
@@ -46,6 +48,7 @@ export class PlayState extends BaseState {
             new BackgroundSprite("./dist/resurses/4.png", this._startPossitionY, 0)
         ];
         this._coinCounter = 0;
+        this._lifesCounter = 3;
     }
     update(dt) {
         if (keys.wasPressed("Escape")) {
@@ -63,8 +66,8 @@ export class PlayState extends BaseState {
             if (this._player.collides(this._floor) || this._player.y < 0) {
                 this._player.onFloor(this._floor.y + this._floor.hitboxHeight);
             }
-            if (this._obstacles.collide(this._player) && !this._player.isInvincible) {
-                this._states.change(StateName.lose);
+            if (this._obstacles.collide(this._player) && !this._player.isInvincible && --this._lifesCounter < 0) {
+                this._states.change(StateName.lose, this._coinCounter);
             }
             if (this._coins.collide(this._player)) {
                 this._coinCounter++;
@@ -85,6 +88,7 @@ export class PlayState extends BaseState {
         this._obstacles.draw();
         this._coins.draw();
         this._player.draw();
+        render.drawMiddleText("Жизни: " + this._lifesCounter, 0, this._height - 180);
         render.drawMiddleText("Монет: " + this._coinCounter, 0, this._height - 200);
     }
 }

@@ -35,7 +35,10 @@ export class PlayState extends BaseState{
     private _coins!: FlyingObjects
     private _obstacles!: FlyingObjects
     private _background!: BackgroundSprite[]
+
+    //Очки
     private _coinCounter!: number
+    private _lifesCounter!: number
 
     constructor(states: StateMachine){
         super(states)
@@ -61,7 +64,6 @@ export class PlayState extends BaseState{
         this._obstacles = new FlyingObjects(
             this._spawntime, 
             -this._width,
-            -this._width*0.0001,
             this._obstacleHitboxH,
             this._obstacleHitboxW,
             this._startPossitionY,
@@ -72,12 +74,11 @@ export class PlayState extends BaseState{
         this._coins = new FlyingObjects(
             this._spawntime*2, 
             -this._width,
-            -this._width*0.0001,
-            this._obstacleHitboxH,
+            this._obstacleHitboxH*1.2,
             this._obstacleHitboxW,
             this._startPossitionY,
             this._player.hitboxHeight,
-            "rgba(0,255,255,0.5)"
+            "rgba(0,255,120,0.5)"
         )
 
         this._background = [
@@ -88,6 +89,7 @@ export class PlayState extends BaseState{
         ]
 
         this._coinCounter = 0
+        this._lifesCounter = 3
     }
 
     update(dt: number): void {
@@ -109,8 +111,8 @@ export class PlayState extends BaseState{
                 this._player.onFloor(this._floor.y + this._floor.hitboxHeight)
             }
 
-            if(this._obstacles.collide(this._player) && !this._player.isInvincible){
-                this._states.change(StateName.lose)
+            if(this._obstacles.collide(this._player) && !this._player.isInvincible && --this._lifesCounter < 0){
+                this._states.change(StateName.lose, this._coinCounter)
             }
             
             if(this._coins.collide(this._player)){
@@ -137,6 +139,7 @@ export class PlayState extends BaseState{
         this._coins.draw()
         this._player.draw()
 
+        render.drawMiddleText("Жизни: " + this._lifesCounter, 0, this._height - 180)
         render.drawMiddleText("Монет: " + this._coinCounter, 0, this._height - 200)
     }
 }

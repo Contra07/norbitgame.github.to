@@ -14,12 +14,12 @@ export class StateMachine {
         this._current = new BaseState(this);
         this.change(startState);
     }
-    change(name) {
+    change(name, params) {
         this._current.exit();
         if (this._states.has(name)) {
             this._current = this._states.get(name);
         }
-        this._current.enter();
+        this._current.enter(params);
     }
     update(dt) {
         this._current.update(dt);

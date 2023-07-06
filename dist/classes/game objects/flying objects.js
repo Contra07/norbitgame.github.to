@@ -4,7 +4,7 @@ export class FlyingObjects {
     _timer;
     _spawnTime;
     _createParams;
-    constructor(spawnTime, dx, d2x, h, w, fH, pH, color) {
+    constructor(spawnTime, dx, h, w, fH, pH, color) {
         this._obstacles = new Set();
         this._timer = 0;
         this._spawnTime = spawnTime;
@@ -15,8 +15,13 @@ export class FlyingObjects {
             playerHeight: pH,
             color: color,
             speed: dx,
-            acs: d2x
         };
+    }
+    get spawntime() {
+        return this._spawnTime;
+    }
+    set spawntime(t) {
+        this._spawnTime * 2;
     }
     static startY(fH, ph) {
         let y;
@@ -45,8 +50,6 @@ export class FlyingObjects {
         if (this._timer >= this._spawnTime) {
             let obstacle = new FlyingObject(FlyingObjects.startY(this._createParams.floorHeight, this._createParams.playerHeight), this._createParams.height, this._createParams.width, this._createParams.color);
             obstacle.dx = this._createParams.speed;
-            obstacle.d2x = this._createParams.acs;
-            this._createParams.speed += dt * this._createParams.acs;
             this._obstacles.add(obstacle);
             this._timer = Math.random() * this._spawnTime / 2;
         }

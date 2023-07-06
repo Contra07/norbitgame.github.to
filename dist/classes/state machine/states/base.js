@@ -3,7 +3,7 @@ export class BaseState {
     constructor(states) {
         this._states = states;
     }
-    enter() { }
+    enter(params) { }
     exit() { }
     init() { }
     update(dt) { }

@@ -18,12 +18,12 @@ export class StateMachine{
         this.change(startState)
     }
 
-    public change(name: StateName): void {
+    public change(name: StateName, params?: any): void {
         this._current.exit()
         if(this._states.has(name)){
             this._current = <State>this._states.get(name)
         }
-        this._current.enter()
+        this._current.enter(params)
     }
 
     public update(dt: number){

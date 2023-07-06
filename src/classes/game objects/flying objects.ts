@@ -8,7 +8,6 @@ type CreateParams = {
     playerHeight: number
     color: string
     speed: number
-    acs: number
 }
 
 export class FlyingObjects {
@@ -17,7 +16,7 @@ export class FlyingObjects {
     private _spawnTime: number
     private _createParams: CreateParams
 
-    constructor(spawnTime: number, dx: number, d2x: number, h: number, w: number, fH: number, pH: number, color: string) {
+    constructor(spawnTime: number, dx: number, h: number, w: number, fH: number, pH: number, color: string) {
         this._obstacles = new Set<FlyingObject>()
         this._timer = 0
         this._spawnTime = spawnTime
@@ -28,8 +27,15 @@ export class FlyingObjects {
             playerHeight: pH,
             color: color,
             speed: dx,
-            acs: d2x
         }
+    }
+
+    public get spawntime():number{
+        return this._spawnTime
+    }
+
+    public set spawntime(t:number){
+        this._spawnTime*2
     }
 
 
@@ -69,8 +75,6 @@ export class FlyingObjects {
                 this._createParams.color
             )
             obstacle.dx = this._createParams.speed
-            obstacle.d2x = this._createParams.acs
-            this._createParams.speed += dt * this._createParams.acs
             this._obstacles.add(obstacle)
             this._timer = Math.random() * this._spawnTime / 2
         }
