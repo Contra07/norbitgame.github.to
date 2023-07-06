@@ -9,6 +9,10 @@ export class StateMachine{
         this._current = new State(this)
     }
 
+    public get current(): State{
+        return this._current
+    }
+
     public add(name: string, state: State):boolean{
         if(this._states.has(name)){
             return false

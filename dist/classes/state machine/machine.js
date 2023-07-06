@@ -6,6 +6,9 @@ export class StateMachine {
         this._states = new Map();
         this._current = new State(this);
     }
+    get current() {
+        return this._current;
+    }
     add(name, state) {
         if (this._states.has(name)) {
             return false;
