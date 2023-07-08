@@ -1,50 +1,52 @@
-import { BackgroundSprite } from "../core/background sprite.js"
+import { render } from "../../engine.js"
+import { Actor } from "../core/actor.js"
+import { Sprite } from "../core/sprite.js"
 
-export class BackgroundScrollingLayer{
-    private _now: BackgroundSprite
-    private _next: BackgroundSprite
-    private _afterNext: BackgroundSprite
-    private _source: string
+export class BackgroundScrollingLayer extends Actor{
+    private _source: Sprite
+    private _now: Sprite
+    private _next: Sprite
 
-    constructor(source: string, y: number, speed:number) {
-        this._now = new BackgroundSprite(source,0,y,speed)
-        this._next = new BackgroundSprite(source,this._now.sprite.width, y,speed)
-        this._afterNext = new BackgroundSprite(source,this._now.sprite.width*2,y,speed)
+    constructor(source: Sprite, x:number, y: number, speed:number) {
+        super(x,y,0,0,"")
+        this.dx = speed
         this._source = source
+        this._now = this._source
+        this._next = this._source
     }
 
-    public get now(): BackgroundSprite{
+    public get now(): Sprite{
         return this._now
     }
-    public set now(sprite: BackgroundSprite){
+    public set now(sprite: Sprite){
         this._now = sprite
     }
     
-    public get next(): BackgroundSprite{
+    public get next(): Sprite{
         return this._next
     }
     
-    public set next(sprite: BackgroundSprite){
+    public set next(sprite: Sprite){
         this._next = sprite
-        this._afterNext.x = this._next.x + this._next.sprite.width
+    }
+
+    public transition(layer: BackgroundScrollingLayer){
+        this.x = layer.x
+        this._now = layer._now
+        this._next = layer._next
     }
 
     public update(dt: number): void {
-        this._now.update(dt)
-        this._next.update(dt)
-        this._afterNext.update(dt)
-        if(this._next.x < 0) {
-            let tmp: BackgroundSprite = this._now
+        this.move(dt)
+        if(this.x+this._now.width < 0){
+            this.x += this._now.width
             this._now = this._next
-            this._next = this._afterNext
-            this._afterNext = new BackgroundSprite(this._source, this._now.x + this._afterNext.sprite.width*2,this._now.y,this._now.dx)
+            this._next = this._source
         }
     }
 
     public draw(): void {
-        this._now.draw()
-        this._next.draw()
-        this._afterNext.draw()
+        render.drawSprite(this._now, this.x, this.y)
+        render.drawSprite(this._next, this.x+this._now.width, this.y)
     }
-
 }

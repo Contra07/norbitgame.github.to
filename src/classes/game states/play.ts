@@ -6,6 +6,7 @@ import { State } from "../state machine/state.js"
 import { StateMachine } from "../state machine/machine.js"
 import { BackgroundScrollingLayer} from "../game objects/background layer.js"
 import { Level } from "../level states/level.js"
+import { Sprite } from "../core/sprite.js"
 
 export class PlayState extends State{
 
@@ -70,7 +71,7 @@ export class PlayState extends State{
             "stage1", 
             new Level(
                 this._levels,
-                3,
+                20,
                 new FlyingObjects(
                     this._spawntime*2, 
                     -this._width,
@@ -92,10 +93,10 @@ export class PlayState extends State{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundScrollingLayer("./dist/resurses/1.png",this._startPossitionY, -this._gamespeed/4),
-                    new BackgroundScrollingLayer("./dist/resurses/empty.png",this._startPossitionY,-this._gamespeed/6),
-                    new BackgroundScrollingLayer("./dist/resurses/empty.png",this._startPossitionY,-this._gamespeed/8),
-                    new BackgroundScrollingLayer("./dist/resurses/4.png",this._startPossitionY,0)
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -this._gamespeed/4),
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-this._gamespeed/6),
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-this._gamespeed/8),
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
                 ]
             )
         )
@@ -103,7 +104,7 @@ export class PlayState extends State{
             "stage2", 
             new Level(
                 this._levels,
-                8,
+                20,
                 new FlyingObjects(
                     this._spawntime*2, 
                     -this._width,
@@ -125,10 +126,10 @@ export class PlayState extends State{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundScrollingLayer("./dist/resurses/1.png",this._startPossitionY, -this._gamespeed/4),
-                    new BackgroundScrollingLayer("./dist/resurses/2.png",this._startPossitionY,-this._gamespeed/6),
-                    new BackgroundScrollingLayer("./dist/resurses/empty.png",this._startPossitionY,-this._gamespeed/8),
-                    new BackgroundScrollingLayer("./dist/resurses/4.png",this._startPossitionY,0)
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -2*this._gamespeed/4),
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-2*this._gamespeed/6),
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-2*this._gamespeed/8),
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
                 ]
             )
         )
@@ -158,10 +159,10 @@ export class PlayState extends State{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundScrollingLayer("./dist/resurses/1.png",this._startPossitionY, -this._gamespeed/4),
-                    new BackgroundScrollingLayer("./dist/resurses/2.png",this._startPossitionY,-this._gamespeed/6),
-                    new BackgroundScrollingLayer("./dist/resurses/3.png",this._startPossitionY,-this._gamespeed/8),
-                    new BackgroundScrollingLayer("./dist/resurses/4.png",this._startPossitionY,0)
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -3*this._gamespeed/4),
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-3*this._gamespeed/6),
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/3.png"),0,this._startPossitionY,-3*this._gamespeed/8),
+                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
                 ]
             )
         )

@@ -17,7 +17,7 @@ export class GameManager{
             &&  this._gameStates.add("lose", new LoseState(this._gameStates))
             &&  this._gameStates.add("title", new TitleState(this._gameStates))
         ){
-            this._gameStates.change("title")
+            this._gameStates.change("play")
         }
         else{
             console.log("Game states error")

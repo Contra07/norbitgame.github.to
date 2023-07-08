@@ -33,8 +33,7 @@ export class Level extends State {
             let levelC = this._states.current;
             let i = 0;
             for (i = 0; i < levelC._background.length; i++) {
-                levelC._background[i].now = levelP._background[i].now;
-                levelC._background[i].next = levelP._background[i].next;
+                levelC._background[i].transition(levelP._background[i]);
             }
         }
     }

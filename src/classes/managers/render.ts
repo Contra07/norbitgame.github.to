@@ -147,7 +147,8 @@ export class RenderManager {
     }
 
     public drawSprite(sprite: Sprite, x: number, y: number){
-        this._ctx.drawImage(sprite.image, x, this.WINDOW_HEIGHT-y-sprite.height)
+        let coords = this.projectCoords(x,y)
+        this._ctx.drawImage(sprite.image, coords.x, coords.y-sprite.height)
     }
 
     public drawPlayerSprite(sprite: Sprite, x: number, y: number, w: number, h: number){
