@@ -85,6 +85,9 @@ export class Actor extends GameObject {
     set hitboxColor(color) {
         this._hitboxColor = color;
     }
+    get sprite() {
+        return this._sprite;
+    }
     //--------Основные функции--------
     init() { }
     update(dt) { }

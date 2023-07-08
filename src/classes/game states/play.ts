@@ -4,7 +4,7 @@ import { FlyingObjects } from "../game objects/flying objects.js"
 import { Player } from "../game objects/player.js"
 import { State } from "../state machine/state.js"
 import { StateMachine } from "../state machine/machine.js"
-import { BackgroundSprite } from "../core/background sprite.js"
+import { BackgroundScrollingLayer} from "../game objects/background layer.js"
 import { Level } from "../level states/level.js"
 
 export class PlayState extends State{
@@ -35,6 +35,7 @@ export class PlayState extends State{
 
     //Уровни 
     private _levels!: StateMachine
+    private _asd: boolean = true
 
     //Очки
     private _coinCounter!: number
@@ -69,7 +70,7 @@ export class PlayState extends State{
             "stage1", 
             new Level(
                 this._levels,
-                10,
+                3,
                 new FlyingObjects(
                     this._spawntime*2, 
                     -this._width,
@@ -91,9 +92,10 @@ export class PlayState extends State{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundSprite("./dist/resurses/1.png",this._startPossitionY, -this._gamespeed/4),
-                    new BackgroundSprite("./dist/resurses/2.png",this._startPossitionY,-this._gamespeed/6),
-                    new BackgroundSprite("./dist/resurses/4.png",this._startPossitionY,0)
+                    new BackgroundScrollingLayer("./dist/resurses/1.png",this._startPossitionY, -this._gamespeed/4),
+                    new BackgroundScrollingLayer("./dist/resurses/empty.png",this._startPossitionY,-this._gamespeed/6),
+                    new BackgroundScrollingLayer("./dist/resurses/empty.png",this._startPossitionY,-this._gamespeed/8),
+                    new BackgroundScrollingLayer("./dist/resurses/4.png",this._startPossitionY,0)
                 ]
             )
         )
@@ -101,7 +103,7 @@ export class PlayState extends State{
             "stage2", 
             new Level(
                 this._levels,
-                10000000000000,
+                8,
                 new FlyingObjects(
                     this._spawntime*2, 
                     -this._width,
@@ -123,10 +125,43 @@ export class PlayState extends State{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundSprite("./dist/resurses/1.png",this._startPossitionY, -this._gamespeed/4),
-                    new BackgroundSprite("./dist/resurses/2.png",this._startPossitionY,-this._gamespeed/6),
-                    new BackgroundSprite("./dist/resurses/3.png",this._startPossitionY,-this._gamespeed/8),
-                    new BackgroundSprite("./dist/resurses/4.png",this._startPossitionY,0)
+                    new BackgroundScrollingLayer("./dist/resurses/1.png",this._startPossitionY, -this._gamespeed/4),
+                    new BackgroundScrollingLayer("./dist/resurses/2.png",this._startPossitionY,-this._gamespeed/6),
+                    new BackgroundScrollingLayer("./dist/resurses/empty.png",this._startPossitionY,-this._gamespeed/8),
+                    new BackgroundScrollingLayer("./dist/resurses/4.png",this._startPossitionY,0)
+                ]
+            )
+        )
+        this._levels.add(
+            "stage3", 
+            new Level(
+                this._levels,
+                10000000,
+                new FlyingObjects(
+                    this._spawntime*2, 
+                    -this._width,
+                    this._obstacleHitboxH*1.2,
+                    this._obstacleHitboxW,
+                    3,
+                    this._startPossitionY,
+                    this._player.hitboxHeight,
+                    "rgba(0,255,120,0.5)"
+                ),
+                new FlyingObjects(
+                    this._spawntime, 
+                    -this._width,
+                    this._obstacleHitboxH,
+                    this._obstacleHitboxW,
+                    2,
+                    this._startPossitionY,
+                    this._player.hitboxHeight,
+                    "rgba(0,0,255,0.5)"
+                ),
+                [
+                    new BackgroundScrollingLayer("./dist/resurses/1.png",this._startPossitionY, -this._gamespeed/4),
+                    new BackgroundScrollingLayer("./dist/resurses/2.png",this._startPossitionY,-this._gamespeed/6),
+                    new BackgroundScrollingLayer("./dist/resurses/3.png",this._startPossitionY,-this._gamespeed/8),
+                    new BackgroundScrollingLayer("./dist/resurses/4.png",this._startPossitionY,0)
                 ]
             )
         )
@@ -142,8 +177,12 @@ export class PlayState extends State{
         }
 
         if(!this._pause){
-            if((<Level>this._levels.current).isEnd()){
-                this._levels.change("stage2")
+            if((<Level>this._levels.current).isEnd() && this._asd){
+                this._levels.change("stage2", this._levels.current)
+                this._asd = false
+            }
+            if((<Level>this._levels.current).isEnd() && !this._asd){
+                this._levels.change("stage3", this._levels.current)
             }
             this._levels.update(dt)
             //this._gamespeed *= 1.00005

@@ -1,4 +1,5 @@
 import { BackgroundSprite } from "../core/background sprite.js";
+import { BackgroundScrollingLayer} from "../game objects/background layer.js"
 import { FlyingObjects } from "../game objects/flying objects.js";
 import { StateMachine } from "../state machine/machine.js";
 import { State } from "../state machine/state.js";
@@ -11,12 +12,12 @@ export class Level extends State{
     //Сущности
     private _coins: FlyingObjects
     private _obstacles: FlyingObjects
-    private _background: BackgroundSprite[]
+    private _background: BackgroundScrollingLayer[]
 
     private _levelTimer: number
     private _transitionTime: number
 
-    constructor(states: StateMachine, levelTimer: number, coins: FlyingObjects, obstacles: FlyingObjects, background: BackgroundSprite[]) {
+    constructor(states: StateMachine, levelTimer: number, coins: FlyingObjects, obstacles: FlyingObjects, background: BackgroundScrollingLayer[]) {
         super(states)
         this._levelTimer = levelTimer
         this._coins = coins
@@ -33,7 +34,7 @@ export class Level extends State{
         return this._coins
     }
 
-    public get background(): BackgroundSprite[]{
+    public get background(): BackgroundScrollingLayer[]{
         return this._background
     }
 
@@ -43,7 +44,13 @@ export class Level extends State{
 
     public enter(params?: any): void {
         if(params){
-            let level: Level = <Level> params
+            let levelP: Level = <Level> params;
+            let levelC: Level =(<Level>this._states.current)
+            let i = 0
+            for(i = 0; i <  levelC._background.length; i++){
+                levelC._background[i].now = levelP._background[i].now
+                levelC._background[i].next = levelP._background[i].next
+            }
         }
     }
 

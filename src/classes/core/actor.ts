@@ -110,6 +110,10 @@ export class Actor extends GameObject{
         this._hitboxColor = color
     }
 
+    public get sprite(): Sprite{
+        return this._sprite
+    }
+
     //--------Основные функции--------
     
     public init(): void { }
