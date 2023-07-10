@@ -7,6 +7,7 @@
     --darkColor: #28282F;
     --blackColor: #000;
     --whiteColor: #F8F8F8;
+    --sectionHeight: 100vh;
 }
 
 @font-face {
@@ -179,25 +180,20 @@ input[type=date] {
 
 .gradient-section {
     background: var(--gradientColor);
-    height: 100vh;
-    padding-top: 3%;
-}
-
-.gradient-section .container{
-    height: calc(100vh - 70px);
+    height: var(--sectionHeight);
 }
 
 .welcome-cat {
     position: relative;
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 70px);
 }
 
-.welcome-cat::after {
+.welcome-cat::before {
     content: "";
     position: absolute;
     right: 0;
-    bottom: 15px;
+    bottom: 0px;
     background: url(img/cat.png) no-repeat;
     width: 618px;
     height: 617px;
@@ -212,15 +208,45 @@ input[type=date] {
 .about-us-section{
     padding-top: 3%;
     background: #E6E6E6;
+    /* height: var(--sectionHeight); */
 }
 
 .about-us-text>h2 {
     color: var(--greenColor);
 }
 
+.flower-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh/2);
+    width: 50%;
+    background: url(img/flower.png) no-repeat bottom right;
+    background-size: 100px 150px;
+    margin-bottom: 10%;
+}
+
+@media (max-width:1100px) {
+    .flower-image{
+        display: none;
+    }
+}
+
+.notebook-image{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: calc(100vh/2);
+    width: 100%;
+    background: url(img/notebook.png) no-repeat center;
+    background-size: contain;
+    margin-bottom: 5%;
+}
+
 .shadow {
     box-shadow: inset 10px 14px 48px 0px rgba(0, 0, 0, 0.20);
-    height: 205px;
+    height: calc(100vh/3);
+    border-top: 1px solid #000;
 }
 
 .activities-section {
