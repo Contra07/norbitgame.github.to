@@ -1,5 +1,5 @@
+import { render } from "../../engine.js";
 export class Level {
-    //TODO: Transition
     //Уровни
     _levels;
     //Сущности
@@ -8,14 +8,16 @@ export class Level {
     _background;
     //Таймеры
     _levelTimer;
-    _transitionTime;
-    constructor(levels, levelTimer, coins, obstacles, background) {
+    _transitionBeginTime;
+    _transitionEndTime;
+    constructor(levels, levelTimer, gamespeed, coins, obstacles, background) {
         this._levels = levels;
         this._levelTimer = levelTimer;
         this._coins = coins;
         this._obstacles = obstacles;
         this._background = background;
-        this._transitionTime = 0;
+        this._transitionBeginTime = render.VIRTUAL_WIDTH / gamespeed;
+        this._transitionEndTime = render.VIRTUAL_WIDTH / gamespeed;
     }
     get obstacles() {
         return this._obstacles;
@@ -25,6 +27,15 @@ export class Level {
     }
     get background() {
         return this._background;
+    }
+    get isMainEnd() {
+        return this._levelTimer < 0;
+    }
+    get isBeginEnd() {
+        return this._transitionBeginTime < 0;
+    }
+    get isEndEnd() {
+        return this._transitionEndTime < 0;
     }
     init() {
     }
@@ -36,11 +47,22 @@ export class Level {
     }
     exit() {
     }
-    isEnd() {
-        return this._levelTimer < 0;
-    }
     update(dt) {
-        this._levelTimer -= dt;
+        if (!this.isBeginEnd) {
+            this._transitionBeginTime -= dt;
+            this._obstacles.stopSpawn();
+            this._coins.stopSpawn();
+        }
+        else if (!this.isMainEnd) {
+            this._levelTimer -= dt;
+            this._obstacles.startSpawn();
+            this._coins.startSpawn();
+        }
+        else if (!this.isEndEnd) {
+            this._transitionEndTime -= dt;
+            this._obstacles.stopSpawn();
+            this._coins.stopSpawn();
+        }
         this._obstacles.update(dt);
         this._coins.update(dt);
         let i;

@@ -13,7 +13,7 @@ export class PlayState extends State{
 
     //Типа константы
     private _gravity:number = -3000
-    private _gamespeed: number = 500
+    private _gamespeed: number = 800
     private _height: number = render.VIRTUAL_HEIGHT
     private _width: number = render.VIRTUAL_WIDTH
     private _pause: boolean = false
@@ -37,7 +37,6 @@ export class PlayState extends State{
 
     //Уровни 
     private _levels!: LevelMachine
-    private _asd: boolean = true
 
     //Очки
     private _coinCounter!: number
@@ -71,8 +70,10 @@ export class PlayState extends State{
         this._levels.add(
             new Level(
                 this._levels,
-                20,
+                10,
+                this._gamespeed,
                 new FlyingObjects(
+                    false,
                     this._spawntime*2, 
                     -this._width,
                     this._obstacleHitboxH*1.2,
@@ -83,6 +84,7 @@ export class PlayState extends State{
                     "rgba(0,255,120,0.5)"
                 ),
                 new FlyingObjects(
+                    false,
                     this._spawntime, 
                     -this._width,
                     this._obstacleHitboxH,
@@ -93,9 +95,9 @@ export class PlayState extends State{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY, -this._gamespeed/4),
+                    new BackgroundLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -this._gamespeed/4),
                     new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-this._gamespeed/6),
-                    new BackgroundLayer(new Sprite("./dist/resurses/3.png"),0,this._startPossitionY,-this._gamespeed/8),
+                    new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-this._gamespeed/8),
                     new BackgroundLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
                 ]
             )
@@ -103,8 +105,10 @@ export class PlayState extends State{
         this._levels.add(
             new Level(
                 this._levels,
-                20,
+                15,
+                this._gamespeed,
                 new FlyingObjects(
+                    false,
                     this._spawntime*2, 
                     -this._width,
                     this._obstacleHitboxH*1.2,
@@ -115,19 +119,20 @@ export class PlayState extends State{
                     "rgba(0,255,120,0.5)"
                 ),
                 new FlyingObjects(
+                    false,
                     this._spawntime, 
                     -this._width,
-                    this._obstacleHitboxH,
-                    this._obstacleHitboxW,
+                    this._obstacleHitboxH*1.4,
+                    this._obstacleHitboxW/1.4,
                     2,
                     this._startPossitionY,
                     this._player.hitboxHeight,
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY, -2*this._gamespeed/4),
-                    new BackgroundLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-2*this._gamespeed/6),
-                    new BackgroundLayer(new Sprite("./dist/resurses/3.png"),0,this._startPossitionY,-2*this._gamespeed/8),
+                    new BackgroundLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -1.2*this._gamespeed/4),
+                    new BackgroundLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-1.2*this._gamespeed/6),
+                    new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-1.2*this._gamespeed/8),
                     new BackgroundLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
                 ]
             )
@@ -136,7 +141,9 @@ export class PlayState extends State{
             new Level(
                 this._levels,
                 20,
+                this._gamespeed,
                 new FlyingObjects(
+                    false,
                     this._spawntime*2, 
                     -this._width,
                     this._obstacleHitboxH*1.2,
@@ -147,19 +154,20 @@ export class PlayState extends State{
                     "rgba(0,255,120,0.5)"
                 ),
                 new FlyingObjects(
+                    false,
                     this._spawntime, 
                     -this._width,
-                    this._obstacleHitboxH,
-                    this._obstacleHitboxW,
+                    this._obstacleHitboxH/1.4,
+                    this._obstacleHitboxW*1.4,
                     2,
                     this._startPossitionY,
                     this._player.hitboxHeight,
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -3*this._gamespeed/4),
-                    new BackgroundLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-3*this._gamespeed/6),
-                    new BackgroundLayer(new Sprite("./dist/resurses/3.png"),0,this._startPossitionY,-3*this._gamespeed/8),
+                    new BackgroundLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -1.4*this._gamespeed/4),
+                    new BackgroundLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-1.4*this._gamespeed/6),
+                    new BackgroundLayer(new Sprite("./dist/resurses/3.png"),0,this._startPossitionY,-1.4*this._gamespeed/8),
                     new BackgroundLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
                 ]
             )
@@ -177,7 +185,7 @@ export class PlayState extends State{
         if(!this._pause){
 
             //Перелючение уровня
-            if(this._levels.current.isEnd()){
+            if(this._levels.current.isEndEnd){
                 if(this._levels.isLastLevel){
                     this._states.change("end", {coins: this._coinCounter, win: false})
                 }

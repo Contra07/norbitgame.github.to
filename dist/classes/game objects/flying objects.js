@@ -1,13 +1,21 @@
+import { GameObject } from "../core/game object.js";
 import { FlyingObject } from "./flying object.js";
-export class FlyingObjects {
+export class FlyingObjects extends GameObject {
     _objects;
+    _refObject;
     _timer;
     _spawnTime;
+    _isSpawn;
     _createParams;
-    constructor(spawnTime, dx, h, w, levelNumber, fH, pH, color) {
+    _objectSpeed;
+    constructor(isSpawn, spawnTime, dx, h, w, levelNumber, fH, pH, color) {
+        super();
         this._objects = new Set();
         this._timer = 0;
         this._spawnTime = spawnTime;
+        this._isSpawn = isSpawn;
+        this._objectSpeed = dx;
+        this._refObject = new FlyingObject(FlyingObjects.randomPositionY(fH, levelNumber, pH, pH * 0.2), h, w, color);
         this._createParams = {
             height: h,
             width: w,
@@ -41,30 +49,47 @@ export class FlyingObjects {
     get obstacles() {
         return this._objects;
     }
-    spawn(dt) {
-        if (this._timer >= this._spawnTime) {
-            let object = new FlyingObject(FlyingObjects.randomPositionY(this._createParams.floorHeight, this._createParams.levelNumber, this._createParams.playerHeight, this._createParams.playerHeight * 0.2), this._createParams.height, this._createParams.width, this._createParams.color);
-            object.dx = this._createParams.speed;
-            this._objects.add(object);
-            this._timer = Math.random() * this._spawnTime / 2;
-        }
-        else {
-            this._timer += dt;
-        }
+    startSpawn() {
+        this._isSpawn = true;
     }
-    deleteOrUpdate(dt) {
+    stopSpawn() {
+        this._isSpawn = false;
+    }
+    spawnObject() {
+        let object = this._refObject.copy();
+        object.y = FlyingObjects.randomPositionY(this._createParams.floorHeight, this._createParams.levelNumber, this._createParams.playerHeight, this._createParams.playerHeight * 0.2),
+            object.dx = this._objectSpeed;
+        this._objects.add(object);
+    }
+    resetTimer() {
+        this._timer = Math.random() * this._spawnTime / 2;
+    }
+    deleteObjects() {
         this._objects.forEach((value) => {
-            if (!value.isDestroy) {
-                value.update(dt);
-            }
-            else {
+            if (value.isDestroy) {
                 this._objects.delete(value);
             }
         });
     }
+    updateObjects(dt) {
+        this._objects.forEach((value) => {
+            if (!value.isDestroy) {
+                value.update(dt);
+            }
+        });
+    }
     update(dt) {
-        this.spawn(dt);
-        this.deleteOrUpdate(dt);
+        if (this._timer >= this._spawnTime) {
+            if (this._isSpawn) {
+                this.spawnObject();
+            }
+            this.resetTimer();
+        }
+        else {
+            this._timer += dt;
+        }
+        this.updateObjects(dt);
+        this.deleteObjects();
     }
     draw() {
         this._objects.forEach((value) => {

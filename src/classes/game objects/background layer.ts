@@ -15,6 +15,10 @@ export class BackgroundLayer extends Actor{
         this._next = this._source
     }
 
+    public get sprite(): Sprite{
+        return this._source
+    }
+
     public get now(): Sprite{
         return this._now
     }

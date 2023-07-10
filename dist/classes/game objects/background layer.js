@@ -11,6 +11,9 @@ export class BackgroundLayer extends Actor {
         this._now = this._source;
         this._next = this._source;
     }
+    get sprite() {
+        return this._source;
+    }
     get now() {
         return this._now;
     }

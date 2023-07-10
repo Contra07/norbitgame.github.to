@@ -30,5 +30,14 @@ export class FlyingObject extends Actor{
             this.drawHitbox()
         }
     }
+
+    public copy(): FlyingObject{
+        return new FlyingObject(
+            this.y,
+            this.hitboxHeight,
+            this.hitboxWidht,
+            this.hitboxColor
+        )
+    }
     
 }
