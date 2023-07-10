@@ -2,7 +2,7 @@ import { render } from "../../engine.js"
 import { Actor } from "../core/actor.js"
 import { Sprite } from "../core/sprite.js"
 
-export class BackgroundScrollingLayer extends Actor{
+export class BackgroundLayer extends Actor{
     private _source: Sprite
     private _now: Sprite
     private _next: Sprite
@@ -30,7 +30,7 @@ export class BackgroundScrollingLayer extends Actor{
         this._next = sprite
     }
 
-    public transition(layer: BackgroundScrollingLayer){
+    public transition(layer: BackgroundLayer){
         this.x = layer.x
         this._now = layer._now
         this._next = layer._next

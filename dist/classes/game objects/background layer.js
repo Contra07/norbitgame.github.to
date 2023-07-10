@@ -1,6 +1,6 @@
 import { render } from "../../engine.js";
 import { Actor } from "../core/actor.js";
-export class BackgroundScrollingLayer extends Actor {
+export class BackgroundLayer extends Actor {
     _source;
     _now;
     _next;

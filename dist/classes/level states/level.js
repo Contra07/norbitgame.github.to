@@ -1,15 +1,16 @@
-import { State } from "../state machine/state.js";
-export class Level extends State {
+export class Level {
     //TODO: Transition
-    //TODO: Level mashine class
+    //Уровни
+    _levels;
     //Сущности
     _coins;
     _obstacles;
     _background;
+    //Таймеры
     _levelTimer;
     _transitionTime;
-    constructor(states, levelTimer, coins, obstacles, background) {
-        super(states);
+    constructor(levels, levelTimer, coins, obstacles, background) {
+        this._levels = levels;
         this._levelTimer = levelTimer;
         this._coins = coins;
         this._obstacles = obstacles;
@@ -27,14 +28,10 @@ export class Level extends State {
     }
     init() {
     }
-    enter(params) {
-        if (params) {
-            let levelP = params;
-            let levelC = this._states.current;
-            let i = 0;
-            for (i = 0; i < levelC._background.length; i++) {
-                levelC._background[i].transition(levelP._background[i]);
-            }
+    enter(layers) {
+        let i;
+        for (i = 0; i < this._background.length; i++) {
+            this._background[i].transition(layers[i]);
         }
     }
     exit() {

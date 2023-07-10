@@ -4,9 +4,10 @@ import { FlyingObjects } from "../game objects/flying objects.js"
 import { Player } from "../game objects/player.js"
 import { State } from "../state machine/state.js"
 import { StateMachine } from "../state machine/machine.js"
-import { BackgroundScrollingLayer} from "../game objects/background layer.js"
+import { BackgroundLayer} from "../game objects/background layer.js"
 import { Level } from "../level states/level.js"
 import { Sprite } from "../core/sprite.js"
+import { LevelMachine } from "../level states/level machine.js"
 
 export class PlayState extends State{
 
@@ -35,7 +36,7 @@ export class PlayState extends State{
     private _player!: Player
 
     //Уровни 
-    private _levels!: StateMachine
+    private _levels!: LevelMachine
     private _asd: boolean = true
 
     //Очки
@@ -66,9 +67,8 @@ export class PlayState extends State{
         this._coinCounter = 0
         this._lifesCounter = 3
 
-        this._levels = new StateMachine()
+        this._levels = new LevelMachine()
         this._levels.add(
-            "stage1", 
             new Level(
                 this._levels,
                 20,
@@ -93,15 +93,14 @@ export class PlayState extends State{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -this._gamespeed/4),
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-this._gamespeed/6),
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-this._gamespeed/8),
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
+                    new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY, -this._gamespeed/4),
+                    new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-this._gamespeed/6),
+                    new BackgroundLayer(new Sprite("./dist/resurses/3.png"),0,this._startPossitionY,-this._gamespeed/8),
+                    new BackgroundLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
                 ]
             )
         )
         this._levels.add(
-            "stage2", 
             new Level(
                 this._levels,
                 20,
@@ -126,18 +125,17 @@ export class PlayState extends State{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -2*this._gamespeed/4),
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-2*this._gamespeed/6),
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-2*this._gamespeed/8),
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
+                    new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY, -2*this._gamespeed/4),
+                    new BackgroundLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-2*this._gamespeed/6),
+                    new BackgroundLayer(new Sprite("./dist/resurses/3.png"),0,this._startPossitionY,-2*this._gamespeed/8),
+                    new BackgroundLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
                 ]
             )
         )
         this._levels.add(
-            "stage3", 
             new Level(
                 this._levels,
-                10000000,
+                20,
                 new FlyingObjects(
                     this._spawntime*2, 
                     -this._width,
@@ -159,14 +157,13 @@ export class PlayState extends State{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -3*this._gamespeed/4),
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-3*this._gamespeed/6),
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/3.png"),0,this._startPossitionY,-3*this._gamespeed/8),
-                    new BackgroundScrollingLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
+                    new BackgroundLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -3*this._gamespeed/4),
+                    new BackgroundLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-3*this._gamespeed/6),
+                    new BackgroundLayer(new Sprite("./dist/resurses/3.png"),0,this._startPossitionY,-3*this._gamespeed/8),
+                    new BackgroundLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
                 ]
             )
         )
-        this._levels.change("stage1")
     }
 
     update(dt: number): void {
@@ -178,35 +175,35 @@ export class PlayState extends State{
         }
 
         if(!this._pause){
-            if((<Level>this._levels.current).isEnd() && this._asd){
-                this._levels.change("stage2", this._levels.current)
-                this._asd = false
+
+            //Перелючение уровня
+            if(this._levels.current.isEnd()){
+                if(this._levels.isLastLevel){
+                    this._states.change("end", {coins: this._coinCounter, win: false})
+                }
+                else{
+                    this._levels.next()
+                }
             }
-            if((<Level>this._levels.current).isEnd() && !this._asd){
-                this._levels.change("stage3", this._levels.current)
-            }
+
+            //Обновление сущностей
             this._levels.update(dt)
-            //this._gamespeed *= 1.00005
             this._floor.update(dt)
             this._player.update(dt)
 
+            //Столкновение с полом
             if(this._player.collides(this._floor) || this._player.y < 0){
                 this._player.onFloor(this._floor.y + this._floor.hitboxHeight)
             }
             
-            //
-            if((<Level>this._levels.current).obstacles.collide(this._player) && !this._player.isInvincible && --this._lifesCounter < 0){
-                this._states.change("lose", this._coinCounter)
+            //Столкновение с препятствиями
+            if((<Level>this._levels.current).obstacles.collide(this._player) && !this._player.isInvincible && --this._lifesCounter <= 0){
+                this._states.change("end", {coins: this._coinCounter, win: true})
             }
             
-            //
+            //Собирание монет
             if((<Level>this._levels.current).coins.collide(this._player)){
                 this._coinCounter++
-            }
-
-            let i: number
-            for(i = 0; i < (<Level>this._levels.current).background.length; i++){
-                (<Level>this._levels.current).background[i].update(dt)
             }
         }
     }

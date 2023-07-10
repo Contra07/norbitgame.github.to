@@ -1,8 +1,10 @@
+import { GameObject } from "../core/game object.js";
 import { State } from "./state.js";
-export class StateMachine {
+export class StateMachine extends GameObject {
     _states;
     _current;
     constructor() {
+        super();
         this._states = new Map();
         this._current = new State(this);
     }
