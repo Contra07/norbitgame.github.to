@@ -131,7 +131,6 @@ input[type=date] {
     max-width: 500px;
     min-width: 200px;
     padding: 10px 70px;
-    margin-bottom: 50px;
     background: var(--whiteColor);
     border-radius: 50px;
     border-color: transparent;
@@ -270,12 +269,8 @@ input[type=date] {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 7%;
-    height: calc(100vh/2 - 25px);
+    height: calc(100vh/2 - 5%);
     width: 50%;
-    background: violet content-box;
-    background-size: contain;
 }
 
 .shadow {
@@ -378,5 +373,9 @@ input[type=date] {
         font-size: 16px;
         bottom: 0;
         left: 15%;
+    }
+
+    .notebook-content {
+        padding-top: 30%;
     }
 }
