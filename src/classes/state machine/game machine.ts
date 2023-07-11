@@ -1,5 +1,5 @@
 import { GameObject } from "../core/game object.js";
-import { State } from "./state.js";
+import { State } from "./game state.js";
 
 export class StateMachine extends GameObject{
     private _states: Map<string, State>

@@ -1,6 +1,10 @@
 import { KeyManager } from "./classes/managers/keys.js";
 import { RenderManager } from "./classes/managers/render.js";
 import { GameManager } from "./classes/game.js";
+//window.OnLoad
+//window.onresize
+//resourcesToLoad--;
+//    if (resourcesToLoad == 0) {
 //TODO: Singleton game
 //Ширина игрового мира
 let VIRTUAL_WIDTH = 600;
@@ -15,7 +19,7 @@ export let render;
 export let keys;
 export let game;
 //Инициализация
-function init() {
+export function init() {
     render = new RenderManager(document.getElementById('mycanvas'), VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
     keys = new KeyManager();
     game = new GameManager();

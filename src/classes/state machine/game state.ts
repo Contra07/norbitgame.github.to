@@ -1,4 +1,4 @@
-import { StateMachine } from "./machine.js"
+import { StateMachine } from "./game machine.js"
 
 export class State{
 

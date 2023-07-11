@@ -1,4 +1,4 @@
-import { StateMachine } from "./state machine/machine.js";
+import { StateMachine } from "./state machine/game machine.js";
 import { EndState } from "./game states/end.js";
 import { PlayState } from "./game states/play.js";
 import { TitleState } from "./game states/title.js";
@@ -12,7 +12,7 @@ export class GameManager {
         if (this._gameStates.add("play", new PlayState(this._gameStates))
             && this._gameStates.add("end", new EndState(this._gameStates))
             && this._gameStates.add("title", new TitleState(this._gameStates))) {
-            this._gameStates.change("play");
+            this._gameStates.change("title");
         }
         else {
             console.log("Game states error");

@@ -108,5 +108,5 @@
     "rootDir": "./src", // корневая папка для файлов TypeScript
     "outDir": "./dist" // папка для скомпилированных файлов
   },
-  "include": ["./src/**/*"] // паттерн для файлов TypeScript
+  "include": ["./src/**/*", "dist/test.js"] // паттерн для файлов TypeScript
 }

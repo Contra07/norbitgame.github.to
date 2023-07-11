@@ -2,11 +2,12 @@ import { keys, render } from "../../engine.js";
 import { Floor } from "../game objects/floor.js";
 import { FlyingObjects } from "../game objects/flying objects.js";
 import { Player } from "../game objects/player.js";
-import { State } from "../state machine/state.js";
+import { State } from "../state machine/game state.js";
 import { BackgroundLayer } from "../game objects/background layer.js";
 import { Level } from "../level states/level.js";
 import { Sprite } from "../core/sprite.js";
 import { LevelMachine } from "../level states/level machine.js";
+import { DOManager } from "../managers/dom.js";
 export class PlayState extends State {
     //Типа константы
     _gravity = -3000;
@@ -33,8 +34,21 @@ export class PlayState extends State {
     //Очки
     _coinCounter;
     _lifesCounter;
+    //Меню
+    play;
+    asd = true;
     constructor(states) {
         super(states);
+        this.play = document.getElementById('play');
+    }
+    pause() {
+        this._pause = true;
+    }
+    resume() {
+        this._pause = false;
+    }
+    exit() {
+        DOManager.hide(this.play);
     }
     enter() {
         this._pause = false;
@@ -43,24 +57,25 @@ export class PlayState extends State {
         this._coinCounter = 0;
         this._lifesCounter = 3;
         this._levels = new LevelMachine();
-        this._levels.add(new Level(this._levels, 10, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._width, this._obstacleHitboxH * 1.2, this._obstacleHitboxW, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)"), new FlyingObjects(false, this._spawntime, -this._width, this._obstacleHitboxH, this._obstacleHitboxW, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)"), [
+        this._levels.add(new Level(this._levels, 5, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._width, this._obstacleHitboxH * 1.2, this._obstacleHitboxW, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)"), new FlyingObjects(false, this._spawntime, -this._width, this._obstacleHitboxH, this._obstacleHitboxW, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)"), [
             new BackgroundLayer(new Sprite("./dist/resurses/1.png"), 0, this._startPossitionY, -this._gamespeed / 4),
             new BackgroundLayer(new Sprite("./dist/resurses/empty.png"), 0, this._startPossitionY, -this._gamespeed / 6),
             new BackgroundLayer(new Sprite("./dist/resurses/empty.png"), 0, this._startPossitionY, -this._gamespeed / 8),
             new BackgroundLayer(new Sprite("./dist/resurses/4.png"), 0, this._startPossitionY, 0)
         ]));
-        this._levels.add(new Level(this._levels, 15, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._width, this._obstacleHitboxH * 1.2, this._obstacleHitboxW, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)"), new FlyingObjects(false, this._spawntime, -this._width, this._obstacleHitboxH * 1.4, this._obstacleHitboxW / 1.4, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)"), [
+        this._levels.add(new Level(this._levels, 5, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._width, this._obstacleHitboxH * 1.2, this._obstacleHitboxW, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)"), new FlyingObjects(false, this._spawntime, -this._width, this._obstacleHitboxH * 1.4, this._obstacleHitboxW / 1.4, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)"), [
             new BackgroundLayer(new Sprite("./dist/resurses/1.png"), 0, this._startPossitionY, -1.2 * this._gamespeed / 4),
             new BackgroundLayer(new Sprite("./dist/resurses/2.png"), 0, this._startPossitionY, -1.2 * this._gamespeed / 6),
             new BackgroundLayer(new Sprite("./dist/resurses/empty.png"), 0, this._startPossitionY, -1.2 * this._gamespeed / 8),
             new BackgroundLayer(new Sprite("./dist/resurses/4.png"), 0, this._startPossitionY, 0)
         ]));
-        this._levels.add(new Level(this._levels, 20, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._width, this._obstacleHitboxH * 1.2, this._obstacleHitboxW, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)"), new FlyingObjects(false, this._spawntime, -this._width, this._obstacleHitboxH / 1.4, this._obstacleHitboxW * 1.4, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)"), [
+        this._levels.add(new Level(this._levels, 5, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._width, this._obstacleHitboxH * 1.2, this._obstacleHitboxW, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)"), new FlyingObjects(false, this._spawntime, -this._width, this._obstacleHitboxH / 1.4, this._obstacleHitboxW * 1.4, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)"), [
             new BackgroundLayer(new Sprite("./dist/resurses/1.png"), 0, this._startPossitionY, -1.4 * this._gamespeed / 4),
             new BackgroundLayer(new Sprite("./dist/resurses/2.png"), 0, this._startPossitionY, -1.4 * this._gamespeed / 6),
             new BackgroundLayer(new Sprite("./dist/resurses/3.png"), 0, this._startPossitionY, -1.4 * this._gamespeed / 8),
             new BackgroundLayer(new Sprite("./dist/resurses/4.png"), 0, this._startPossitionY, 0)
         ]));
+        DOManager.show(this.play);
     }
     update(dt) {
         if (keys.wasPressed("Escape")) {
@@ -76,6 +91,7 @@ export class PlayState extends State {
                     this._states.change("end", { coins: this._coinCounter, win: false });
                 }
                 else {
+                    this.pause();
                     this._levels.next();
                 }
             }

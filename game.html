@@ -5,11 +5,25 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Test runner</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="gameStyles.css">
     </head>
     <body>
-        <h3>Прыжок: Space, Пауза: Esc, Заново: Enter</h3>
-        <canvas width="600" height="600" id="mycanvas"></canvas>
+        <div id="menu" class="menu">
+          <h1 name="play message">Norbit Runner </h1>
+          <button href="#" name="button start" class="button">Start Game </button>
+        </div>
+        <div id="play" class="play">
+          <h3>Прыжок: Space, Пауза: Esc, Заново: Enter</h3>
+          <canvas id="mycanvas" width="600" height="600" >
+            <p>You're browser does not support the required functionality to play this game.</p>
+            <p>Please update to a modern browser such as 
+              <a href="www.google.com/chrome/">Google Chrome</a> to play.</p>
+          </canvas>
+        </div>
+        <div id="end" class="end">
+          <h1 name="end message">Norbit Runner </h1>
+          <button href="#" name="button replay" class="button">Retry </button>
+        </div>
         <!--Scripts. Do Not Touch Below.-->
         <script type="module"  src="dist\engine.js" ></script>
     </body>

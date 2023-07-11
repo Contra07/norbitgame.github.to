@@ -2,6 +2,10 @@ import { KeyManager } from "./classes/managers/keys.js"
 import { RenderManager } from "./classes/managers/render.js"
 import { GameManager } from "./classes/game.js"
 
+//window.OnLoad
+//window.onresize
+//resourcesToLoad--;
+//    if (resourcesToLoad == 0) {
 
 //TODO: Singleton game
 

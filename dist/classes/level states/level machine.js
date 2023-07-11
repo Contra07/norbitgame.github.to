@@ -20,6 +20,7 @@ export class LevelMachine extends GameObject {
         this._levels.set(++this._maxLevelNumber, level);
         if (!this._currentLevel) {
             this._currentLevel = this._levels.get(this._maxLevelNumber);
+            this._currentLevelNumber = 1;
         }
     }
     next() {

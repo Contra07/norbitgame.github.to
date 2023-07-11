@@ -2,12 +2,13 @@ import { keys, render } from "../../engine.js"
 import { Floor } from "../game objects/floor.js"
 import { FlyingObjects } from "../game objects/flying objects.js"
 import { Player } from "../game objects/player.js"
-import { State } from "../state machine/state.js"
-import { StateMachine } from "../state machine/machine.js"
+import { State } from "../state machine/game state.js"
+import { StateMachine } from "../state machine/game machine.js"
 import { BackgroundLayer} from "../game objects/background layer.js"
 import { Level } from "../level states/level.js"
 import { Sprite } from "../core/sprite.js"
 import { LevelMachine } from "../level states/level machine.js"
+import { DOManager } from "../managers/dom.js"
 
 export class PlayState extends State{
 
@@ -42,8 +43,28 @@ export class PlayState extends State{
     private _coinCounter!: number
     private _lifesCounter!: number
 
+    //Меню
+    private play: HTMLElement
+
+    private asd = true
+
+
     constructor(states: StateMachine){
         super(states)
+        this.play = <HTMLElement>document.getElementById('play')
+    }
+
+    
+    private pause(): void{
+        this._pause = true
+    }
+
+    private resume(): void{
+        this._pause = false
+    }
+
+    public exit(): void {
+        DOManager.hide(this.play)
     }
 
     enter(): void {
@@ -70,7 +91,7 @@ export class PlayState extends State{
         this._levels.add(
             new Level(
                 this._levels,
-                10,
+                5,
                 this._gamespeed,
                 new FlyingObjects(
                     false,
@@ -105,7 +126,7 @@ export class PlayState extends State{
         this._levels.add(
             new Level(
                 this._levels,
-                15,
+                5,
                 this._gamespeed,
                 new FlyingObjects(
                     false,
@@ -140,7 +161,7 @@ export class PlayState extends State{
         this._levels.add(
             new Level(
                 this._levels,
-                20,
+                5,
                 this._gamespeed,
                 new FlyingObjects(
                     false,
@@ -172,9 +193,11 @@ export class PlayState extends State{
                 ]
             )
         )
+        DOManager.show(this.play)
     }
 
     update(dt: number): void {
+
         if(keys.wasPressed("Escape")){
             this._pause = !this._pause 
         }
@@ -190,6 +213,8 @@ export class PlayState extends State{
                     this._states.change("end", {coins: this._coinCounter, win: false})
                 }
                 else{
+                    this.pause()
+
                     this._levels.next()
                 }
             }
