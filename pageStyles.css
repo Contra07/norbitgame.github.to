@@ -8,7 +8,7 @@
     --blackColor: #000;
     --whiteColor: #F8F8F8;
     --sectionHeight: 100vh;
-    --catHeight: calc(var(--sectionHeight) - 70px);
+    --catHeight: calc(var(--sectionHeight) - 95px);
 }
 
 @font-face {
@@ -173,7 +173,6 @@ input[type=date] {
 
 .welcome-content {
     justify-content: center;
-    gap: 5%;
     width: 100%;
     color: var(--darkColor);
     text-align: left;
@@ -185,18 +184,23 @@ input[type=date] {
     align-items: center;
     width: 100%;
     height: var(--catHeight);
-    background: url(img/cat.png) no-repeat right;
-    background-size: calc(var(--catHeight) - 100px) auto;
-    z-index: 0;
+    background: url(img/cat.png) no-repeat right bottom;
+    background-size: calc(var(--catHeight) - 7%);
 }
 
-@media (max-width:1300px) {
+.welcome-cat .btn-custom {
+    align-self: flex-end;
+    position: absolute;
+    z-index: 100;
+}
+
+@media (max-width:1100px) {
     .gradient-section {
         padding-left: 1.5%;
     }
 
     .welcome-content {
-        gap: 1.5%;
+        gap: 10px;
     }
 
     .welcome-content {
@@ -206,33 +210,22 @@ input[type=date] {
 
     .welcome-cat {
         justify-content: center;
-        z-index: 4;
+        background: url(img/cat.png) no-repeat center;
+        background-size: calc(var(--catHeight) - 15%);
     }
 
     .welcome-cat .btn-custom {
-        align-self: center;
-        margin-top: 40%;
+        left: 35%;
+        bottom: 50px;
     }
 }
 
-@media (min-width:1300px) {
+@media (min-width:1100px) {
     .welcome-cat .btn-custom {
-        margin-left: 20%;
-        align-self: flex-end;
+        left: 40%;
+        bottom: 20;
     }
 }
-
-/* .welcome-cat::before {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: 0px;
-    background: url(img/cat.png) no-repeat;
-    width: 100%;
-    height: calc(var(--sectionHeight) - 100px);
-    background-size: calc(var(--sectionHeight) - 100px) 100%;
-    z-index: 0;
-} */
 
 .about-us-section {
     background: #E6E6E6;
@@ -307,6 +300,7 @@ input[type=date] {
 .activities {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     gap: 20px;
     padding-top: 2%;
 }
@@ -315,17 +309,14 @@ input[type=date] {
     .activities {
         flex-direction: column;
         flex-wrap: wrap;
-        align-items: center;
-    }
-
-    .activity {
-        margin: 2%;
+        justify-content: center;
     }
 }
 
 .activity {
     display: flex;
     width: 450px;
+    height: 470px;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
@@ -356,7 +347,8 @@ input[type=date] {
 
 @media (max-width: 500px) {
     .activity {
-        max-width: 400px;
+        max-width: 300px;
+        max-height: 240px;
         font-size: 14px;
     }
 
@@ -374,5 +366,17 @@ input[type=date] {
     .activity:nth-child(3)>img {
         width: 154px;
         height: 159px;
+    }
+
+    .welcome-cat{
+        position: static;
+        background-size: calc(var(--catHeight) - 10%);
+        top: 0;
+    }
+
+    .welcome-cat .btn-custom {
+        font-size: 16px;
+        bottom: 0;
+        left: 15%;
     }
 }
