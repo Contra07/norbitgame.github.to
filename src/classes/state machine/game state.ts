@@ -1,13 +1,15 @@
-import { StateMachine } from "./game machine.js"
+import { GameObject } from "../core/game object.js"
+import { StateMachine as GameMachine } from "./game machine.js"
 
-export class State{
+export class GameState extends GameObject{
 
-    protected _states: StateMachine
+    protected _states: GameMachine
 
-    constructor(states: StateMachine){
+    constructor(states: GameMachine){
+        super()
         this._states = states
     }
-
+  
     public enter(params: any): void { }
 
     public exit(): void { }
