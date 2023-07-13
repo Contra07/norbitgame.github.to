@@ -11,7 +11,7 @@ let VIRTUAL_WIDTH = 600;
 //Высота игрового мира
 let VIRTUAL_HEIGHT = 600;
 //Размер холста в пикселях
-let WINDOW_HEIGHT = 450;
+let WINDOW_HEIGHT = 600;
 let WINDOW_WIDTH = 600;
 //Время прошлого кадра
 let thenTime = 0;
@@ -19,7 +19,7 @@ export let render;
 export let keys;
 export let game;
 //Инициализация
-export function init() {
+function init() {
     render = new RenderManager(document.getElementById('mycanvas'), VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
     keys = new KeyManager();
     game = new GameManager();

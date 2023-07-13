@@ -14,7 +14,7 @@ let VIRTUAL_WIDTH: number = 600
 //Высота игрового мира
 let VIRTUAL_HEIGHT: number = 600
 //Размер холста в пикселях
-let WINDOW_HEIGHT: number = 450
+let WINDOW_HEIGHT: number =  600
 
 let WINDOW_WIDTH: number = 600
 //Время прошлого кадра
@@ -41,7 +41,7 @@ function init(): void {
 }
 
 //Игрвой цикл
-function gameloop(timeStamp: number) {
+function gameloop(timeStamp: number):void {
     render.clear()
     game.update(getDeltaTime(timeStamp))
     game.draw()

@@ -1,9 +1,9 @@
 import { StateMachine } from "../state machine/game machine.js";
-import { State } from "../state machine/game state.js";
+import { GameState } from "../state machine/game state.js";
 import { keys, render } from "../../engine.js";
 import { DOManager } from "../managers/dom.js";
 
-export class TitleState extends State{
+export class TitleState extends GameState{
     private menu: HTMLElement
     private welcome: string = "Добро пожаловать в игру! Нажмите Enter"
 

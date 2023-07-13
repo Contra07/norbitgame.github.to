@@ -1,9 +1,9 @@
 import { keys, render } from "../../engine.js";
-import { State } from "../state machine/game state.js";
+import { GameState } from "../state machine/game state.js";
 import { StateMachine } from "../state machine/game machine.js";
 import { DOManager } from "../managers/dom.js";
 
-export class EndState extends State{
+export class EndState extends GameState{
     private end: HTMLElement
     private win: string = "Вы выйграли!"
     private lose: string = "Вы проиграли!"

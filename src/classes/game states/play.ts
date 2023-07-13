@@ -2,7 +2,7 @@ import { keys, render } from "../../engine.js"
 import { Floor } from "../game objects/floor.js"
 import { FlyingObjects } from "../game objects/flying objects.js"
 import { Player } from "../game objects/player.js"
-import { State } from "../state machine/game state.js"
+import { GameState } from "../state machine/game state.js"
 import { StateMachine } from "../state machine/game machine.js"
 import { BackgroundLayer} from "../game objects/background layer.js"
 import { Level } from "../level states/level.js"
@@ -10,7 +10,7 @@ import { Sprite } from "../core/sprite.js"
 import { LevelMachine } from "../level states/level machine.js"
 import { DOManager } from "../managers/dom.js"
 
-export class PlayState extends State{
+export class PlayState extends GameState{
 
     //Типа константы
     private _gravity:number = -3000
@@ -45,8 +45,6 @@ export class PlayState extends State{
 
     //Меню
     private play: HTMLElement
-
-    private asd = true
 
 
     constructor(states: StateMachine){
