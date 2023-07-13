@@ -45,10 +45,9 @@ label {
     font-family: 'YuGothM';
 }
 
-input,
-select,
+.form-control,
+.form-select, 
 textarea {
-    border: 1px solid var(--grayColor);
     border-radius: 20px;
     background: var(--whiteColor);
     width: 100%;
@@ -64,7 +63,6 @@ select {
 input::placeholder,
 select {
     font-family: 'YuGothM';
-    padding: 10px;
     box-sizing: border-box;
 }
 
@@ -119,6 +117,12 @@ input[type=date] {
     margin-top: 40px;
 }
 
+@media (max-width:1200px) {
+    .dates-block select {
+        margin-top: 15px;
+    }
+}
+
 .dates {
     gap: 100px;
 }
@@ -127,25 +131,31 @@ input[type=date] {
     padding-left: 0;
 }
 
+.modal-title {
+    font-weight: normal;
+}
+
 .btn-custom {
-    max-width: 500px;
-    min-width: 200px;
-    padding: 10px 70px;
     background: var(--whiteColor);
-    border-radius: 50px;
-    border-color: transparent;
-    font-family: 'YuGothM';
-    font-weight: bolder;
-    font-size: 20px;
     color: var(--darkColor);
-    transition: 0.5s;
-    position: relative;
     z-index: 5;
 }
 
 .btn-custom:hover {
     background: var(--orangeColor);
     color: var(--whiteColor);
+}
+
+.btn-custom,
+form .btn-orange{
+    max-width: 500px;
+    padding: 10px 70px;
+    border-radius: 50px;
+    border-color: transparent;
+    font-family: 'YuGothM';
+    font-weight: bolder;
+    font-size: 20px;
+    transition: 0.5s;
 }
 
 .btn-orange {
@@ -155,8 +165,11 @@ input[type=date] {
     padding: 7px 30px;
     font-family: 'YuGothM';
     font-weight: bolder;
-    margin: auto;
     transition: 0.5s;
+}
+
+form .btn-orange:hover{
+    border: 1px solid var(--blackColor);
 }
 
 .btn-orange:hover {
@@ -167,6 +180,10 @@ input[type=date] {
 .gradient-section {
     background: var(--gradientColor);
     height: var(--sectionHeight);
+}
+
+.gradient-section .navbar,
+.welcome-content .welcome-text {
     padding-left: 5%;
 }
 
@@ -214,7 +231,6 @@ input[type=date] {
     }
 
     .welcome-cat .btn-custom {
-        left: 35%;
         bottom: 50px;
     }
 }
@@ -222,7 +238,7 @@ input[type=date] {
 @media (min-width:1100px) {
     .welcome-cat .btn-custom {
         left: 40%;
-        bottom: 20;
+        bottom: 20px;
     }
 }
 
@@ -363,19 +379,27 @@ input[type=date] {
         height: 159px;
     }
 
-    .welcome-cat{
-        position: static;
+    .welcome-cat {
         background-size: calc(var(--catHeight) - 10%);
         top: 0;
     }
 
     .welcome-cat .btn-custom {
-        font-size: 16px;
-        bottom: 0;
-        left: 15%;
+        font-size: 12px;
+        bottom: 10px;
+        padding: 7px 30px;
+    }
+}
+
+
+@media (max-width: 360px) {
+    .notebook-image {
+        background: url(img/mac.svg) no-repeat center;
+        background-size: contain;
     }
 
-    .notebook-content {
-        padding-top: 30%;
+    .notebook-image .btn-custom {
+        font-size: 12px;
+        padding: 7px 30px;
     }
 }

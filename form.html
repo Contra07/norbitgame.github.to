@@ -17,15 +17,17 @@
             Мы проводим практику в формате инкубатора идей: помогаем собрать команду и направить ее к успеху. Если нет
             своей идеи, поможем найти или дадим точечное задание. <br>
         </p>
-        <form class="container needs-validation" novalidate>
+        <form class="container" id="questionnaire">
             <h3>Имя и контакты</h3>
             <div class="d-flex justify-content-between flex-wrap">
-                <input type="text" id="validationCustom01" required placeholder="Ваши фамилия и имя">
-                <input type="tel" placeholder="Ваш номер телефона">
+                <input type="text" name="name" class="form-control" id="validationDefault01" required
+                    placeholder="Ваши фамилия и имя">
+                <input type="tel" name="phone" class="form-control" id="validationDefault02" required
+                    placeholder="Ваш номер телефона">
             </div>
             <h3>Образование</h3>
             <div class="d-flex justify-content-between flex-wrap">
-                <select>
+                <select class="form-select" id="validationDefault03" required>
                     <option value="disabled">Ваше учебное заведение</option>
                     <option value="Самарский университет">Самарский университет</option>
                     <option value="СамГТУ">СамГТУ</option>
@@ -34,7 +36,7 @@
                     <option value="СГЭУ">СГЭУ</option>
                     <option value="Другой">Другой</option>
                 </select>
-                <select>
+                <select class="form-select" id="validationDefault04" required>
                     <option value="disabled">Ваша специализация</option>
                     <option value="Аналитик">Аналитик</option>
                     <option value="Программист">Программист</option>
@@ -42,7 +44,7 @@
                 </select>
             </div>
             <div class="d-flex justify-content-between flex-wrap">
-                <select>
+                <select class="form-select" id="validationDefault05" required>
                     <option value="disabled">Ваша ступень образования</option>
                     <option value="СПО">СПО</option>
                     <option value="Бакалавриат">Бакалавриат</option>
@@ -50,10 +52,10 @@
                     <option value="Специалитет">Специалитет</option>
                     <option value="Аспирантура">Аспирантура</option>
                 </select>
-                <select>
+                <select class="form-select" id="validationDefault06" required>
                     <option value="disabled">Курс обучения</option>
                     <option value="1">1</option>
-                    <option value="2">3</option>
+                    <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
@@ -63,7 +65,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="dates-block">
                     <label>Сколько времени вы готовы посвятить практике?</label>
-                    <select>
+                    <select class="form-select" id="validationDefault07" required>
                         <option value="disabled">Выберите кол-во часов в день</option>
                         <option value="2">2 часа в день</option>
                         <option value="3">3 часа в день</option>
@@ -76,19 +78,23 @@
                         <small class="gray-text">Может не совпадать официальными сроками</small>
                     </label>
                     <div class="dates d-flex flex-row justify-content-between">
-                        <input class="start-date" type="date">
-                        <input class="expiration-date" type="date">
+                        <input class="form-control" type="date" id="validationDefault08" required>
+                        <input class="form-control" type="date" id="validationDefault09" required>
                     </div>
                 </div>
             </div>
-            <label for="">Перечислите ваши пет-проекты, если были</label>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <label for="">Есть своя идея, которую хочется реализовать, но нет команды\наставника?</label>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <label for="">Какие у вас сильные навыки\стек\знания?</label>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <label>Перечислите ваши пет-проекты, если были</label>
+            <textarea class="form-control" cols="30" rows="10"></textarea>
+            <label>Есть своя идея, которую хочется реализовать, но нет команды\наставника?</label>
+            <textarea class="form-control" cols="30" rows="10"></textarea>
+            <label>Какие у вас сильные навыки\стек\знания?</label>
+            <textarea class="form-control" cols="30" rows="10"></textarea>
+            <div class="d-flex justify-content-center gap-3 mb-3">
+                <button class="btn btn-orange" type="submit">Проверить</button>
+                <button class="btn btn-custom" data-bs-toggle="modal" type="reset"
+                    data-bs-target="#thanksModal">Отправить</button>
+            </div>
         </form>
-        <button class="d-block mx-auto btn-custom" data-bs-toggle="modal" type="submit" data-bs-target="#thanksModal">Отправить</button>
         <!-- ThanksModal -->
         <div class="modal fade" id="thanksModal" tabindex="-1" aria-bs-labelledby="thanksModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -101,7 +107,7 @@
                         <h3>Спасибо!</h3>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-orange" href="index.html" role="button">На главную</a>
+                        <a class="btn btn-orange mx-auto" href="index.html" role="button">На главную</a>
                     </div>
                 </div>
             </div>
