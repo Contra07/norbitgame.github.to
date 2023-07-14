@@ -11,7 +11,7 @@ let VIRTUAL_WIDTH = 600;
 //Высота игрового мира
 let VIRTUAL_HEIGHT = 600;
 //Размер холста в пикселях
-let WINDOW_HEIGHT = 600;
+let WINDOW_HEIGHT = 400;
 let WINDOW_WIDTH = 600;
 //Время прошлого кадра
 let thenTime = 0;

@@ -2,13 +2,13 @@ import { keys, render } from "../../engine.js";
 import { Floor } from "../game objects/floor.js";
 import { FlyingObjects } from "../game objects/flying objects.js";
 import { Player } from "../game objects/player.js";
-import { State } from "../state machine/game state.js";
+import { GameState } from "../state machine/game state.js";
 import { BackgroundLayer } from "../game objects/background layer.js";
 import { Level } from "../level states/level.js";
 import { Sprite } from "../core/sprite.js";
 import { LevelMachine } from "../level states/level machine.js";
 import { DOManager } from "../managers/dom.js";
-export class PlayState extends State {
+export class PlayState extends GameState {
     //Типа константы
     _gravity = -3000;
     _gamespeed = 800;
@@ -36,7 +36,6 @@ export class PlayState extends State {
     _lifesCounter;
     //Меню
     play;
-    asd = true;
     constructor(states) {
         super(states);
         this.play = document.getElementById('play');
@@ -58,18 +57,21 @@ export class PlayState extends State {
         this._lifesCounter = 3;
         this._levels = new LevelMachine();
         this._levels.add(new Level(this._levels, 5, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._width, this._obstacleHitboxH * 1.2, this._obstacleHitboxW, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)"), new FlyingObjects(false, this._spawntime, -this._width, this._obstacleHitboxH, this._obstacleHitboxW, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)"), [
+            new BackgroundLayer(new Sprite("./dist/resurses/Road.png"), 0, 0, -this._gamespeed / 2),
             new BackgroundLayer(new Sprite("./dist/resurses/1.png"), 0, this._startPossitionY, -this._gamespeed / 4),
             new BackgroundLayer(new Sprite("./dist/resurses/empty.png"), 0, this._startPossitionY, -this._gamespeed / 6),
             new BackgroundLayer(new Sprite("./dist/resurses/empty.png"), 0, this._startPossitionY, -this._gamespeed / 8),
             new BackgroundLayer(new Sprite("./dist/resurses/4.png"), 0, this._startPossitionY, 0)
         ]));
         this._levels.add(new Level(this._levels, 5, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._width, this._obstacleHitboxH * 1.2, this._obstacleHitboxW, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)"), new FlyingObjects(false, this._spawntime, -this._width, this._obstacleHitboxH * 1.4, this._obstacleHitboxW / 1.4, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)"), [
+            new BackgroundLayer(new Sprite("./dist/resurses/Road.png"), 0, 0, -1.2 * this._gamespeed / 2),
             new BackgroundLayer(new Sprite("./dist/resurses/1.png"), 0, this._startPossitionY, -1.2 * this._gamespeed / 4),
             new BackgroundLayer(new Sprite("./dist/resurses/2.png"), 0, this._startPossitionY, -1.2 * this._gamespeed / 6),
             new BackgroundLayer(new Sprite("./dist/resurses/empty.png"), 0, this._startPossitionY, -1.2 * this._gamespeed / 8),
             new BackgroundLayer(new Sprite("./dist/resurses/4.png"), 0, this._startPossitionY, 0)
         ]));
         this._levels.add(new Level(this._levels, 5, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._width, this._obstacleHitboxH * 1.2, this._obstacleHitboxW, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)"), new FlyingObjects(false, this._spawntime, -this._width, this._obstacleHitboxH / 1.4, this._obstacleHitboxW * 1.4, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)"), [
+            new BackgroundLayer(new Sprite("./dist/resurses/Road.png"), 0, 0, -1.4 * this._gamespeed / 2),
             new BackgroundLayer(new Sprite("./dist/resurses/1.png"), 0, this._startPossitionY, -1.4 * this._gamespeed / 4),
             new BackgroundLayer(new Sprite("./dist/resurses/2.png"), 0, this._startPossitionY, -1.4 * this._gamespeed / 6),
             new BackgroundLayer(new Sprite("./dist/resurses/3.png"), 0, this._startPossitionY, -1.4 * this._gamespeed / 8),

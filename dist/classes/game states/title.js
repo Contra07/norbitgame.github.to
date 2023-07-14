@@ -1,6 +1,6 @@
-import { State } from "../state machine/game state.js";
+import { GameState } from "../state machine/game state.js";
 import { DOManager } from "../managers/dom.js";
-export class TitleState extends State {
+export class TitleState extends GameState {
     menu;
     welcome = "Добро пожаловать в игру! Нажмите Enter";
     constructor(states) {

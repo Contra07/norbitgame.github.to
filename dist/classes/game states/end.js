@@ -1,6 +1,6 @@
-import { State } from "../state machine/game state.js";
+import { GameState } from "../state machine/game state.js";
 import { DOManager } from "../managers/dom.js";
-export class EndState extends State {
+export class EndState extends GameState {
     end;
     win = "Вы выйграли!";
     lose = "Вы проиграли!";
