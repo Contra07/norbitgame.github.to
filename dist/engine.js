@@ -31,7 +31,7 @@ function init() {
     window.addEventListener("mousedown", mouseDown, true);
     window.addEventListener("resize", resize, true);
     resourses = new ResourcesManager([
-        "road",
+        "floor",
         "player run 1",
         "player run 2",
         "player run 3",

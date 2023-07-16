@@ -124,7 +124,7 @@ export class PlayState extends GameState{
                 ),
                 [
                     new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -this._gamespeed/32),
-                    new BackgroundLayer(resourses.getSprite("road"),0,0, -this._gamespeed/2),
+                    new BackgroundLayer(resourses.getSprite("floor"),0,0, -this._gamespeed/2),
                     new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -this._gamespeed/4),
                     new BackgroundLayer(resourses.getSprite("empty"),0,this._startPossitionY,-this._gamespeed/6),
                     new BackgroundLayer(resourses.getSprite("empty"),0,this._startPossitionY,-this._gamespeed/8),
@@ -163,7 +163,7 @@ export class PlayState extends GameState{
                 ),
                 [
                     new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.2*this._gamespeed/32),
-                    new BackgroundLayer(resourses.getSprite("road"),0,0, -1.2*this._gamespeed/2),
+                    new BackgroundLayer(resourses.getSprite("floor"),0,0, -1.2*this._gamespeed/2),
                     new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -1.2*this._gamespeed/4),
                     new BackgroundLayer(resourses.getSprite("bglayer2"),0,this._startPossitionY,-1.2*this._gamespeed/6),
                     new BackgroundLayer(resourses.getSprite("empty"),0,this._startPossitionY,-1.2*this._gamespeed/8),
@@ -202,7 +202,7 @@ export class PlayState extends GameState{
                 ),
                 [
                     new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.4*this._gamespeed/32),
-                    new BackgroundLayer(resourses.getSprite("road"),0,0, -1.4*this._gamespeed/2),
+                    new BackgroundLayer(resourses.getSprite("floor"),0,0, -1.4*this._gamespeed/2),
                     new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -1.4*this._gamespeed/4),
                     new BackgroundLayer(resourses.getSprite("bglayer2"),0,this._startPossitionY,-1.4*this._gamespeed/6),
                     new BackgroundLayer(resourses.getSprite("bglayer3"),0,this._startPossitionY,-1.4*this._gamespeed/8),

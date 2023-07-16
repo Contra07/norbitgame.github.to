@@ -62,7 +62,7 @@ export class PlayState extends GameState {
         this._levels = new LevelMachine();
         this._levels.add(new Level(this._levels, 5, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._gamespeed * 0.8, this._obstacleHitboxH * 1.5, this._obstacleHitboxW * 1.5, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)", resourses.getSprite("coin")), new FlyingObjects(false, this._spawntime, -this._gamespeed * 0.8, this._obstacleHitboxH, this._obstacleHitboxW, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)", resourses.getSprite("enemy")), [
             new BackgroundLayer(resourses.getSprite("clouds"), 0, render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -this._gamespeed / 32),
-            new BackgroundLayer(resourses.getSprite("road"), 0, 0, -this._gamespeed / 2),
+            new BackgroundLayer(resourses.getSprite("floor"), 0, 0, -this._gamespeed / 2),
             new BackgroundLayer(resourses.getSprite("bglayer1"), 0, this._startPossitionY, -this._gamespeed / 4),
             new BackgroundLayer(resourses.getSprite("empty"), 0, this._startPossitionY, -this._gamespeed / 6),
             new BackgroundLayer(resourses.getSprite("empty"), 0, this._startPossitionY, -this._gamespeed / 8),
@@ -70,7 +70,7 @@ export class PlayState extends GameState {
         ]));
         this._levels.add(new Level(this._levels, 5, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._gamespeed * 0.8, this._obstacleHitboxH * 1.5, this._obstacleHitboxW * 1.5, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)", resourses.getSprite("coin")), new FlyingObjects(false, this._spawntime, -this._gamespeed * 0.8, this._obstacleHitboxH * 1.4, this._obstacleHitboxW / 1.4, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)", resourses.getSprite("enemy")), [
             new BackgroundLayer(resourses.getSprite("clouds"), 0, render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.2 * this._gamespeed / 32),
-            new BackgroundLayer(resourses.getSprite("road"), 0, 0, -1.2 * this._gamespeed / 2),
+            new BackgroundLayer(resourses.getSprite("floor"), 0, 0, -1.2 * this._gamespeed / 2),
             new BackgroundLayer(resourses.getSprite("bglayer1"), 0, this._startPossitionY, -1.2 * this._gamespeed / 4),
             new BackgroundLayer(resourses.getSprite("bglayer2"), 0, this._startPossitionY, -1.2 * this._gamespeed / 6),
             new BackgroundLayer(resourses.getSprite("empty"), 0, this._startPossitionY, -1.2 * this._gamespeed / 8),
@@ -78,7 +78,7 @@ export class PlayState extends GameState {
         ]));
         this._levels.add(new Level(this._levels, 25, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._gamespeed * 0.8, this._obstacleHitboxH * 1.5, this._obstacleHitboxW * 1.5, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)", resourses.getSprite("coin")), new FlyingObjects(false, this._spawntime, -this._gamespeed * 0.8, this._obstacleHitboxH / 1.4, this._obstacleHitboxW * 1.4, 2, this._startPossitionY, this._player.hitboxHeight, "rgba(0,0,255,0.5)", resourses.getSprite("enemy")), [
             new BackgroundLayer(resourses.getSprite("clouds"), 0, render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.4 * this._gamespeed / 32),
-            new BackgroundLayer(resourses.getSprite("road"), 0, 0, -1.4 * this._gamespeed / 2),
+            new BackgroundLayer(resourses.getSprite("floor"), 0, 0, -1.4 * this._gamespeed / 2),
             new BackgroundLayer(resourses.getSprite("bglayer1"), 0, this._startPossitionY, -1.4 * this._gamespeed / 4),
             new BackgroundLayer(resourses.getSprite("bglayer2"), 0, this._startPossitionY, -1.4 * this._gamespeed / 6),
             new BackgroundLayer(resourses.getSprite("bglayer3"), 0, this._startPossitionY, -1.4 * this._gamespeed / 8),
