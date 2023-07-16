@@ -1,18 +1,14 @@
-import { render } from "../../engine.js"
-import { Actor } from "./actor.js"
-
 export class Sprite {
     private _image: HTMLImageElement
-    private _source: string
     private _width: number
     private _height: number
+    private _source: string
 
     constructor(source: string) {
-        this._image = <HTMLImageElement>new Image()
-        this._image.src = source
-        this._source = this._image.src
-        this._width = this._image.width
-        this._height = this._image.height
+        this._image = new Image()
+        this._source = source
+        this._width = -1
+        this._height = -1
     }
 
     public get image(): HTMLImageElement {
@@ -25,5 +21,17 @@ export class Sprite {
 
     public get height(): number {
         return this._height
+    }
+
+    public get source(): string{
+        return this._image.src
+    }
+
+    public load(): void{
+        this.image.onload = () =>{
+            this._width = this._image.width
+            this._height = this._image.height
+        }
+        this._image.src = this._source
     }
 }

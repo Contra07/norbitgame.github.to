@@ -1,4 +1,4 @@
-import { keys, render } from "../../engine.js"
+import { keys, render, resourses } from "../../engine.js"
 import { Floor } from "../game objects/floor.js"
 import { FlyingObjects } from "../game objects/flying objects.js"
 import { Player } from "../game objects/player.js"
@@ -114,11 +114,11 @@ export class PlayState extends GameState{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundLayer(new Sprite("./dist/resurses/Road.png"),0,0, -this._gamespeed/2),
-                    new BackgroundLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -this._gamespeed/4),
-                    new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-this._gamespeed/6),
-                    new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-this._gamespeed/8),
-                    new BackgroundLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
+                    new BackgroundLayer(resourses.getSprite("road"),0,0, -this._gamespeed/2),
+                    new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -this._gamespeed/4),
+                    new BackgroundLayer(resourses.getSprite("empty"),0,this._startPossitionY,-this._gamespeed/6),
+                    new BackgroundLayer(resourses.getSprite("empty"),0,this._startPossitionY,-this._gamespeed/8),
+                    new BackgroundLayer(resourses.getSprite("bglayer4"),0,this._startPossitionY,0)
                 ]
             )
         )
@@ -150,11 +150,11 @@ export class PlayState extends GameState{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundLayer(new Sprite("./dist/resurses/Road.png"),0,0, -1.2*this._gamespeed/2),
-                    new BackgroundLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -1.2*this._gamespeed/4),
-                    new BackgroundLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-1.2*this._gamespeed/6),
-                    new BackgroundLayer(new Sprite("./dist/resurses/empty.png"),0,this._startPossitionY,-1.2*this._gamespeed/8),
-                    new BackgroundLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
+                    new BackgroundLayer(resourses.getSprite("road"),0,0, -1.2*this._gamespeed/2),
+                    new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -1.2*this._gamespeed/4),
+                    new BackgroundLayer(resourses.getSprite("bglayer2"),0,this._startPossitionY,-1.2*this._gamespeed/6),
+                    new BackgroundLayer(resourses.getSprite("empty"),0,this._startPossitionY,-1.2*this._gamespeed/8),
+                    new BackgroundLayer(resourses.getSprite("bglayer4"),0,this._startPossitionY,0)
                 ]
             )
         )
@@ -186,11 +186,11 @@ export class PlayState extends GameState{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
-                    new BackgroundLayer(new Sprite("./dist/resurses/Road.png"),0,0, -1.4*this._gamespeed/2),
-                    new BackgroundLayer(new Sprite("./dist/resurses/1.png"),0,this._startPossitionY, -1.4*this._gamespeed/4),
-                    new BackgroundLayer(new Sprite("./dist/resurses/2.png"),0,this._startPossitionY,-1.4*this._gamespeed/6),
-                    new BackgroundLayer(new Sprite("./dist/resurses/3.png"),0,this._startPossitionY,-1.4*this._gamespeed/8),
-                    new BackgroundLayer(new Sprite("./dist/resurses/4.png"),0,this._startPossitionY,0)
+                    new BackgroundLayer(resourses.getSprite("road"),0,0, -1.4*this._gamespeed/2),
+                    new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -1.4*this._gamespeed/4),
+                    new BackgroundLayer(resourses.getSprite("bglayer2"),0,this._startPossitionY,-1.4*this._gamespeed/6),
+                    new BackgroundLayer(resourses.getSprite("bglayer3"),0,this._startPossitionY,-1.4*this._gamespeed/8),
+                    new BackgroundLayer(resourses.getSprite("bglayer4"),0,this._startPossitionY,0)
                 ]
             )
         )

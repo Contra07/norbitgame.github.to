@@ -1,4 +1,4 @@
-import { render } from "../../engine.js";
+import { render, resourses } from "../../engine.js";
 import { Actor } from "../core/actor.js";
 import { Sprite } from "../core/sprite.js";
 
@@ -6,7 +6,7 @@ export class Floor extends Actor{
 
     constructor(h: number, color: string){
         super(0,0,h,render.VIRTUAL_WIDTH, color )
-        this._sprite = new Sprite("./dist/resurses/Road.png")
+        this._sprite = resourses.getSprite("road")
     }
 
     public draw(): void {

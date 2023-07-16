@@ -1,6 +1,7 @@
 import { KeyManager } from "./classes/managers/keys.js"
 import { RenderManager } from "./classes/managers/render.js"
 import { GameManager } from "./classes/game.js"
+import { ResourcesManager } from "./classes/managers/resources.js"
 
 //window.OnLoad
 //window.onresize
@@ -23,6 +24,7 @@ let thenTime: number = 0
 export let render: RenderManager 
 export let keys: KeyManager 
 export let game: GameManager 
+export let resourses: ResourcesManager
 
 //Инициализация
 function init(): void {
@@ -37,8 +39,21 @@ function init(): void {
     game = new GameManager()
     game.init()
     window.addEventListener("keydown", keyDown, true);
+    resourses = new ResourcesManager(
+        [
+            "road",
+            "road",
+            "bglayer1",
+            "bglayer2",
+            "bglayer3",
+            "bglayer4",
+            "player",
+            "empty",
+        ]
+    )
     requestAnimationFrame(gameloop);
 }
+
 
 //Игрвой цикл
 function gameloop(timeStamp: number):void {

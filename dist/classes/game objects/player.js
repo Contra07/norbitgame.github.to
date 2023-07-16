@@ -1,6 +1,5 @@
-import { keys, render } from "../../engine.js";
+import { keys, render, resourses } from "../../engine.js";
 import { Actor } from "../core/actor.js";
-import { Sprite } from "../core/sprite.js";
 export class Player extends Actor {
     //Атрибуты
     _gravity;
@@ -17,7 +16,7 @@ export class Player extends Actor {
         this._jumpSpeed = Math.sqrt(2 * jumpHeight * gravity * (-1));
         this._isDoubleJump = false;
         this._isInvincible = false;
-        this._sprite = new Sprite("./dist/resurses/player.png");
+        this._sprite = resourses.getSprite("player");
         this.hitboxWidht = this._sprite.width;
         this.hitboxHeight = this.hitboxWidht * (this._sprite.height / this._sprite.width);
     }

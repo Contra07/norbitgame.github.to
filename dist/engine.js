@@ -1,6 +1,7 @@
 import { KeyManager } from "./classes/managers/keys.js";
 import { RenderManager } from "./classes/managers/render.js";
 import { GameManager } from "./classes/game.js";
+import { ResourcesManager } from "./classes/managers/resources.js";
 //window.OnLoad
 //window.onresize
 //resourcesToLoad--;
@@ -18,6 +19,7 @@ let thenTime = 0;
 export let render;
 export let keys;
 export let game;
+export let resourses;
 //Инициализация
 function init() {
     render = new RenderManager(document.getElementById('mycanvas'), VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -25,6 +27,16 @@ function init() {
     game = new GameManager();
     game.init();
     window.addEventListener("keydown", keyDown, true);
+    resourses = new ResourcesManager([
+        "road",
+        "road",
+        "bglayer1",
+        "bglayer2",
+        "bglayer3",
+        "bglayer4",
+        "player",
+        "empty",
+    ]);
     requestAnimationFrame(gameloop);
 }
 //Игрвой цикл
