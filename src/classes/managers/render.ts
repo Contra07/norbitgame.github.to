@@ -1,3 +1,4 @@
+import { Actor } from "../core/actor"
 import { Sprite } from "../core/sprite"
 
 export class RenderManager {
@@ -32,6 +33,9 @@ export class RenderManager {
         this._ascpectRatio = this._canvas.width / this._canvas.height;
         this._scaleX = this._canvas.width / this._virtualWidth
         this._scaleY = this._canvas.width / this._virtualWidth
+        this._ctx.imageSmoothingEnabled = true
+        this._ctx.imageSmoothingQuality = "low"
+        //this._canvas.ceb
     }
 
     //--------Свойства--------
@@ -131,7 +135,7 @@ export class RenderManager {
     }
 
     //Отрисовка квадрата (с учетом проекции)
-    public drawSquare(x: number, y: number, h: number, w: number, color: string): void {
+    public drawSquare(x: number, y: number, w: number, h: number, color: string): void {
         let tmpColor: string = <string>this._ctx.fillStyle
         this.setColor(color)
         let coords = this.projectCoords(x, y)
@@ -140,21 +144,28 @@ export class RenderManager {
         this.setColor(tmpColor)
     }
 
-    public drawImage(image: HTMLImageElement, x: number, y: number){
-        //let coords = this.projectCoords(x, y)
-        
+    public drawImageOld(image: HTMLImageElement, x: number, y: number){
         this._ctx.drawImage(image, x, this.WINDOW_HEIGHT-y-image.height)
     }
 
-    public drawSprite(sprite: Sprite, x: number, y: number){
+    public drawSpriteOld(sprite: Sprite, x: number, y: number){
         let coords = this.projectCoords(x,y)
         this._ctx.drawImage(sprite.image, coords.x, coords.y-sprite.height)
     }
 
-    public drawPlayerSprite(sprite: Sprite, x: number, y: number, w: number, h: number){
+    public drawSprite(sprite: Sprite, x: number, y: number, w: number, h: number){
         let coords = this.projectCoords(x,y)
         let size = this.projectSize(w, h) 
         this._ctx.drawImage(sprite.image,0, 0, sprite.width, sprite.height, coords.x, coords.y-size.height, size.width, size.height)
+    }
+
+    public drawActor(actor: Actor, debug: boolean = false){
+        if(actor.sprite){
+            this.drawSprite(actor.sprite, actor.x, actor.y, actor.hitboxWidht, actor.hitboxHeight)
+        }
+        if(debug){
+            this.drawSquare(actor.x, actor.y, actor.hitboxWidht, actor.hitboxWidht, actor.hitboxColor)
+        }
     }
 
     //-------Дебаг информация--------

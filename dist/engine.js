@@ -12,8 +12,8 @@ let VIRTUAL_WIDTH = 600;
 //Высота игрового мира
 let VIRTUAL_HEIGHT = 600;
 //Размер холста в пикселях
-let WINDOW_HEIGHT = 400;
-let WINDOW_WIDTH = 600;
+let WINDOW_HEIGHT = window.innerHeight;
+let WINDOW_WIDTH = window.innerWidth / 2;
 //Время прошлого кадра
 let thenTime = 0;
 export let render;
@@ -27,16 +27,21 @@ function init() {
     game = new GameManager();
     game.init();
     window.addEventListener("keydown", keyDown, true);
+    window.addEventListener("touchstart", touchStart, true);
+    window.addEventListener("mousedown", mouseDown, true);
+    window.addEventListener("resize", resize, true);
     resourses = new ResourcesManager([
         "road",
-        "road",
+        "player run 1",
         "bglayer1",
         "bglayer2",
         "bglayer3",
         "bglayer4",
-        "player",
+        "clouds",
         "empty",
+        "coin"
     ]);
+    resize();
     requestAnimationFrame(gameloop);
 }
 //Игрвой цикл
@@ -56,5 +61,25 @@ function getDeltaTime(nowTime) {
 //-----User Inputs-----
 function keyDown(e) {
     keys.press(e.key);
+}
+function touchStart(evt) {
+    keys.press(" ");
+}
+function mouseDown() {
+    keys.press(" ");
+}
+function resize() {
+    let WINDOW_HEIGHT = 0;
+    let WINDOW_WIDTH = 0;
+    if (window.innerHeight <= window.innerWidth) {
+        WINDOW_HEIGHT = window.innerHeight;
+        WINDOW_WIDTH = window.innerHeight;
+    }
+    else {
+        WINDOW_HEIGHT = window.innerHeight;
+        WINDOW_WIDTH = window.innerWidth;
+    }
+    render.WINDOW_HEIGHT = WINDOW_HEIGHT;
+    render.WINDOW_WIDTH = WINDOW_WIDTH;
 }
 init();

@@ -27,6 +27,9 @@ export class RenderManager {
         this._ascpectRatio = this._canvas.width / this._canvas.height;
         this._scaleX = this._canvas.width / this._virtualWidth;
         this._scaleY = this._canvas.width / this._virtualWidth;
+        this._ctx.imageSmoothingEnabled = true;
+        this._ctx.imageSmoothingQuality = "low";
+        //this._canvas.ceb
     }
     //--------Свойства--------
     //Ширина экрана
@@ -108,7 +111,7 @@ export class RenderManager {
         this.setFont(tmpFont);
     }
     //Отрисовка квадрата (с учетом проекции)
-    drawSquare(x, y, h, w, color) {
+    drawSquare(x, y, w, h, color) {
         let tmpColor = this._ctx.fillStyle;
         this.setColor(color);
         let coords = this.projectCoords(x, y);
@@ -116,18 +119,25 @@ export class RenderManager {
         this._ctx.fillRect(coords.x, coords.y - size.height, size.width, size.height);
         this.setColor(tmpColor);
     }
-    drawImage(image, x, y) {
-        //let coords = this.projectCoords(x, y)
+    drawImageOld(image, x, y) {
         this._ctx.drawImage(image, x, this.WINDOW_HEIGHT - y - image.height);
     }
-    drawSprite(sprite, x, y) {
+    drawSpriteOld(sprite, x, y) {
         let coords = this.projectCoords(x, y);
         this._ctx.drawImage(sprite.image, coords.x, coords.y - sprite.height);
     }
-    drawPlayerSprite(sprite, x, y, w, h) {
+    drawSprite(sprite, x, y, w, h) {
         let coords = this.projectCoords(x, y);
         let size = this.projectSize(w, h);
         this._ctx.drawImage(sprite.image, 0, 0, sprite.width, sprite.height, coords.x, coords.y - size.height, size.width, size.height);
+    }
+    drawActor(actor, debug = false) {
+        if (actor.sprite) {
+            this.drawSprite(actor.sprite, actor.x, actor.y, actor.hitboxWidht, actor.hitboxHeight);
+        }
+        if (debug) {
+            this.drawSquare(actor.x, actor.y, actor.hitboxWidht, actor.hitboxWidht, actor.hitboxColor);
+        }
     }
     //-------Дебаг информация--------
     drawRenderDebugText() {

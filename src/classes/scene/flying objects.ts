@@ -1,5 +1,6 @@
 import { Actor } from "../core/actor.js";
 import { GameObject } from "../core/game object.js";
+import { Sprite } from "../core/sprite.js";
 import { FlyingObject } from "./flying object.js";
 
 export class FlyingObjects extends GameObject{
@@ -11,7 +12,7 @@ export class FlyingObjects extends GameObject{
     private _createParams: CreateParams
     private _objectSpeed: number
 
-    constructor(isSpawn: boolean, spawnTime: number, dx: number, h: number, w: number, levelNumber: number, fH: number, pH: number, color: string) {
+    constructor(isSpawn: boolean, spawnTime: number, dx: number, h: number, w: number, levelNumber: number, fH: number, pH: number, color: string, sprite?: Sprite) {
         super()
         this._objects = new Set<FlyingObject>()
         this._timer = 0
@@ -22,7 +23,8 @@ export class FlyingObjects extends GameObject{
             FlyingObjects.randomPositionY(fH, levelNumber, pH,pH*0.2,),
             h,
             w,
-            color
+            color,
+            sprite
         )
         this._createParams = {
             height: h,

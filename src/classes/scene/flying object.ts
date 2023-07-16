@@ -1,12 +1,16 @@
 import { render } from "../../engine.js";
 import { Actor } from "../core/actor.js";
+import { Sprite } from "../core/sprite.js";
 
 export class FlyingObject extends Actor{
     
     private _isDestroy: boolean
 
-    constructor(y: number, h: number, w: number, color: string) {
+    constructor(y: number, h: number, w: number, color: string, sprite?: Sprite) {
         super(render.VIRTUAL_WIDTH,y,h,w,color);
+        if(sprite){
+            this._sprite = sprite
+        }
         this._isDestroy = false
     }
 
@@ -27,7 +31,7 @@ export class FlyingObject extends Actor{
 
     public draw(): void {
         if(!this._isDestroy){
-            this.drawHitbox()
+            this.drawActor(true)
         }
     }
 
@@ -36,7 +40,8 @@ export class FlyingObject extends Actor{
             this.y,
             this.hitboxHeight,
             this.hitboxWidht,
-            this.hitboxColor
+            this.hitboxColor,
+            this._sprite
         )
     }
     

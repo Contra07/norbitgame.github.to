@@ -3,12 +3,14 @@ export class Sprite {
     private _width: number
     private _height: number
     private _source: string
+    private _isLoaded: boolean
 
     constructor(source: string) {
         this._image = new Image()
         this._source = source
         this._width = -1
         this._height = -1
+        this._isLoaded = false
     }
 
     public get image(): HTMLImageElement {
@@ -27,11 +29,19 @@ export class Sprite {
         return this._image.src
     }
 
-    public load(): void{
-        this.image.onload = () =>{
-            this._width = this._image.width
-            this._height = this._image.height
-        }
-        this._image.src = this._source
+    public get isLoaded(): boolean{
+        return this._isLoaded
+    }
+
+    public load(): Promise<void>{
+        return new Promise<void>( resolve => {
+            this._image.onload = () =>{
+                this._width = this._image.width
+                this._height = this._image.height
+                this._isLoaded = true
+                resolve()
+            }
+            this._image.src = this._source
+        })
     }
 }

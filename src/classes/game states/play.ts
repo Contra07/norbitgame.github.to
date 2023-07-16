@@ -1,12 +1,11 @@
 import { keys, render, resourses } from "../../engine.js"
-import { Floor } from "../game objects/floor.js"
-import { FlyingObjects } from "../game objects/flying objects.js"
-import { Player } from "../game objects/player.js"
+import { Floor } from "../scene/floor.js"
+import { FlyingObjects } from "../scene/flying objects.js"
+import { Player } from "../scene/player.js"
 import { GameState } from "../state machine/game state.js"
 import { StateMachine } from "../state machine/game machine.js"
-import { BackgroundLayer} from "../game objects/background layer.js"
+import { BackgroundLayer} from "../scene/background layer.js"
 import { Level } from "../level states/level.js"
-import { Sprite } from "../core/sprite.js"
 import { LevelMachine } from "../level states/level machine.js"
 import { DOManager } from "../managers/dom.js"
 
@@ -74,7 +73,8 @@ export class PlayState extends GameState{
             this._jumpHight,
             this._playerHitboxH,
             this._playerHitboxW,
-            "rgba(255,0,0,0.5)"
+            "rgba(255,0,0,0.5)",
+            resourses.getSprite("player run 1")
             )
 
         this._floor = new Floor(
@@ -100,7 +100,8 @@ export class PlayState extends GameState{
                     3,
                     this._startPossitionY,
                     this._player.hitboxHeight,
-                    "rgba(0,255,120,0.5)"
+                    "rgba(0,255,120,0.5)",
+                    resourses.getSprite("coin")
                 ),
                 new FlyingObjects(
                     false,
@@ -114,6 +115,7 @@ export class PlayState extends GameState{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
+                    new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -this._gamespeed/32),
                     new BackgroundLayer(resourses.getSprite("road"),0,0, -this._gamespeed/2),
                     new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -this._gamespeed/4),
                     new BackgroundLayer(resourses.getSprite("empty"),0,this._startPossitionY,-this._gamespeed/6),
@@ -136,7 +138,8 @@ export class PlayState extends GameState{
                     3,
                     this._startPossitionY,
                     this._player.hitboxHeight,
-                    "rgba(0,255,120,0.5)"
+                    "rgba(0,255,120,0.5)",
+                    resourses.getSprite("coin")
                 ),
                 new FlyingObjects(
                     false,
@@ -150,6 +153,7 @@ export class PlayState extends GameState{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
+                    new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.2*this._gamespeed/32),
                     new BackgroundLayer(resourses.getSprite("road"),0,0, -1.2*this._gamespeed/2),
                     new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -1.2*this._gamespeed/4),
                     new BackgroundLayer(resourses.getSprite("bglayer2"),0,this._startPossitionY,-1.2*this._gamespeed/6),
@@ -161,7 +165,7 @@ export class PlayState extends GameState{
         this._levels.add(
             new Level(
                 this._levels,
-                5,
+                25,
                 this._gamespeed,
                 new FlyingObjects(
                     false,
@@ -172,7 +176,8 @@ export class PlayState extends GameState{
                     3,
                     this._startPossitionY,
                     this._player.hitboxHeight,
-                    "rgba(0,255,120,0.5)"
+                    "rgba(0,255,120,0.5)",
+                    resourses.getSprite("coin")
                 ),
                 new FlyingObjects(
                     false,
@@ -186,6 +191,7 @@ export class PlayState extends GameState{
                     "rgba(0,0,255,0.5)"
                 ),
                 [
+                    new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.4*this._gamespeed/32),
                     new BackgroundLayer(resourses.getSprite("road"),0,0, -1.4*this._gamespeed/2),
                     new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -1.4*this._gamespeed/4),
                     new BackgroundLayer(resourses.getSprite("bglayer2"),0,this._startPossitionY,-1.4*this._gamespeed/6),
@@ -214,7 +220,7 @@ export class PlayState extends GameState{
                     this._states.change("end", {coins: this._coinCounter, win: false})
                 }
                 else{
-                    this.pause()
+                    //this.pause()
 
                     this._levels.next()
                 }

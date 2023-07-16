@@ -33,11 +33,7 @@ export class Player extends Actor {
         this.move(dt);
     }
     draw() {
-        //render.drawSquare(this.x, this.y, this.hitboxHeight, this.hitboxWidht, this.hitboxColor)
-        //render.drawPlayerSprite(this._sprite, this.x, this.y, this.hitboxWidht, this.hitboxHeight)
         this.drawActor();
-        //this.drawSprite()
-        //this.drawHitbox()
     }
     onFloor(h) {
         this.y = h;

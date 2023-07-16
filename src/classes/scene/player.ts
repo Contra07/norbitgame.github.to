@@ -12,7 +12,7 @@ export class Player extends Actor{
     private _isJump: boolean
     private _isInvincible: boolean
     
-    constructor(x: number, y: number, gravity:number, jumpHeight: number, h: number, w: number, color: string){
+    constructor(x: number, y: number, gravity:number, jumpHeight: number, h: number, w: number, color: string, sprite:Sprite){
         super(x,y,h,w,color)
         this._gravity = gravity
         this._isJump = false
@@ -20,7 +20,7 @@ export class Player extends Actor{
         this._jumpSpeed = Math.sqrt(2*jumpHeight*gravity*(-1))
         this._isDoubleJump = false
         this._isInvincible = false
-        this._sprite = resourses.getSprite("player")
+        this._sprite = sprite
         this.hitboxWidht = this._sprite.width
         this.hitboxHeight = this.hitboxWidht*(this._sprite.height / this._sprite.width)
     }
@@ -40,8 +40,7 @@ export class Player extends Actor{
     }
 
     public draw(): void {
-        //render.drawSquare(this.x, this.y, this.hitboxHeight, this.hitboxWidht, this.hitboxColor)
-        render.drawPlayerSprite(this._sprite, this.x, this.y, this.hitboxWidht, this.hitboxHeight)
+        this.drawActor()
     }
 
     public onFloor(h: number){

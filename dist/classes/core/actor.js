@@ -18,7 +18,7 @@ export class Actor extends GameObject {
     //Картинка
     _sprite;
     //--------Конструктор--------
-    constructor(x, y, h, w, color) {
+    constructor(x, y, h, w, color, sprite) {
         super();
         this._x = x;
         this._y = y;
@@ -29,6 +29,9 @@ export class Actor extends GameObject {
         this._hitboxHeight = h;
         this._hitboxWidht = w;
         this._hitboxColor = color;
+        if (sprite) {
+            this._sprite = sprite;
+        }
     }
     //--------Свойства--------
     get x() {
@@ -107,6 +110,16 @@ export class Actor extends GameObject {
         for (let key in this) {
             render.drawMiddleText(key + ': ' + this[key], posx, posy + this._hitboxHeight);
             posy -= this.hitboxHeight / 12;
+        }
+    }
+    //Виазализация актора
+    drawActor(debug) {
+        render.drawActor(this, debug);
+    }
+    //Визуализация спрайта
+    drawSprite() {
+        if (this._sprite) {
+            render.drawSpriteOld(this._sprite, this._x, this._y);
         }
     }
     //Визуализация хитбокса

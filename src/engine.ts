@@ -15,9 +15,9 @@ let VIRTUAL_WIDTH: number = 600
 //Высота игрового мира
 let VIRTUAL_HEIGHT: number = 600
 //Размер холста в пикселях
-let WINDOW_HEIGHT: number =  400
+let WINDOW_HEIGHT: number =  window.innerHeight
 
-let WINDOW_WIDTH: number = 600
+let WINDOW_WIDTH: number = window.innerWidth /2 
 //Время прошлого кадра
 let thenTime: number = 0
 
@@ -39,18 +39,23 @@ function init(): void {
     game = new GameManager()
     game.init()
     window.addEventListener("keydown", keyDown, true);
+    window.addEventListener("touchstart", touchStart, true);
+    window.addEventListener("mousedown", mouseDown, true);
+    window.addEventListener("resize", resize, true)
     resourses = new ResourcesManager(
         [
             "road",
-            "road",
+            "player run 1",
             "bglayer1",
             "bglayer2",
             "bglayer3",
             "bglayer4",
-            "player",
+            "clouds",
             "empty",
+            "coin"
         ]
     )
+    resize();
     requestAnimationFrame(gameloop);
 }
 
@@ -75,6 +80,31 @@ function getDeltaTime(nowTime: number): number {
 
 function keyDown(e: KeyboardEvent){
     keys.press(e.key)
+}
+
+function touchStart(evt: TouchEvent) 
+{
+    keys.press(" ")
+}
+
+function mouseDown() 
+{
+    keys.press(" ")
+}
+
+function resize(){
+    let WINDOW_HEIGHT: number =  0
+    let WINDOW_WIDTH: number = 0
+    if(window.innerHeight <= window.innerWidth){
+        WINDOW_HEIGHT=  window.innerHeight
+        WINDOW_WIDTH = window.innerHeight
+    }
+    else{
+        WINDOW_HEIGHT=  window.innerHeight
+        WINDOW_WIDTH = window.innerWidth
+    }
+    render.WINDOW_HEIGHT = WINDOW_HEIGHT
+    render.WINDOW_WIDTH = WINDOW_WIDTH
 }
 
 init();

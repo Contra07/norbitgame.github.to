@@ -1,6 +1,6 @@
 import { render } from "../../engine.js";
-import { BackgroundLayer} from "../game objects/background layer.js"
-import { FlyingObjects } from "../game objects/flying objects.js";
+import { BackgroundLayer} from "../scene/background layer.js"
+import { FlyingObjects } from "../scene/flying objects.js";
 import { LevelMachine } from "./level machine.js";
 
 export class Level{
