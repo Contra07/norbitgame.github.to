@@ -45,6 +45,7 @@ function init() {
         "coin",
         "enemy"
     ]);
+    resourses.load().then().catch().finally();
     resize();
     requestAnimationFrame(gameloop);
 }

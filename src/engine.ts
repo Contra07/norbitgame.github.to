@@ -59,6 +59,7 @@ function init(): void {
             "enemy"
         ]
     )
+    resourses.load().then().catch().finally()
     resize();
     requestAnimationFrame(gameloop);
 }

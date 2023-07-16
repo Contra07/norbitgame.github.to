@@ -79,8 +79,8 @@ export class PlayState extends GameState{
             [
                 resourses.getSprite("player run 1"),
                 resourses.getSprite("player run 2"),
-                resourses.getSprite("player run 1"),
                 resourses.getSprite("player run 3"),
+                resourses.getSprite("player run 2"),
             ]
             )
 

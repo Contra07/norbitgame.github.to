@@ -21,7 +21,9 @@ export class CycleSprite extends GameObject {
             this._currentNumber = ++this._currentNumber % this._spritesNumber;
             this._current = this._sprites[this._currentNumber];
         }
-        this._timer = this._timer % this._frametime;
+        while (this._timer > this._frametime) {
+            this._timer = this._timer % this._frametime;
+        }
     }
     get current() {
         return this._current;

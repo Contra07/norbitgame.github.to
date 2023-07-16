@@ -53,8 +53,8 @@ export class PlayState extends GameState {
         this._player = new Player(this._startPossitionX, this._startPossitionY, this._gravity, this._jumpHight, this._playerHitboxH, this._playerHitboxW, "rgba(255,0,0,0.5)", resourses.getSprite("player jump"), 0.2, [
             resourses.getSprite("player run 1"),
             resourses.getSprite("player run 2"),
-            resourses.getSprite("player run 1"),
             resourses.getSprite("player run 3"),
+            resourses.getSprite("player run 2"),
         ]);
         this._floor = new Floor(this._startPossitionY, "rgba(255,255,0,0.5)");
         this._coinCounter = 0;
