@@ -1,14 +1,18 @@
 import { keys } from "../../engine.js";
 import { Actor } from "../core/actor.js";
+import { CycleSprite } from "./cycle sprite.js";
 export class Player extends Actor {
     //Атрибуты
     _gravity;
     _jumpSpeed;
+    //
+    _spritesRun;
+    _jumpSprite;
     //Состояния
     _isDoubleJump;
     _isJump;
     _isInvincible;
-    constructor(x, y, gravity, jumpHeight, h, w, color, sprite) {
+    constructor(x, y, gravity, jumpHeight, h, w, color, jumpSprite, frametime, spritesRun) {
         super(x, y, h, w, color);
         this._gravity = gravity;
         this._isJump = false;
@@ -16,9 +20,8 @@ export class Player extends Actor {
         this._jumpSpeed = Math.sqrt(2 * jumpHeight * gravity * (-1));
         this._isDoubleJump = false;
         this._isInvincible = false;
-        this._sprite = sprite;
-        this.hitboxWidht = this._sprite.width;
-        this.hitboxHeight = this.hitboxWidht * (this._sprite.height / this._sprite.width);
+        this._jumpSprite = jumpSprite;
+        this._spritesRun = new CycleSprite(spritesRun, frametime);
     }
     get isInvincible() {
         return this._isInvincible;
@@ -31,6 +34,15 @@ export class Player extends Actor {
             this._isInvincible = !this._isInvincible;
         }
         this.move(dt);
+        this._spritesRun.update(dt);
+        if (this._isJump) {
+            this._sprite = this._jumpSprite;
+        }
+        else {
+            this._sprite = this._spritesRun.current;
+        }
+        this.hitboxWidht = this._sprite.width;
+        this.hitboxHeight = this.hitboxWidht * (this._sprite.height / this._sprite.width);
     }
     draw() {
         this.drawActor();

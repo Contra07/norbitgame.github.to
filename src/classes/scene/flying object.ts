@@ -31,7 +31,7 @@ export class FlyingObject extends Actor{
 
     public draw(): void {
         if(!this._isDestroy){
-            this.drawActor(true)
+            this.drawActor()
         }
     }
 

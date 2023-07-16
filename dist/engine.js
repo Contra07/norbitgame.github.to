@@ -33,13 +33,17 @@ function init() {
     resourses = new ResourcesManager([
         "road",
         "player run 1",
+        "player run 2",
+        "player run 3",
+        "player jump",
         "bglayer1",
         "bglayer2",
         "bglayer3",
         "bglayer4",
         "clouds",
         "empty",
-        "coin"
+        "coin",
+        "enemy"
     ]);
     resize();
     requestAnimationFrame(gameloop);

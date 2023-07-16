@@ -13,7 +13,7 @@ export class PlayState extends GameState{
 
     //Типа константы
     private _gravity:number = -3000
-    private _gamespeed: number = 800
+    private _gamespeed: number = 600
     private _height: number = render.VIRTUAL_HEIGHT
     private _width: number = render.VIRTUAL_WIDTH
     private _pause: boolean = false
@@ -74,7 +74,14 @@ export class PlayState extends GameState{
             this._playerHitboxH,
             this._playerHitboxW,
             "rgba(255,0,0,0.5)",
-            resourses.getSprite("player run 1")
+            resourses.getSprite("player jump"),
+            0.2,
+            [
+                resourses.getSprite("player run 1"),
+                resourses.getSprite("player run 2"),
+                resourses.getSprite("player run 1"),
+                resourses.getSprite("player run 3"),
+            ]
             )
 
         this._floor = new Floor(
@@ -94,9 +101,9 @@ export class PlayState extends GameState{
                 new FlyingObjects(
                     false,
                     this._spawntime*2, 
-                    -this._width,
-                    this._obstacleHitboxH*1.2,
-                    this._obstacleHitboxW,
+                    -this._gamespeed*0.8,
+                    this._obstacleHitboxH*1.5,
+                    this._obstacleHitboxW*1.5,
                     3,
                     this._startPossitionY,
                     this._player.hitboxHeight,
@@ -106,13 +113,14 @@ export class PlayState extends GameState{
                 new FlyingObjects(
                     false,
                     this._spawntime, 
-                    -this._width,
+                    -this._gamespeed*0.8,
                     this._obstacleHitboxH,
                     this._obstacleHitboxW,
                     2,
                     this._startPossitionY,
                     this._player.hitboxHeight,
-                    "rgba(0,0,255,0.5)"
+                    "rgba(0,0,255,0.5)",
+                    resourses.getSprite("enemy")
                 ),
                 [
                     new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -this._gamespeed/32),
@@ -132,9 +140,9 @@ export class PlayState extends GameState{
                 new FlyingObjects(
                     false,
                     this._spawntime*2, 
-                    -this._width,
-                    this._obstacleHitboxH*1.2,
-                    this._obstacleHitboxW,
+                    -this._gamespeed*0.8,
+                    this._obstacleHitboxH*1.5,
+                    this._obstacleHitboxW*1.5,
                     3,
                     this._startPossitionY,
                     this._player.hitboxHeight,
@@ -144,13 +152,14 @@ export class PlayState extends GameState{
                 new FlyingObjects(
                     false,
                     this._spawntime, 
-                    -this._width,
+                    -this._gamespeed*0.8,
                     this._obstacleHitboxH*1.4,
                     this._obstacleHitboxW/1.4,
                     2,
                     this._startPossitionY,
                     this._player.hitboxHeight,
-                    "rgba(0,0,255,0.5)"
+                    "rgba(0,0,255,0.5)",
+                    resourses.getSprite("enemy")
                 ),
                 [
                     new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.2*this._gamespeed/32),
@@ -170,9 +179,9 @@ export class PlayState extends GameState{
                 new FlyingObjects(
                     false,
                     this._spawntime*2, 
-                    -this._width,
-                    this._obstacleHitboxH*1.2,
-                    this._obstacleHitboxW,
+                    -this._gamespeed*0.8,
+                    this._obstacleHitboxH*1.5,
+                    this._obstacleHitboxW*1.5,
                     3,
                     this._startPossitionY,
                     this._player.hitboxHeight,
@@ -182,13 +191,14 @@ export class PlayState extends GameState{
                 new FlyingObjects(
                     false,
                     this._spawntime, 
-                    -this._width,
+                    -this._gamespeed*0.8,
                     this._obstacleHitboxH/1.4,
                     this._obstacleHitboxW*1.4,
                     2,
                     this._startPossitionY,
                     this._player.hitboxHeight,
-                    "rgba(0,0,255,0.5)"
+                    "rgba(0,0,255,0.5)",
+                    resourses.getSprite("enemy")
                 ),
                 [
                     new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.4*this._gamespeed/32),

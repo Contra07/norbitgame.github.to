@@ -23,7 +23,7 @@ export class FlyingObject extends Actor {
     }
     draw() {
         if (!this._isDestroy) {
-            this.drawActor(true);
+            this.drawActor();
         }
     }
     copy() {
