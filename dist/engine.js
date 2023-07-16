@@ -45,9 +45,10 @@ function init() {
         "coin",
         "enemy"
     ]);
-    resourses.load().then().catch().finally();
     resize();
-    requestAnimationFrame(gameloop);
+    resourses.load().then(() => {
+        requestAnimationFrame(gameloop);
+    });
 }
 //Игрвой цикл
 function gameloop(timeStamp) {
