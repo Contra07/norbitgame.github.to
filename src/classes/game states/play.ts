@@ -118,7 +118,7 @@ export class PlayState extends GameState{
                     this._obstacleHitboxW,
                     2,
                     this._startPossitionY,
-                    this._player.hitboxHeight,
+                    this._player.hitboxHeight*2,
                     "rgba(0,0,255,0.5)",
                     resourses.getSprite("enemy")
                 ),
@@ -157,7 +157,7 @@ export class PlayState extends GameState{
                     this._obstacleHitboxW/1.4,
                     2,
                     this._startPossitionY,
-                    this._player.hitboxHeight,
+                    this._player.hitboxHeight*2,
                     "rgba(0,0,255,0.5)",
                     resourses.getSprite("enemy")
                 ),
@@ -196,7 +196,7 @@ export class PlayState extends GameState{
                     this._obstacleHitboxW*1.4,
                     2,
                     this._startPossitionY,
-                    this._player.hitboxHeight,
+                    this._player.hitboxHeight*2,
                     "rgba(0,0,255,0.5)",
                     resourses.getSprite("enemy")
                 ),

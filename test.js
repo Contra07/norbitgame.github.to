@@ -17,3 +17,11 @@ document.getElementById("questionnaire").addEventListener("submit", function (e)
     document.body.removeChild(elem);
     console.log(fData.values())
 })
+
+const postData = async (url, fData) => {
+	let fetchResponse = await fetch(url, {
+		method: "POST",
+		body: fData
+	});
+	return await fetchResponse.text();
+};
