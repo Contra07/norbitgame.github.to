@@ -105,8 +105,8 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
-    "rootDir": "./src", // корневая папка для файлов TypeScript
-    "outDir": "./dist" // папка для скомпилированных файлов
+    "rootDir": "./game/src", // корневая папка для файлов TypeScript
+    "outDir": "./game/dist" // папка для скомпилированных файлов
   },
-  "include": ["./src/**/*", "dist/test.js"] // паттерн для файлов TypeScript
+  "include": ["./game/src/**/*","./resources/**/*"] // паттерн для файлов TypeScript
 }

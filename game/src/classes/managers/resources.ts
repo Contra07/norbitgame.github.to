@@ -6,7 +6,7 @@ export class ResourcesManager{
     constructor(pathes: string[]) {
         this._sprites = new Map()
         for(let path of pathes) {
-            let sprite = new Sprite("./dist/resurses/" + path + ".png")
+            let sprite = new Sprite("../resources/game/images/" + path + ".png")
             this._sprites.set( path, sprite);
         }
     }
