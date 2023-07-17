@@ -27,7 +27,7 @@
             </div>
             <h3>Образование</h3>
             <div class="d-flex justify-content-between flex-wrap">
-                <select class="form-select" id="validationDefault03" required>
+                <select class="form-select" id="validationDefault03" name="university" required>
                     <option value="disabled">Ваше учебное заведение</option>
                     <option value="Самарский университет">Самарский университет</option>
                     <option value="СамГТУ">СамГТУ</option>
@@ -36,7 +36,7 @@
                     <option value="СГЭУ">СГЭУ</option>
                     <option value="Другой">Другой</option>
                 </select>
-                <select class="form-select" id="validationDefault04" required>
+                <select class="form-select" id="validationDefault04" name="specialization" required>
                     <option value="disabled">Ваша специализация</option>
                     <option value="Аналитик">Аналитик</option>
                     <option value="Программист">Программист</option>
@@ -44,7 +44,7 @@
                 </select>
             </div>
             <div class="d-flex justify-content-between flex-wrap">
-                <select class="form-select" id="validationDefault05" required>
+                <select class="form-select" id="validationDefault05" name="stage" required>
                     <option value="disabled">Ваша ступень образования</option>
                     <option value="СПО">СПО</option>
                     <option value="Бакалавриат">Бакалавриат</option>
@@ -52,7 +52,7 @@
                     <option value="Специалитет">Специалитет</option>
                     <option value="Аспирантура">Аспирантура</option>
                 </select>
-                <select class="form-select" id="validationDefault06" required>
+                <select class="form-select" id="validationDefault06" name="course" required>
                     <option value="disabled">Курс обучения</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -65,7 +65,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="dates-block">
                     <label>Сколько времени вы готовы посвятить практике?</label>
-                    <select class="form-select" id="validationDefault07" required>
+                    <select class="form-select" id="validationDefault07"  name="hours" required>
                         <option value="disabled">Выберите кол-во часов в день</option>
                         <option value="2">2 часа в день</option>
                         <option value="3">3 часа в день</option>
@@ -78,8 +78,8 @@
                         <small class="gray-text">Может не совпадать официальными сроками</small>
                     </label>
                     <div class="dates d-flex flex-row justify-content-between">
-                        <input class="form-control" type="date" id="validationDefault08" required>
-                        <input class="form-control" type="date" id="validationDefault09" required>
+                        <input class="form-control" type="date" id="validationDefault08" name="startDate" required>
+                        <input class="form-control" type="date" id="validationDefault09" name="endDate" required>
                     </div>
                 </div>
             </div>
@@ -91,8 +91,7 @@
             <textarea class="form-control" cols="30" rows="10"></textarea>
             <div class="d-flex justify-content-center gap-3 mb-3">
                 <button class="btn btn-orange" type="submit">Проверить</button>
-                <button class="btn btn-custom" data-bs-toggle="modal" type="reset"
-                    data-bs-target="#thanksModal">Отправить</button>
+                <button class="btn btn-custom" data-bs-toggle="modal" type="reset" data-bs-target="#thanksModal">Отправить</button>
             </div>
         </form>
         <!-- ThanksModal -->
@@ -113,7 +112,7 @@
             </div>
         </div>
     </section>
-
+    <script src = "test.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
