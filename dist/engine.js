@@ -2,10 +2,7 @@ import { KeyManager } from "./classes/managers/keys.js";
 import { RenderManager } from "./classes/managers/render.js";
 import { GameManager } from "./classes/game.js";
 import { ResourcesManager } from "./classes/managers/resources.js";
-//window.OnLoad
-//window.onresize
-//resourcesToLoad--;
-//    if (resourcesToLoad == 0) {
+
 //TODO: Singleton game
 //Ширина игрового мира
 let VIRTUAL_WIDTH = 600;
