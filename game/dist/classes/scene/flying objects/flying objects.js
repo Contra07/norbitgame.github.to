@@ -13,6 +13,9 @@ export class FlyingObjects extends GameObject {
         this._spawnTime = spawnTime;
         this._isSpawn = isSpawn;
     }
+    get objects() {
+        return Array.from(this._objects.values());
+    }
     //Случайное число
     static randomNumber(min, max) {
         return Math.random() * (max - min) + min;

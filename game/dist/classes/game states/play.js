@@ -266,6 +266,21 @@ export class PlayState extends GameState {
             this._levels.update(dt);
             //this._floor.update(dt)
             this._player.update(dt);
+            for (let object of this._levels.current.obstacles.objects) {
+                if (object.sprite == resourses.getSprite("bench")) {
+                    if (!object.canRun) {
+                        object.canRunOnTop(this._player);
+                    }
+                    else {
+                        if (this._player.collides(object)) {
+                            this._player.onFloor(object.y + object.hitboxHeight + 1);
+                        }
+                        else {
+                            this._player.d2y = this._gravity;
+                        }
+                    }
+                }
+            }
             //Столкновение с полом
             if (this._player.collides(this._floor) || this._player.y < 0) {
                 this._player.onFloor(this._floor.y + this._floor.hitboxHeight);

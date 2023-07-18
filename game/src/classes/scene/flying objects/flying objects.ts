@@ -18,6 +18,10 @@ export class FlyingObjects extends GameObject{
         this._isSpawn = isSpawn
     }
 
+    public get objects(): FlyingObject[]{
+        return Array.from(this._objects.values())
+    }
+
     //Случайное число
     public static randomNumber(min: number, max: number): number {
         return Math.random() * (max - min) + min;
