@@ -1,4 +1,4 @@
-import { GameObject } from "../core/game object.js";
+import { GameObject } from "../../core/game object.js";
 export class FlyingObjects extends GameObject {
     _objects;
     _refObjects;
@@ -24,7 +24,7 @@ export class FlyingObjects extends GameObject {
         this._isSpawn = false;
     }
     spawnObject() {
-        let i = FlyingObjects.randomNumber(0, this._refObjects.length - 1);
+        let i = FlyingObjects.randomNumber(0, this._refObjects.length);
         i = i - (i % 1);
         let object = this._refObjects[i].spawn();
         this._objects.add(object);

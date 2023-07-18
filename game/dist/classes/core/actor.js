@@ -14,11 +14,15 @@ export class Actor extends GameObject {
     //Хитбокс
     _hitboxHeight;
     _hitboxWidht;
+    //Для отрисовки
+    //Цветной квадрат
     _hitboxColor;
     //Картинка
     _sprite;
+    //Анимация
+    _animation;
     //--------Конструктор--------
-    constructor(x, y, h, w, color, sprite) {
+    constructor(x, y, h, w, color, sprite, animation) {
         super();
         this._x = x;
         this._y = y;
@@ -28,9 +32,14 @@ export class Actor extends GameObject {
         this._d2y = 0;
         this._hitboxHeight = h;
         this._hitboxWidht = w;
-        this._hitboxColor = color;
+        if (color) {
+            this._hitboxColor = color;
+        }
         if (sprite) {
             this._sprite = sprite;
+        }
+        if (animation) {
+            this._animation = animation;
         }
     }
     //--------Свойства--------
@@ -91,9 +100,23 @@ export class Actor extends GameObject {
     get sprite() {
         return this._sprite;
     }
+    set sprite(sprite) {
+        this._sprite = sprite;
+    }
+    get animation() {
+        return this._animation;
+    }
+    set animation(anim) {
+        this._animation = anim;
+    }
     //--------Основные функции--------
     init() { }
-    update(dt) { }
+    update(dt) {
+        if (this._animation) {
+            this._animation.update(dt);
+            this._sprite = this._animation.current;
+        }
+    }
     draw() { }
     //--------Кастомные функции--------
     //Движение объекта
@@ -115,16 +138,6 @@ export class Actor extends GameObject {
     //Виазализация актора
     drawActor(debug) {
         render.drawActor(this, debug);
-    }
-    //Визуализация спрайта
-    drawSprite() {
-        if (this._sprite) {
-            render.drawSpriteOld(this._sprite, this._x, this._y);
-        }
-    }
-    //Визуализация хитбокса
-    drawHitbox() {
-        render.drawSquare(this._x, this._y, this._hitboxHeight, this._hitboxWidht, this.hitboxColor);
     }
     //AABB Коллизия
     collides(actor) {

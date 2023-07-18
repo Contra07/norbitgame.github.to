@@ -1,8 +1,8 @@
-import { render } from "../../engine.js";
-import { Actor } from "../core/actor.js";
+import { render } from "../../../engine.js";
+import { Actor } from "../../core/actor.js";
 export class FlyingObject extends Actor {
     _isDestroy;
-    constructor(y, h, w, color, sprite, animation) {
+    constructor(y, w, h, color, sprite, animation) {
         super(render.VIRTUAL_WIDTH, y, h, w, color, sprite, animation);
         this._isDestroy = false;
     }

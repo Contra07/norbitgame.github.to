@@ -1,5 +1,5 @@
-import { GameObject } from "../core/game object.js";
-import { Sprite } from "../core/sprite.js";
+import { GameObject } from "./game object.js";
+import { Sprite } from "./sprite.js";
 
 export class CycleSprite extends GameObject{
 

@@ -135,7 +135,7 @@ export class RenderManager {
         if (actor.sprite) {
             this.drawSprite(actor.sprite, actor.x, actor.y, actor.hitboxWidht, actor.hitboxHeight);
         }
-        if (debug) {
+        if (debug && actor.hitboxColor) {
             this.drawSquare(actor.x, actor.y, actor.hitboxWidht, actor.hitboxWidht, actor.hitboxColor);
         }
     }

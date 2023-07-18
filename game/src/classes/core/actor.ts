@@ -1,4 +1,5 @@
 import { render } from "../../engine.js"
+import { CycleSprite as SpriteAnimation } from "./cycle sprite.js"
 import { GameObject } from "./game object.js"
 import { Sprite } from "./sprite.js"
 
@@ -17,13 +18,18 @@ export class Actor extends GameObject{
     //Хитбокс
     private _hitboxHeight: number
     private _hitboxWidht: number
-    private _hitboxColor: string
+    
+    //Для отрисовки
+    //Цветной квадрат
+    private _hitboxColor?: string
     //Картинка
-    protected _sprite?: Sprite
+    private _sprite?: Sprite
+    //Анимация
+    private _animation?: SpriteAnimation
 
     //--------Конструктор--------
 
-    constructor(x: number, y: number, h: number, w: number, color: string, sprite?: Sprite) {
+    constructor(x: number, y: number, h: number, w: number, color?: string, sprite?: Sprite, animation?: SpriteAnimation) {
         super()
         this._x = x
         this._y = y
@@ -33,9 +39,14 @@ export class Actor extends GameObject{
         this._d2y = 0
         this._hitboxHeight = h
         this._hitboxWidht = w
-        this._hitboxColor = color
+        if(color){
+            this._hitboxColor = color
+        }
         if(sprite){
             this._sprite = sprite
+        }
+        if(animation){
+            this._animation = animation
         }
     }
 
@@ -105,7 +116,7 @@ export class Actor extends GameObject{
         this._hitboxWidht = w
     }
 
-    public get hitboxColor(): string{
+    public get hitboxColor(): string | undefined{
         return this._hitboxColor
     }
 
@@ -117,11 +128,28 @@ export class Actor extends GameObject{
         return this._sprite
     }
 
+    public set sprite(sprite: Sprite){
+        this._sprite = sprite
+    }
+
+    public get animation(): SpriteAnimation | undefined{
+        return this._animation
+    }
+
+    public set animation(anim: SpriteAnimation){
+        this._animation = anim
+    }
+
     //--------Основные функции--------
     
     public init(): void { }
 
-    public update(dt: number): void { }
+    public update(dt: number): void {
+        if(this._animation){
+            this._animation.update(dt)
+            this._sprite = this._animation.current
+        }
+    }
 
     public draw(): void { }
 
@@ -148,18 +176,6 @@ export class Actor extends GameObject{
     //Виазализация актора
     protected drawActor(debug?: boolean){
         render.drawActor(this, debug)
-    }
-
-    //Визуализация спрайта
-    protected drawSprite(): void{
-        if(this._sprite){
-            render.drawSpriteOld(this._sprite, this._x, this._y)
-        }
-    }
-
-    //Визуализация хитбокса
-    protected drawHitbox():void{
-        render.drawSquare(this._x, this._y , this._hitboxHeight, this._hitboxWidht, this.hitboxColor)
     }
 
     //AABB Коллизия

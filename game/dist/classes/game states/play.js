@@ -1,12 +1,18 @@
 import { keys, render, resourses } from "../../engine.js";
 import { Floor } from "../scene/floor.js";
-import { FlyingObjects } from "../scene/flying objects.js";
+import { FlyingObjects } from "../scene/flying objects/flying objects.js";
 import { Player } from "../scene/player.js";
 import { GameState } from "../state machine/game state.js";
 import { BackgroundLayer } from "../scene/background layer.js";
 import { Level } from "../level states/level.js";
 import { LevelMachine } from "../level states/level machine.js";
 import { DOManager } from "../managers/dom.js";
+import { CycleSprite } from "../core/cycle sprite.js";
+import { Coin } from "../scene/flying objects/coin.js";
+import { Banana } from "../scene/flying objects/banana.js";
+import { Garbage } from "../scene/flying objects/garbage.js";
+import { Pigeon } from "../scene/flying objects/pigeon.js";
+import { Bench } from "../scene/flying objects/bench.js";
 export class PlayState extends GameState {
     //Типа константы
     _gravity = -3000;
@@ -49,41 +55,193 @@ export class PlayState extends GameState {
         DOManager.hide(this.play);
     }
     enter() {
-        this._pause = false;
-        this._player = new Player(this._startPossitionX, this._startPossitionY, this._gravity, this._jumpHight, this._playerHitboxH, this._playerHitboxW, "rgba(255,0,0,0.5)", resourses.getSprite("player jump"), 0.2, [
+        //Типа константы
+        let gravity = -3000;
+        let gamespeed = 600;
+        let height = render.VIRTUAL_HEIGHT;
+        let width = render.VIRTUAL_WIDTH;
+        let targetFPS = 60;
+        //Счет и пауза
+        let pause = false;
+        let coinCounter = 0;
+        let lifesCounter = 3;
+        //Игрок
+        let playerStartPossitionX = this._width * 0.15;
+        let playerStartPossitionY = this._height * 0.05;
+        let playerHitboxH = this._height * 0.15;
+        let playerHitboxW = this._width * 0.08;
+        let playerHitboxColor = "rgba(255,0,0,0.5)";
+        let playerJumpHight = 150;
+        let playerJumpSpite = resourses.getSprite("player jump");
+        let playerAnim = new CycleSprite([
             resourses.getSprite("player run 1"),
             resourses.getSprite("player run 2"),
             resourses.getSprite("player run 3"),
             resourses.getSprite("player run 2"),
-        ]);
-        this._floor = new Floor(this._startPossitionY, "rgba(255,255,0,0.5)");
-        this._coinCounter = 0;
-        this._lifesCounter = 3;
+        ], 0.2);
+        //Пол 
+        let floorHeight = playerStartPossitionY;
+        let floorColor = "rgba(255,255,0,0.5)";
+        //Сущности
+        //Монета
+        let coinWidth = resourses.getSprite("coin1").width;
+        let coinHeight = resourses.getSprite("coin1").height;
+        let coinSpeed = -this._gamespeed * 0.5;
+        let coinMinY = floorHeight + coinHeight;
+        let coinMaxY = playerHitboxH * 2;
+        let coinAnimation = new CycleSprite([
+            resourses.getSprite("coin1"),
+            resourses.getSprite("coin2"),
+            resourses.getSprite("coin3"),
+            resourses.getSprite("coin4"),
+        ], 0.35);
+        let coin = new Coin(coinWidth, coinHeight, coinSpeed, coinMinY, coinMaxY, undefined, undefined, coinAnimation);
+        //Банан
+        let bananaY = floorHeight;
+        let bananaWidth = resourses.getSprite("banana").width;
+        let bananaHeight = resourses.getSprite("banana").height;
+        let bananaSpeed = -this._gamespeed * 0.5;
+        let bananaSprite = resourses.getSprite("banana");
+        let banana = new Banana(bananaY, bananaWidth, bananaHeight, bananaSpeed, undefined, bananaSprite);
+        //Мусор
+        let garbageY = floorHeight;
+        let garbageWidth = resourses.getSprite("garbage").width;
+        let garbageHeight = resourses.getSprite("garbage").height;
+        let garbageSpeed = -this._gamespeed * 0.5;
+        let garbageSprite = resourses.getSprite("garbage");
+        let garbage = new Garbage(garbageY, garbageHeight, garbageWidth, garbageSpeed, undefined, garbageSprite);
+        //Голубь
+        let pigeonWidth = resourses.getSprite("pigeon").width;
+        let pigeonHeight = resourses.getSprite("pigeon").height;
+        let pigeonSpeed = -this._gamespeed * 0.7;
+        let pigeonMinY = floorHeight + playerHitboxH;
+        let pigeonMaxY = playerHitboxH * 2;
+        let pigeonAnimation = new CycleSprite([
+            resourses.getSprite("pigeon"),
+        ], 0.2);
+        let pigeon = new Pigeon(pigeonWidth, pigeonHeight, pigeonSpeed, pigeonMinY, pigeonMaxY, undefined, undefined, pigeonAnimation);
+        //Скамейка
+        let benchY = floorHeight;
+        let benchWidth = resourses.getSprite("bench").width;
+        let benchHeight = resourses.getSprite("bench").height;
+        let benchSpeed = -this._gamespeed * 0.5;
+        let benchSprite = resourses.getSprite("bench");
+        let bench = new Bench(benchY, benchHeight, benchWidth, benchSpeed, undefined, benchSprite);
+        //Уровень 1
+        let level1Time = 30;
+        let level1CoinTime = 4;
+        let level1EnemyTime = 2;
+        let level1Speed = gamespeed;
+        let level1Coins = [coin];
+        let level1Enemies = [banana, garbage, pigeon, bench];
+        let level1Background = [
+            new BackgroundLayer(resourses.getSprite("clouds"), render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -level1Speed / 32),
+            new BackgroundLayer(resourses.getSprite("floor"), 0, -level1Speed / 2),
+            new BackgroundLayer(resourses.getSprite("bglayer1"), floorHeight, -level1Speed / 4),
+            new BackgroundLayer(resourses.getSprite("empty"), floorHeight, -level1Speed / 6),
+            new BackgroundLayer(resourses.getSprite("empty"), floorHeight, -level1Speed / 8),
+            new BackgroundLayer(resourses.getSprite("bglayer4"), floorHeight, 0)
+        ];
+        /*
+        level1Coins.forEach(
+            value => {
+                value.dx = -level1Speed/2
+            }
+        )
+        level1Enemies.forEach(
+            value => {
+                value.dx = -level1Speed/2
+            }
+        )
+        */
+        //----------
+        this._pause = pause;
+        this._coinCounter = coinCounter;
+        this._lifesCounter = lifesCounter;
+        this._player = new Player(playerStartPossitionX, playerStartPossitionY, gravity, playerJumpHight, playerHitboxH, playerHitboxW, playerHitboxColor, playerJumpSpite, playerAnim);
+        this._floor = new Floor(floorHeight, floorColor);
         this._levels = new LevelMachine();
-        this._levels.add(new Level(this._levels, 5, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._gamespeed * 0.8, this._obstacleHitboxH * 1.5, this._obstacleHitboxW * 1.5, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)", resourses.getSprite("coin")), new FlyingObjects(false, this._spawntime, -this._gamespeed * 0.8, this._obstacleHitboxH, this._obstacleHitboxW, 2, this._startPossitionY, this._player.hitboxHeight * 2, "rgba(0,0,255,0.5)", resourses.getSprite("enemy")), [
-            new BackgroundLayer(resourses.getSprite("clouds"), 0, render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -this._gamespeed / 32),
-            new BackgroundLayer(resourses.getSprite("floor"), 0, 0, -this._gamespeed / 2),
-            new BackgroundLayer(resourses.getSprite("bglayer1"), 0, this._startPossitionY, -this._gamespeed / 4),
-            new BackgroundLayer(resourses.getSprite("empty"), 0, this._startPossitionY, -this._gamespeed / 6),
-            new BackgroundLayer(resourses.getSprite("empty"), 0, this._startPossitionY, -this._gamespeed / 8),
-            new BackgroundLayer(resourses.getSprite("bglayer4"), 0, this._startPossitionY, 0)
-        ]));
-        this._levels.add(new Level(this._levels, 5, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._gamespeed * 0.8, this._obstacleHitboxH * 1.5, this._obstacleHitboxW * 1.5, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)", resourses.getSprite("coin")), new FlyingObjects(false, this._spawntime, -this._gamespeed * 0.8, this._obstacleHitboxH * 1.4, this._obstacleHitboxW / 1.4, 2, this._startPossitionY, this._player.hitboxHeight * 2, "rgba(0,0,255,0.5)", resourses.getSprite("enemy")), [
-            new BackgroundLayer(resourses.getSprite("clouds"), 0, render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.2 * this._gamespeed / 32),
-            new BackgroundLayer(resourses.getSprite("floor"), 0, 0, -1.2 * this._gamespeed / 2),
-            new BackgroundLayer(resourses.getSprite("bglayer1"), 0, this._startPossitionY, -1.2 * this._gamespeed / 4),
-            new BackgroundLayer(resourses.getSprite("bglayer2"), 0, this._startPossitionY, -1.2 * this._gamespeed / 6),
-            new BackgroundLayer(resourses.getSprite("empty"), 0, this._startPossitionY, -1.2 * this._gamespeed / 8),
-            new BackgroundLayer(resourses.getSprite("bglayer4"), 0, this._startPossitionY, 0)
-        ]));
-        this._levels.add(new Level(this._levels, 25, this._gamespeed, new FlyingObjects(false, this._spawntime * 2, -this._gamespeed * 0.8, this._obstacleHitboxH * 1.5, this._obstacleHitboxW * 1.5, 3, this._startPossitionY, this._player.hitboxHeight, "rgba(0,255,120,0.5)", resourses.getSprite("coin")), new FlyingObjects(false, this._spawntime, -this._gamespeed * 0.8, this._obstacleHitboxH / 1.4, this._obstacleHitboxW * 1.4, 2, this._startPossitionY, this._player.hitboxHeight * 2, "rgba(0,0,255,0.5)", resourses.getSprite("enemy")), [
-            new BackgroundLayer(resourses.getSprite("clouds"), 0, render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.4 * this._gamespeed / 32),
-            new BackgroundLayer(resourses.getSprite("floor"), 0, 0, -1.4 * this._gamespeed / 2),
-            new BackgroundLayer(resourses.getSprite("bglayer1"), 0, this._startPossitionY, -1.4 * this._gamespeed / 4),
-            new BackgroundLayer(resourses.getSprite("bglayer2"), 0, this._startPossitionY, -1.4 * this._gamespeed / 6),
-            new BackgroundLayer(resourses.getSprite("bglayer3"), 0, this._startPossitionY, -1.4 * this._gamespeed / 8),
-            new BackgroundLayer(resourses.getSprite("bglayer4"), 0, this._startPossitionY, 0)
-        ]));
+        this._levels.add(new Level(this._levels, level1Time, gamespeed, new FlyingObjects(level1Coins, true, level1CoinTime), new FlyingObjects(level1Enemies, true, level1EnemyTime), level1Background));
+        /*
+        this._levels.add(
+            new Level(
+                this._levels,
+                5,
+                this._gamespeed,
+                new FlyingObjects(
+                    false,
+                    this._spawntime*2,
+                    -this._gamespeed*0.8,
+                    this._obstacleHitboxH*1.5,
+                    this._obstacleHitboxW*1.5,
+                    3,
+                    this._startPossitionY,
+                    this._player.hitboxHeight,
+                    "rgba(0,255,120,0.5)",
+                    resourses.getSprite("coin")
+                ),
+                new FlyingObjects(
+                    false,
+                    this._spawntime,
+                    -this._gamespeed*0.8,
+                    this._obstacleHitboxH*1.4,
+                    this._obstacleHitboxW/1.4,
+                    2,
+                    this._startPossitionY,
+                    this._player.hitboxHeight*2,
+                    "rgba(0,0,255,0.5)",
+                    resourses.getSprite("enemy")
+                ),
+                [
+                    new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.2*this._gamespeed/32),
+                    new BackgroundLayer(resourses.getSprite("floor"),0,0, -1.2*this._gamespeed/2),
+                    new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -1.2*this._gamespeed/4),
+                    new BackgroundLayer(resourses.getSprite("bglayer2"),0,this._startPossitionY,-1.2*this._gamespeed/6),
+                    new BackgroundLayer(resourses.getSprite("empty"),0,this._startPossitionY,-1.2*this._gamespeed/8),
+                    new BackgroundLayer(resourses.getSprite("bglayer4"),0,this._startPossitionY,0)
+                ]
+            )
+        )
+        this._levels.add(
+            new Level(
+                this._levels,
+                25,
+                this._gamespeed,
+                new FlyingObjects(
+                    false,
+                    this._spawntime*2,
+                    -this._gamespeed*0.8,
+                    this._obstacleHitboxH*1.5,
+                    this._obstacleHitboxW*1.5,
+                    3,
+                    this._startPossitionY,
+                    this._player.hitboxHeight,
+                    "rgba(0,255,120,0.5)",
+                    resourses.getSprite("coin")
+                ),
+                new FlyingObjects(
+                    false,
+                    this._spawntime,
+                    -this._gamespeed*0.8,
+                    this._obstacleHitboxH/1.4,
+                    this._obstacleHitboxW*1.4,
+                    2,
+                    this._startPossitionY,
+                    this._player.hitboxHeight*2,
+                    "rgba(0,0,255,0.5)",
+                    resourses.getSprite("enemy")
+                ),
+                [
+                    new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.4*this._gamespeed/32),
+                    new BackgroundLayer(resourses.getSprite("floor"),0,0, -1.4*this._gamespeed/2),
+                    new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -1.4*this._gamespeed/4),
+                    new BackgroundLayer(resourses.getSprite("bglayer2"),0,this._startPossitionY,-1.4*this._gamespeed/6),
+                    new BackgroundLayer(resourses.getSprite("bglayer3"),0,this._startPossitionY,-1.4*this._gamespeed/8),
+                    new BackgroundLayer(resourses.getSprite("bglayer4"),0,this._startPossitionY,0)
+                ]
+            )
+        )
+        */
         DOManager.show(this.play);
     }
     update(dt) {
@@ -106,7 +264,7 @@ export class PlayState extends GameState {
             }
             //Обновление сущностей
             this._levels.update(dt);
-            this._floor.update(dt);
+            //this._floor.update(dt)
             this._player.update(dt);
             //Столкновение с полом
             if (this._player.collides(this._floor) || this._player.y < 0) {

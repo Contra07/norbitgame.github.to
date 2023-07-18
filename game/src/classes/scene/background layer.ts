@@ -6,12 +6,11 @@ export class BackgroundLayer extends Actor{
     private _now: Sprite
     private _next: Sprite
 
-    constructor(sprite: Sprite, x:number, y: number, speed:number) {
-        super(x,y,sprite.height,sprite.width,"",sprite)
+    constructor(sprite: Sprite, y: number, speed:number) {
+        super(0,y,sprite.height,sprite.width, undefined, sprite)
         this.dx = speed
-        this._sprite = sprite
-        this._now = this._sprite
-        this._next = this._sprite
+        this._now = sprite
+        this._next = sprite
     }
 
     public get now(): Sprite{
@@ -36,19 +35,20 @@ export class BackgroundLayer extends Actor{
     }
 
     public update(dt: number): void {
+        super.update(dt)
         this.move(dt)
-        if(this.x+this._now.width < 0){
+        if(this.x+this._now.width <= 0){
             this.x += this._now.width
             this._now = this._next
-            if(this._sprite){
-                this._next = this._sprite
+            if(this.sprite){
+                this._next = this.sprite
             }
         }
     }
 
     public draw(): void {
         render.drawSprite(this._now, this.x, this.y, this.hitboxWidht, this._now.height)
-        render.drawSprite(this._next, this.x+this._now.width, this.y, this.hitboxWidht, this._next.height)
+        render.drawSprite(this._next, this.x+this._now.width-1, this.y, this.hitboxWidht, this._next.height)
         //render.drawSpriteOld(this._now, this.x, this.y)
         //render.drawSpriteOld(this._next, this.x+this._now.width, this.y)
     }

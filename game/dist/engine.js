@@ -42,8 +42,14 @@ function init() {
         "bglayer4",
         "clouds",
         "empty",
-        "coin",
-        "enemy"
+        "coin1",
+        "coin2",
+        "coin3",
+        "coin4",
+        "banana",
+        "garbage",
+        "pigeon",
+        "bench"
     ]);
     resize();
     resourses.load().then(() => {
