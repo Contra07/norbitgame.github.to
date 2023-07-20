@@ -1,37 +1,53 @@
 import { GameState } from "../state machine/game state.js";
 import { DOManager } from "../managers/dom.js";
 export class EndState extends GameState {
-    end;
-    win = "Вы выйграли!";
-    lose = "Вы проиграли!";
+    win;
+    lose;
+    mwin = "Вы выйграли!";
+    mlose = "Вы проиграли.";
     collected = "Очки: ";
     points = "";
     messenge = "";
     constructor(states) {
         super(states);
-        this.end = document.getElementById('end');
+        this.win = document.getElementById('win');
+        this.lose = document.getElementById('lose');
     }
     exit() {
-        DOManager.hide(this.end);
+        DOManager.hide(this.win);
+        DOManager.hide(this.lose);
     }
     enter(params) {
-        DOManager.show(this.end);
-        this.end.children.namedItem("button replay").addEventListener('click', this.restartGame);
         if (params) {
             this.points = this.collected + (params.coins * 100);
             if (!params.win) {
-                this.messenge = this.win;
+                this.messenge = this.mwin;
+                this.win.children.namedItem("buttonwinlist").children[0].children.namedItem("button replay").addEventListener('click', this.restartGame);
+                this.win.children.namedItem("buttonwinlist").children[1].children.namedItem("button form").addEventListener('click', this.form);
+                this.win.children.namedItem("end top box").children.namedItem("end message").innerText = this.messenge + " " + this.points;
+                DOManager.show(this.win);
             }
             else {
-                this.messenge = this.lose;
+                this.messenge = this.mlose;
+                this.lose.children.namedItem("buttonloselist").children[0].children.namedItem("button replay").addEventListener('click', this.restartGame);
+                this.lose.children.namedItem("buttonloselist").children[1].children.namedItem("button exit").addEventListener('click', this.exitGame);
+                this.lose.children.namedItem("end top box").children.namedItem("end message").innerText = this.messenge + " " + this.points;
+                DOManager.show(this.lose);
             }
         }
-        this.end.children.namedItem("end message").innerText = this.messenge + "\n" + this.points;
     }
     update(dt) {
         if (DOManager.isEndButton) {
             this._states.change("play");
             DOManager.isEndButton = false;
+        }
+        if (DOManager.isExitButton) {
+            DOManager.isExitButton = false;
+            window.location.href = '../site/main.html';
+        }
+        if (DOManager.isForm) {
+            DOManager.isForm = false;
+            window.location.href = '../site/form.html';
         }
     }
     draw() {
@@ -40,5 +56,11 @@ export class EndState extends GameState {
     }
     restartGame() {
         DOManager.isEndButton = true;
+    }
+    exitGame() {
+        DOManager.isExitButton = true;
+    }
+    form() {
+        DOManager.isForm = true;
     }
 }

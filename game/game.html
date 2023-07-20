@@ -9,20 +9,38 @@
     </head>
     <body>
       <section id="menu" class="menu">
-          <h1 name="play message" class="title">Norbit Runner </h1>
+          <h1 name="play message" class="title">Norbit Game</h1>
           <ul name="buttonlist" class="buttonlist">
             <li><button href="#" name="button start" class="button">Играть</button></li>
             <li><button href="#" name="button exit" class="button">Выйти</button></li>
           </ul>
       </section>
-        <div id="play" class="play">
-          <canvas id="mycanvas" width="600" height="600"></canvas>
+      <section id="play" class="play">
+        <canvas id="mycanvas" width="600" height="600"></canvas>
+      </section>
+      <section id="win" class="win">
+        <div name="end top box" class="endtopbox">
+          <h1 id="winmessage" name="end message" class="endmessage">Вы выйграли! Очки: 600</h1>
         </div>
-        <div id="end" class="end">
-          <h1 name="end message">Norbit Runner </h1>
-          <button href="#" name="button replay" class="button">Retry </button>
+        <div name="end bottom box " class="endbottombox"> </div>
+        <img src="../resources/game/images/catlose.png" name="loseimg" class="loseimg">
+        <ul name="buttonwinlist" class="buttonendlist">
+          <li><button id="buttonreplay" href="#" name="button replay" class="button">Повторить</button></li>
+          <li><button id="buttonform" href="#" name="button form" class="button">Заявка</button></li>
+        </ul>
+      </section>
+      <section id="lose" class="lose">
+        <div  name="end top box" class="endtopbox">
+          <h1 id="losemessage" name="end message" class="endmessage">Вы выйграли! Очки: 600</h1>
         </div>
-        <!--Scripts. Do Not Touch Below.-->
-        <script type="module"  src="dist\engine.js" ></script>
+        <div name="end bottom box " class="endbottombox"> </div>
+        <img src="../resources/game/images/catwin.png" name="loseimg" class="loseimg">
+        <ul name="buttonloselist" class="buttonendlist" display="none">
+          <li><button id="buttonreplay" href="#" name="button replay" class="button">Повторить</button></li>
+          <li><button id="buttonexit" href="#" name="button exit" class="button">Выйти</button></li>
+        </ul>
+      </section>
+      <!--Scripts. Do Not Touch Below.-->
+      <script type="module"  src="dist\engine.js" ></script>
     </body>
 </html>

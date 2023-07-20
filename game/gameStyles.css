@@ -1,12 +1,20 @@
-
-
-body{
-  background: url(../resources/game/images/bgmenu.png);
-  background-clip: content-box;
-  background-size: cover;
-  background-position: top;
+@font-face{
+  font-family: 'Regular';
+  src: url(../resources/game/fonts/menu.ttf);
 }
 
+body{
+  background-image: url(../resources/game/images/bgmenu.png);
+  background-position: left top;
+  background-repeat: no-repeat;
+  margin: 0px;
+  padding: 0px;
+}
+
+section{
+  margin: 0px;
+  padding: 0px;
+}
 
 #mycanvas {
     position: absolute;
@@ -36,14 +44,9 @@ body{
   position: relative;
   font-size: clamp(0.01vw,12rem,10vw);
   font-style: italic;
-  font-size-adjust: 10px;
   text-shadow: max(0.2vw,0.01rem) min(-0.2vw,-0.05rem) 0 #526125,  min(-0.2vw,-0.05rem) max(0.2vw,0.05rem) 0 #526125,  min(-0.2vw,-0.05rem) min(-0.2vw,-0.05rem) 0 #526125,  max(0.2vw,0.05rem) max(0.2vw,0.05rem) 0 #526125;
   font-stretch: ultra-condensed;
   display: inline;
-}
-
-#play {
-  display: none;
 }
 
 .buttonlist{
@@ -53,20 +56,85 @@ body{
   left: -10px;
 }
 
-#end {
+.buttonendlist{
+  position: relative;
+  list-style: none;
+  left: max(-5vh, -4vw);
+  
+}
+
+.endtopbox{
+  background-color: black;
+  position: relative;
+  bottom: 2vh;
+  height: 20vh;
+}
+
+.loseimg{
+  display: none;
+  position:absolute;
+  bottom: 10vh;
+  left: max(32.5vw, 7vh);
+  width: max(35vw, 25vh);
+  height: min(50vw,55vh);
+}
+
+.endbottombox{
+  display: block;
+  background-color: black;
+  background-position: bottom;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 25%;
+}
+
+
+.endmessage{
+  top: max(5vh,0.5vw);
+  height: 5%;
+  position:relative;
+  font-size: max(clamp(0.01vw,6rem,5vh), clamp(0.01vw,6rem,6vw));
+  font-style: normal;
+  text-shadow: max(0.2vw,0.01rem) min(-0.2vw,-0.05rem) 0 #526125,  min(-0.2vw,-0.05rem) max(0.2vw,0.05rem) 0 #526125,  min(-0.2vw,-0.05rem) min(-0.2vw,-0.05rem) 0 #526125,  max(0.2vw,0.05rem) max(0.2vw,0.05rem) 0 #526125;
+  font-stretch: ultra-condensed;
+  display: inline;
+}
+
+.play {
+  display: none;
+}
+
+.lose {
   display: none;
   position: absolute;
-  top: 40%;
+  top: 2vh;
   bottom: 0;
   left: 0;
   right: 0;
   text-align: center;
+  font-family: 'Regular';
+  font-weight: bold;
+  color: #e8a668;
+}
+
+.win{
+  display: none;
+  position: absolute;
+  top: 2vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Regular';
+  font-weight: bold;
+  color: #e8a668;
 }
 
 
 .button {
-  width: 40vw;
-  height: 15vw;
+  width: max(30vw, 43vh);
+  height: max(10vw, 13vh);
   margin: 0 auto;
   position: relative;
   background-image: url(../resources/game/images/button.png);
@@ -80,16 +148,13 @@ body{
   text-align: center;
   font-family: 'Regular';
   font-weight: bold;
-  font-size: clamp(0.01vw,7rem,6vw);
+  font-size: max(clamp(0.01vw,6rem,4vh), clamp(0.01vw,4rem,5vw));
   color: #e8a668;
 }
+
 .button:hover {
   background-image: url(../resources/game/images/button\ hover.png);
   color: #526125;
 
 }
 
-@font-face{
-  font-family: 'Regular';
-  src: url(../resources/game/fonts/menu.ttf);
-}
