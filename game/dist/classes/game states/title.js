@@ -9,7 +9,8 @@ export class TitleState extends GameState {
     }
     enter(params) {
         DOManager.show(this.menu);
-        this.menu.children.namedItem("button start").addEventListener('click', this.startGame);
+        this.menu.children.namedItem("buttonlist").children[0].children.namedItem("button start").addEventListener('click', this.startGame);
+        this.menu.children.namedItem("buttonlist").children[1].children.namedItem("button exit").addEventListener('click', this.exitGame);
     }
     exit() {
         DOManager.hide(this.menu);
@@ -19,11 +20,17 @@ export class TitleState extends GameState {
             DOManager.isStartButton = false;
             this._states.change("play");
         }
+        if (DOManager.isExitButton) {
+            DOManager.isExitButton = false;
+            window.location.href = '../site/main.html';
+        }
     }
     draw() {
-        //render.drawMiddleText(this.welcome, render.WINDOW_WIDTH/2-250, render.WINDOW_HEIGHT/2)
     }
     startGame() {
         DOManager.isStartButton = true;
+    }
+    exitGame() {
+        DOManager.isExitButton = true;
     }
 }

@@ -194,6 +194,24 @@ form .btn-orange:hover{
     text-align: left;
 }
 
+.list{
+    background-color: #000;
+}
+
+.buttonlist{
+    list-style: none;
+}
+
+.buttonlist li{
+    display: inline-block;
+    position: relative;
+}
+
+.buttonlist li button{
+    display: block;
+    text-decoration: none;
+}
+
 .welcome-cat {
     display: flex;
     justify-content: start;

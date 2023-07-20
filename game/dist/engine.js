@@ -49,7 +49,18 @@ function init() {
         "banana",
         "garbage",
         "pigeon",
-        "bench"
+        "bench",
+        "norbit_far1",
+        "norbit_close",
+        "school1",
+        "school2",
+        "school3",
+        "university1",
+        "university2",
+        "university3",
+        "work1",
+        "work2",
+        "work3",
     ]);
     resize();
     resourses.load().then(() => {

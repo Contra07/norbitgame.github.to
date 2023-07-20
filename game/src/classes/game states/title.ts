@@ -14,7 +14,8 @@ export class TitleState extends GameState{
 
     public enter(params: any): void {
         DOManager.show(this.menu);
-        (<HTMLElement>this.menu.children.namedItem("button start")).addEventListener('click', this.startGame)
+        (<HTMLElement>(<HTMLElement>(<HTMLElement>this.menu.children.namedItem("buttonlist")).children[0]).children.namedItem("button start")).addEventListener('click', this.startGame);
+        (<HTMLElement>(<HTMLElement>(<HTMLElement>this.menu.children.namedItem("buttonlist")).children[1]).children.namedItem("button exit")).addEventListener('click', this.exitGame)
     }
 
     public exit(): void {
@@ -26,14 +27,21 @@ export class TitleState extends GameState{
             DOManager.isStartButton = false
             this._states.change("play")
         }
+        if(DOManager.isExitButton){
+            DOManager.isExitButton = false
+            window.location.href = '../site/main.html'
+        }
     }
 
     draw(): void {
-        //render.drawMiddleText(this.welcome, render.WINDOW_WIDTH/2-250, render.WINDOW_HEIGHT/2)
     }
 
     private startGame(): void{
         DOManager.isStartButton = true
         
+    }
+
+    private exitGame():void{
+        DOManager.isExitButton = true
     }
 }

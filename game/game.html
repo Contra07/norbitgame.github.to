@@ -8,16 +8,15 @@
         <link rel="stylesheet" href="gameStyles.css">
     </head>
     <body>
-        <div id="menu" class="menu">
-          <h1 name="play message">Norbit Runner </h1>
-          <button href="#" name="button start" class="button">Start Game </button>
-        </div>
+      <section id="menu" class="menu">
+          <h1 name="play message" class="title">Norbit Runner </h1>
+          <ul name="buttonlist" class="buttonlist">
+            <li><button href="#" name="button start" class="button">Играть</button></li>
+            <li><button href="#" name="button exit" class="button">Выйти</button></li>
+          </ul>
+      </section>
         <div id="play" class="play">
-          <canvas id="mycanvas" width="600" height="600" >
-            <p>You're browser does not support the required functionality to play this game.</p>
-            <p>Please update to a modern browser such as 
-              <a href="www.google.com/chrome/">Google Chrome</a> to play.</p>
-          </canvas>
+          <canvas id="mycanvas" width="600" height="600"></canvas>
         </div>
         <div id="end" class="end">
           <h1 name="end message">Norbit Runner </h1>

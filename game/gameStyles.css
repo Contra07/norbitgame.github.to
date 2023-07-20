@@ -1,56 +1,95 @@
-* {
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+
+
+body{
+  background: url(../resources/game/images/bgmenu.png);
+  background-clip: content-box;
+  background-size: cover;
+  background-position: top;
 }
 
-body {
-    background-color: #333;
-    color: rgb(255, 255, 255);
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-    
-  }
 
 #mycanvas {
-    border-radius: 5px;
-    background-color: #9bc3c8;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
-#menu {
-  display: none;
+.menu {
+    display: none;
+    position: absolute;
+    top: 2vh;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'Regular';
+    font-weight: bold;
+    color: #e8a668;
+}
+
+.title{
+  top: max(10vh,1vw);
+  height: 5%;
+  position: relative;
+  font-size: clamp(0.01vw,12rem,10vw);
+  font-style: italic;
+  font-size-adjust: 10px;
+  text-shadow: max(0.2vw,0.01rem) min(-0.2vw,-0.05rem) 0 #526125,  min(-0.2vw,-0.05rem) max(0.2vw,0.05rem) 0 #526125,  min(-0.2vw,-0.05rem) min(-0.2vw,-0.05rem) 0 #526125,  max(0.2vw,0.05rem) max(0.2vw,0.05rem) 0 #526125;
+  font-stretch: ultra-condensed;
+  display: inline;
 }
 
 #play {
   display: none;
 }
 
+.buttonlist{
+  top: max(10vh,2vw);
+  position: relative;
+  list-style: none;
+  left: -10px;
+}
+
 #end {
   display: none;
+  position: absolute;
+  top: 40%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 
 
 .button {
-  width: 150px;
+  width: 40vw;
+  height: 15vw;
   margin: 0 auto;
-  height: 30px;
-  line-height: 30px;
-  border: 1px solid #AA2666;
-  color: white;
+  position: relative;
+  background-image: url(../resources/game/images/button.png);
+  background-position: center;
+  background-size: contain;
+  background-clip: border-box;
+  background-attachment: local;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0); 
+  background-repeat: no-repeat;
+  text-align: center;
+  font-family: 'Regular';
   font-weight: bold;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  background-color: #FB1886;
-  background-image: -webkit-linear-gradient(bottom, #FB1886 0%, #B30D5D 100%);
-  background-image:         linear-gradient(to bottom, #FB1886 0%, #B30D5D 100%);
-  border-radius: 5px;
+  font-size: clamp(0.01vw,7rem,6vw);
+  color: #e8a668;
 }
 .button:hover {
-  background-color: #B30D5D;
-  background-image: -webkit-linear-gradient(bottom, #B30D5D 0%, #FB1886 100%);
-  background-image:         linear-gradient(to bottom, #B30D5D 0%, #FB1886 100%);
+  background-image: url(../resources/game/images/button\ hover.png);
+  color: #526125;
+
 }
 
+@font-face{
+  font-family: 'Regular';
+  src: url(../resources/game/fonts/menu.ttf);
+}
