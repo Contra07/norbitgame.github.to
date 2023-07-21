@@ -194,22 +194,8 @@ form .btn-orange:hover{
     text-align: left;
 }
 
-.list{
-    background-color: #000;
-}
-
-.buttonlist{
-    list-style: none;
-}
-
-.buttonlist li{
-    display: inline-block;
-    position: relative;
-}
-
-.buttonlist li button{
-    display: block;
-    text-decoration: none;
+.welcome-text{
+    white-space:nowrap;
 }
 
 .welcome-cat {
@@ -218,8 +204,8 @@ form .btn-orange:hover{
     align-items: center;
     width: 100%;
     height: var(--catHeight);
-    background: url(../resources/site/images/cat.png) no-repeat right bottom;
-    background-size: calc(var(--catHeight) - 7%);
+    background: url(../resources/site/images/cat.png) no-repeat center;
+    background-size: calc(var(--catHeight));
 }
 
 .welcome-cat .btn-custom {
@@ -245,7 +231,7 @@ form .btn-orange:hover{
     .welcome-cat {
         justify-content: center;
         background: url(../resources/site/images/cat.png) no-repeat center;
-        background-size: calc(var(--catHeight) - 15%);
+        background-size: calc(var(--sectionHeight));
     }
 
     .welcome-cat .btn-custom {
