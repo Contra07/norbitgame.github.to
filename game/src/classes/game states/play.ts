@@ -24,19 +24,6 @@ export class PlayState extends GameState{
     private _height: number = render.VIRTUAL_HEIGHT
     private _width: number = render.VIRTUAL_WIDTH
     private _pause: boolean = false
-    private _targetFPS: number = 60
-
-    //Игрок
-    private _startPossitionX: number = this._width*0.15
-    private _startPossitionY: number = this._height*0.05
-    private _playerHitboxH = this._height*0.15
-    private _playerHitboxW = this._width*0.08
-    private _jumpHight: number = 150
-
-    //Препятствия
-    private _obstacleHitboxH = this._height*0.05
-    private _obstacleHitboxW = this._width*0.05
-    private _spawntime: number = 2
 
     //Сущности
     private _floor!: Floor
@@ -51,7 +38,6 @@ export class PlayState extends GameState{
 
     //Меню
     private play: HTMLElement
-
 
     constructor(states: StateMachine){
         super(states)
@@ -74,10 +60,9 @@ export class PlayState extends GameState{
     enter(): void {
         //Типа константы
         let gamespeed: number = 600
-        let height: number = render.VIRTUAL_HEIGHT
-        let width: number = render.VIRTUAL_WIDTH
-        let targetFPS: number = 60
-
+        let totalTime = 120
+        let norbitSpeed = -(render.VIRTUAL_WIDTH+150) / totalTime
+        
         //Счет и пауза
         let pause = false
         let coinCounter = 0
@@ -203,38 +188,71 @@ export class PlayState extends GameState{
         )
 
         //Уровень 1
-        let level1Time = 120
+        let level1Time = totalTime/4
         let level1CoinTime = 4
         let level1EnemyTime = 2
-        let level1Speed = gamespeed*0.5
-        let level1Coins = [coin]
-        let level1Enemies = [banana, garbage, pigeon, bench]
+        let level1Speed = gamespeed*0.25
+        let level1Coins = [coin.clone()]
+        let level1Enemies = [banana.clone(), garbage.clone()]
         let level1Background = [
-            new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -level1Speed*0.05),
-            new BackgroundLayer(resourses.getSprite("floor"),0,0, -gamespeed*0.5),
-            new BackgroundLayer(resourses.getSprite("bglayer1"),0,floorHeight, -level1Speed*0.5, level1Time, 
-                [
-                    resourses.getSprite("school1"),
-                    resourses.getSprite("school2"),
-                    resourses.getSprite("school3"),
-                ]
-            ),
-            new BackgroundLayer(resourses.getSprite("bglayer2"),0,floorHeight,-level1Speed*0.2, level1Time, 
-                [
-                    resourses.getSprite("university1"),
-                    resourses.getSprite("university2"),
-                    resourses.getSprite("university3"),
-                ]
-            ),
-            new BackgroundLayer(resourses.getSprite("bglayer3"),0,floorHeight,-level1Speed*0.1, level1Time, 
-            [
-                resourses.getSprite("work1"),
-                resourses.getSprite("work2"),
-                resourses.getSprite("work3"),
-            ]
-        ),
-            new BackgroundLayer(resourses.getSprite("norbit_far1"),render.VIRTUAL_WIDTH*0.6,floorHeight,-level1Speed/300),
-            new BackgroundLayer(resourses.getSprite("bglayer4"),0,floorHeight,0)    
+            new BackgroundLayer(resourses.getSprite("floor"),resourses.getSprite("floor"),0,0, -gamespeed*0.5),
+            new BackgroundLayer(resourses.getSprite("bglayer1"),resourses.getSprite("bglayer1begin"),0,floorHeight, -level1Speed*0.5),
+            new BackgroundLayer(resourses.getSprite("empty"),resourses.getSprite("empty"),0,floorHeight,-level1Speed*0.2),
+            new BackgroundLayer(resourses.getSprite("empty"),resourses.getSprite("empty"),0,floorHeight,-level1Speed*0.1),
+            new BackgroundLayer(resourses.getSprite("bglayer4"),resourses.getSprite("bglayer4"),-150,floorHeight,norbitSpeed),
+            new BackgroundLayer(resourses.getSprite("clouds"),resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height+100, -level1Speed*0.05),
+            new BackgroundLayer(resourses.getSprite("bglayer5"),resourses.getSprite("bglayer5"),0,floorHeight,0)    
+        ]
+
+        //Уровень 2
+        let level2Time = totalTime/4
+        let level2CoinTime = 4
+        let level2EnemyTime = 2.5
+        let level2Speed = gamespeed*0.35
+        let level2Coins = [coin.clone()]
+        let level2Enemies = [banana.clone(), garbage.clone(), pigeon.clone()]
+        let level2Background = [
+            new BackgroundLayer(resourses.getSprite("floor"),resourses.getSprite("floor"),0,0, -gamespeed*0.5),
+            new BackgroundLayer(resourses.getSprite("bglayer1"),resourses.getSprite("bglayer1"),0,floorHeight, -level2Speed*0.5),
+            new BackgroundLayer(resourses.getSprite("bglayer2"),resourses.getSprite("bglayer2begin"),0,floorHeight,-level2Speed*0.2),
+            new BackgroundLayer(resourses.getSprite("empty"),resourses.getSprite("empty"),0,floorHeight,-level2Speed*0.1),
+            new BackgroundLayer(resourses.getSprite("bglayer4"),resourses.getSprite("bglayer4"),-150,floorHeight,norbitSpeed),
+            new BackgroundLayer(resourses.getSprite("clouds"),resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height+100, -level2Speed*0.05),
+            new BackgroundLayer(resourses.getSprite("bglayer5"),resourses.getSprite("bglayer5"),0,floorHeight,0)    
+        ]
+
+        //Уровень 3
+        let level3Time = totalTime/2
+        let level3CoinTime = 4
+        let level3EnemyTime = 3
+        let level3Speed = gamespeed*0.45
+        let level3Coins = [coin.clone()]
+        let level3Enemies = [banana.clone(), garbage.clone(), pigeon.clone(), bench.clone()]
+        let level3Background = [
+            new BackgroundLayer(resourses.getSprite("floor"),resourses.getSprite("floor"),0,0, -gamespeed*0.5),
+            new BackgroundLayer(resourses.getSprite("bglayer1"),resourses.getSprite("bglayer1"),0,floorHeight, -level3Speed*0.5),
+            new BackgroundLayer(resourses.getSprite("bglayer2"),resourses.getSprite("bglayer2"),0,floorHeight,-level3Speed*0.2),
+            new BackgroundLayer(resourses.getSprite("bglayer3"),resourses.getSprite("bglayer3begin"),0,floorHeight,-level3Speed*0.1),
+            new BackgroundLayer(resourses.getSprite("bglayer4"),resourses.getSprite("bglayer4"),-150,floorHeight,norbitSpeed),
+            new BackgroundLayer(resourses.getSprite("clouds"),resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height+100, -level3Speed*0.05),
+            new BackgroundLayer(resourses.getSprite("bglayer5"),resourses.getSprite("bglayer5"),0,floorHeight,0)    
+        ]
+
+        //Уровень Финал
+        let levelfinalTime = (render.VIRTUAL_WIDTH + level3Background[0].x - playerStartPossitionX+ render.VIRTUAL_WIDTH+475-playerHitboxW+75) / (gamespeed*0.5) - render.VIRTUAL_WIDTH/gamespeed - render.VIRTUAL_WIDTH/gamespeed
+        let levelfinalCoinTime = 0
+        let levelfinalEnemyTime = 0
+        let levelfinalSpeed = level3Speed
+        let levelfinalCoins: FlyingObject[] = []
+        let levelfinalEnemies: FlyingObject[] = []
+        let levelfinalBackground = [
+            new BackgroundLayer(resourses.getSprite("floor"),resourses.getSprite("norbitclose"),0,0, -gamespeed*0.5),
+            new BackgroundLayer(resourses.getSprite("bglayer1"),resourses.getSprite("bglayer1"),0,floorHeight, -levelfinalSpeed*0.5),
+            new BackgroundLayer(resourses.getSprite("bglayer2"),resourses.getSprite("bglayer2"),0,floorHeight,-levelfinalSpeed*0.2),
+            new BackgroundLayer(resourses.getSprite("bglayer3"),resourses.getSprite("bglayer3begin"),0,floorHeight,-levelfinalSpeed*0.1),
+            new BackgroundLayer(resourses.getSprite("bglayer4"),resourses.getSprite("bglayer4"),-150,floorHeight,norbitSpeed),
+            new BackgroundLayer(resourses.getSprite("clouds"),resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height+100, -levelfinalSpeed*0.05),
+            new BackgroundLayer(resourses.getSprite("bglayer5"),resourses.getSprite("bglayer5"),0,floorHeight,0)    
         ]
 
         //----------
@@ -275,117 +293,84 @@ export class PlayState extends GameState{
             ),
             level1Background 
         ))
-        /*
-        this._levels.add(
-            new Level(
-                this._levels,
-                5,
-                this._gamespeed,
-                new FlyingObjects(
-                    false,
-                    this._spawntime*2, 
-                    -this._gamespeed*0.8,
-                    this._obstacleHitboxH*1.5,
-                    this._obstacleHitboxW*1.5,
-                    3,
-                    this._startPossitionY,
-                    this._player.hitboxHeight,
-                    "rgba(0,255,120,0.5)",
-                    resourses.getSprite("coin")
-                ),
-                new FlyingObjects(
-                    false,
-                    this._spawntime, 
-                    -this._gamespeed*0.8,
-                    this._obstacleHitboxH*1.4,
-                    this._obstacleHitboxW/1.4,
-                    2,
-                    this._startPossitionY,
-                    this._player.hitboxHeight*2,
-                    "rgba(0,0,255,0.5)",
-                    resourses.getSprite("enemy")
-                ),
-                [
-                    new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.2*this._gamespeed/32),
-                    new BackgroundLayer(resourses.getSprite("floor"),0,0, -1.2*this._gamespeed/2),
-                    new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -1.2*this._gamespeed/4),
-                    new BackgroundLayer(resourses.getSprite("bglayer2"),0,this._startPossitionY,-1.2*this._gamespeed/6),
-                    new BackgroundLayer(resourses.getSprite("empty"),0,this._startPossitionY,-1.2*this._gamespeed/8),
-                    new BackgroundLayer(resourses.getSprite("bglayer4"),0,this._startPossitionY,0)
-                ]
-            )
-        )
-        this._levels.add(
-            new Level(
-                this._levels,
-                25,
-                this._gamespeed,
-                new FlyingObjects(
-                    false,
-                    this._spawntime*2, 
-                    -this._gamespeed*0.8,
-                    this._obstacleHitboxH*1.5,
-                    this._obstacleHitboxW*1.5,
-                    3,
-                    this._startPossitionY,
-                    this._player.hitboxHeight,
-                    "rgba(0,255,120,0.5)",
-                    resourses.getSprite("coin")
-                ),
-                new FlyingObjects(
-                    false,
-                    this._spawntime, 
-                    -this._gamespeed*0.8,
-                    this._obstacleHitboxH/1.4,
-                    this._obstacleHitboxW*1.4,
-                    2,
-                    this._startPossitionY,
-                    this._player.hitboxHeight*2,
-                    "rgba(0,0,255,0.5)",
-                    resourses.getSprite("enemy")
-                ),
-                [
-                    new BackgroundLayer(resourses.getSprite("clouds"),0,render.VIRTUAL_HEIGHT - resourses.getSprite("clouds").height, -1.4*this._gamespeed/32),
-                    new BackgroundLayer(resourses.getSprite("floor"),0,0, -1.4*this._gamespeed/2),
-                    new BackgroundLayer(resourses.getSprite("bglayer1"),0,this._startPossitionY, -1.4*this._gamespeed/4),
-                    new BackgroundLayer(resourses.getSprite("bglayer2"),0,this._startPossitionY,-1.4*this._gamespeed/6),
-                    new BackgroundLayer(resourses.getSprite("bglayer3"),0,this._startPossitionY,-1.4*this._gamespeed/8),
-                    new BackgroundLayer(resourses.getSprite("bglayer4"),0,this._startPossitionY,0)
-                ]
-            )
-        )
-        */
+
+        this._levels.add(new Level( 
+            this._levels, 
+            level2Time, 
+            gamespeed, 
+            new FlyingObjects(
+                level2Coins,
+                true,
+                level2CoinTime
+            ), 
+            new FlyingObjects(
+                level2Enemies,
+                true,
+                level2EnemyTime
+            ),
+            level2Background 
+        ))
+
+        this._levels.add(new Level( 
+            this._levels, 
+            level3Time, 
+            gamespeed, 
+            new FlyingObjects(
+                level3Coins,
+                true,
+                level3CoinTime
+            ), 
+            new FlyingObjects(
+                level3Enemies,
+                true,
+                level3EnemyTime
+            ),
+            level3Background 
+        ))
+
+        this._levels.add(new Level( 
+            this._levels, 
+            levelfinalTime, 
+            gamespeed, 
+            new FlyingObjects(
+                levelfinalCoins,
+                true,
+                levelfinalCoinTime
+            ), 
+            new FlyingObjects(
+                levelfinalEnemies,
+                true,
+                levelfinalEnemyTime
+            ),
+            levelfinalBackground 
+        ))
+
         DOManager.show(this.play)
     }
 
     update(dt: number): void {
-
         if(keys.wasPressed("Escape")){
             this._pause = !this._pause 
         }
         if(keys.wasPressed("Enter")){
             this._states.change("play")
         }
-
         if(!this._pause){
-
             //Перелючение уровня
             if(this._levels.current.isEndEnd){
                 if(this._levels.isLastLevel){
                     this._states.change("end", {coins: this._coinCounter, win: false})
                 }
                 else{
-                    //this.pause()
-
                     this._levels.next()
                 }
             }
 
             //Обновление сущностей
             this._levels.update(dt)
-            //this._floor.update(dt)
             this._player.update(dt)
 
+            //Лавки
             for(let object of this._levels.current.obstacles.objects){
                 if(object.sprite == resourses.getSprite("bench")){
                     if(!(object as Bench).canRun){

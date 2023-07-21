@@ -19,6 +19,10 @@ export class Coin extends FlyingObject{
         return coin
     }
 
+    public clone(): Coin {
+        return new Coin(this.hitboxWidht, this.hitboxHeight, this.dx, this._minHeight, this._maxHeight, this.hitboxColor,this.sprite, this.animation)
+    }
+
     //Случайное число
     private static randomNumber(min: number, max: number): number {
         return Math.random() * (max - min) + min;

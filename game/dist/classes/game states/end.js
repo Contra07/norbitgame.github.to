@@ -3,8 +3,8 @@ import { DOManager } from "../managers/dom.js";
 export class EndState extends GameState {
     win;
     lose;
-    mwin = "Вы выйграли!";
-    mlose = "Вы проиграли.";
+    mwin = "Победа!!";
+    mlose = "Поражение.";
     collected = "Очки: ";
     points = "";
     messenge = "";

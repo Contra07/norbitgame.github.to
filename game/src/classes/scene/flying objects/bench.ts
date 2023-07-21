@@ -18,7 +18,7 @@ export class Bench extends FlyingObject{
         this._canRun = actor.y > this.y + this.hitboxHeight && actor.x+actor.hitboxHeight > this.x && actor.x < this.x + this.hitboxHeight
     }
 
-    protected clone(): Bench{
+    public clone(): Bench{
         let object = new Bench(
             this.y,
             this.hitboxHeight,

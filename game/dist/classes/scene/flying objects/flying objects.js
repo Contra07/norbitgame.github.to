@@ -29,8 +29,10 @@ export class FlyingObjects extends GameObject {
     spawnObject() {
         let i = FlyingObjects.randomNumber(0, this._refObjects.length);
         i = i - (i % 1);
-        let object = this._refObjects[i].spawn();
-        this._objects.add(object);
+        if (i < this._refObjects.length) {
+            let object = this._refObjects[i].spawn();
+            this._objects.add(object);
+        }
     }
     resetTimer() {
         this._timer = Math.random() * this._spawnTime / 2;

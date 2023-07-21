@@ -23,4 +23,8 @@ export class Pigeon extends FlyingObject{
     private static randomNumber(min: number, max: number): number {
         return Math.random() * (max - min) + min;
     }
+
+    public clone(): Pigeon {
+        return new Pigeon(this.hitboxWidht, this.hitboxHeight, this.dx, this._minHeight, this._maxHeight, this.hitboxColor,this.sprite, this.animation)
+    }
 }

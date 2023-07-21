@@ -5,6 +5,7 @@
 
 body{
   background-image: url(../resources/game/images/bgmenu.png);
+  background-size: max(100vw, 1500px) max(900px, 100vh);
   background-position: left top;
   background-repeat: no-repeat;
   margin: 0px;
@@ -133,8 +134,8 @@ section{
 
 
 .button {
-  width: max(30vw, 43vh);
-  height: max(10vw, 13vh);
+  width: max(30vw, 23vh);
+  height: max(10vw, 10vh);
   margin: 0 auto;
   position: relative;
   background-image: url(../resources/game/images/button.png);
@@ -148,7 +149,7 @@ section{
   text-align: center;
   font-family: 'Regular';
   font-weight: bold;
-  font-size: max(clamp(0.01vw,6rem,4vh), clamp(0.01vw,4rem,5vw));
+  font-size: max(clamp(0.01vw,5rem,3vh), clamp(0.01vw,2.5rem,4vw));
   color: #e8a668;
 }
 

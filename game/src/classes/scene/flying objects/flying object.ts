@@ -6,7 +6,7 @@ import { CycleSprite } from "../../core/cycle sprite.js";
 export class FlyingObject extends Actor{
     private _isDestroy: boolean
 
-    constructor(y: number, w: number, h: number,  color?: string, sprite?: Sprite, animation?: CycleSprite) {
+    constructor(y: number,  h: number,  w: number,color?: string, sprite?: Sprite, animation?: CycleSprite) {
         super(render.VIRTUAL_WIDTH,y,h,w,color, sprite, animation);
         this._isDestroy = false
     }
@@ -37,11 +37,11 @@ export class FlyingObject extends Actor{
         }
     }
 
-    protected clone(): FlyingObject{
+    public clone(): FlyingObject{
         let object = new FlyingObject(
             this.y,
-            this.hitboxHeight,
             this.hitboxWidht,
+            this.hitboxHeight,
             this.hitboxColor,
             this.sprite,
             this.animation

@@ -3,26 +3,15 @@ import { Actor } from "../core/actor.js";
 export class BackgroundLayer extends Actor {
     _now;
     _next;
-    _rndSprites;
-    _rndSpriteTimer;
-    _rndSpriteMax;
-    _rndSpriteIndex;
-    constructor(sprite, x, y, speed, lvlTime, rndSprites) {
+    _enter;
+    _isEnter;
+    constructor(sprite, enter, x, y, speed) {
         super(x, y, sprite.height, sprite.width, undefined, sprite);
         this.dx = speed;
+        this._enter = enter;
         this._now = sprite;
         this._next = sprite;
-        if (rndSprites && lvlTime) {
-            this._rndSprites = rndSprites;
-            this._rndSpriteMax = lvlTime / this._rndSprites.length;
-            this._rndSpriteTimer = this._rndSpriteMax;
-            this._rndSpriteIndex = 0;
-        }
-        else {
-            this._rndSpriteTimer = 0;
-            this._rndSpriteMax = 0;
-            this._rndSpriteIndex = 0;
-        }
+        this._isEnter = true;
     }
     get now() {
         return this._now;
@@ -47,21 +36,13 @@ export class BackgroundLayer extends Actor {
         if (this.x + this._now.width <= 0) {
             this.x += this._now.width;
             this._now = this._next;
-            if (this.sprite) {
+            if (this._isEnter) {
+                this._isEnter = false;
+                this._next = this._enter;
+            }
+            else if (this.sprite) {
                 this._next = this.sprite;
             }
-            if (this._rndSprites) {
-                if (this._rndSpriteTimer > this._rndSpriteMax) {
-                    this.next = this._rndSprites[this._rndSpriteIndex];
-                    this._rndSpriteTimer = 0;
-                    if (this._rndSpriteIndex < this._rndSprites.length) {
-                        this._rndSpriteIndex++;
-                    }
-                }
-            }
-        }
-        if (this._rndSprites) {
-            this._rndSpriteTimer += dt;
         }
     }
     draw() {

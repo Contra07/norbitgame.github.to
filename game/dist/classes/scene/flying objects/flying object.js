@@ -2,7 +2,7 @@ import { render } from "../../../engine.js";
 import { Actor } from "../../core/actor.js";
 export class FlyingObject extends Actor {
     _isDestroy;
-    constructor(y, w, h, color, sprite, animation) {
+    constructor(y, h, w, color, sprite, animation) {
         super(render.VIRTUAL_WIDTH, y, h, w, color, sprite, animation);
         this._isDestroy = false;
     }
@@ -28,7 +28,7 @@ export class FlyingObject extends Actor {
         }
     }
     clone() {
-        let object = new FlyingObject(this.y, this.hitboxHeight, this.hitboxWidht, this.hitboxColor, this.sprite, this.animation);
+        let object = new FlyingObject(this.y, this.hitboxWidht, this.hitboxHeight, this.hitboxColor, this.sprite, this.animation);
         object.x = this.x;
         object.y = this.y;
         object.dx = this.dx;
