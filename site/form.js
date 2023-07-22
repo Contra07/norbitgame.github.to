@@ -6,22 +6,23 @@ document.getElementById("questionnaire").addEventListener("submit", function (e)
     fData.forEach( (value, key, parent )=> {
         obj[key] = value
     })
-    console.log(obj)
-    var blob = new Blob([JSON.stringify(obj, null, 2)], {type: "application/json;charset=utf-8"});
-    var url = URL.createObjectURL(blob);
-    var elem = document.createElement("a");
-    elem.href = url;
-    elem.download = "filename.txt";
-    document.body.appendChild(elem);
-    elem.click();
-    document.body.removeChild(elem);
-    console.log(fData.values())
-})
+    //console.log(fData.values())
+    postData("http://192.168.0.106:8888/form", obj)
+    .then(fetchResponse => {
+        console.log(fetchResponse)
+    })
+    .catch()
+})  
 
 const postData = async (url, fData) => {
-	let fetchResponse = await fetch(url, {
-		method: "POST",
-		body: fData
-	});
-	return await fetchResponse.text();
+    let head = new Headers()
+    head.append('Origin', window.location.origin)
+    let options = {
+        resource: url,
+        method:  "POST",
+        body: fData
+    }
+    
+	let fetchResponse = await fetch(url, options);
+	return await fetchResponse.statusText;
 };

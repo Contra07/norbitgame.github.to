@@ -154,7 +154,7 @@ export class PlayState extends GameState{
         let pigeonHeight = resourses.getSprite("pigeon").height
         let pigeonSpeed = -this._gamespeed*0.7
         let pigeonMinY = floorHeight + playerHitboxH + pigeonHeight
-        let pigeonMaxY = playerHitboxH*2
+        let pigeonMaxY = playerHitboxH*4
         let pigeonAnimation = new CycleSprite(
             [
                 resourses.getSprite("pigeon"),
@@ -239,7 +239,7 @@ export class PlayState extends GameState{
         ]
 
         //Уровень Финал
-        let levelfinalTime = (render.VIRTUAL_WIDTH + level3Background[0].x - playerStartPossitionX+ render.VIRTUAL_WIDTH+475-playerHitboxW+75) / (gamespeed*0.5) - render.VIRTUAL_WIDTH/gamespeed - render.VIRTUAL_WIDTH/gamespeed
+        let levelfinalTime = (render.VIRTUAL_WIDTH + level3Background[0].x - playerStartPossitionX+ render.VIRTUAL_WIDTH+475-playerHitboxW+85) / (gamespeed*0.5) - render.VIRTUAL_WIDTH/gamespeed - render.VIRTUAL_WIDTH/gamespeed
         let levelfinalCoinTime = 0
         let levelfinalEnemyTime = 0
         let levelfinalSpeed = level3Speed
