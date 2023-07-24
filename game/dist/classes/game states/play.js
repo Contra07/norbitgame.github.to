@@ -46,7 +46,7 @@ export class PlayState extends GameState {
     enter() {
         //Типа константы
         let gamespeed = 600;
-        let totalTime = 120;
+        let totalTime = 1;
         let norbitSpeed = -(render.VIRTUAL_WIDTH + 150) / totalTime;
         //Счет и пауза
         let pause = false;
@@ -99,26 +99,27 @@ export class PlayState extends GameState {
         let garbageSprite = resourses.getSprite("garbage");
         let garbage = new Garbage(garbageY, garbageHeight, garbageWidth, garbageSpeed, undefined, garbageSprite);
         //Голубь
-        let pigeonWidth = resourses.getSprite("pigeon").width;
-        let pigeonHeight = resourses.getSprite("pigeon").height;
+        let pigeonWidth = resourses.getSprite("pigeon1").width;
+        let pigeonHeight = resourses.getSprite("pigeon1").height;
         let pigeonSpeed = -this._gamespeed * 0.7;
         let pigeonMinY = floorHeight + playerHitboxH + pigeonHeight;
         let pigeonMaxY = playerHitboxH * 4;
         let pigeonAnimation = new CycleSprite([
-            resourses.getSprite("pigeon"),
+            resourses.getSprite("pigeon1"),
+            resourses.getSprite("pigeon2")
         ], 0.2);
         let pigeon = new Pigeon(pigeonWidth, pigeonHeight, pigeonSpeed, pigeonMinY, pigeonMaxY, undefined, undefined, pigeonAnimation);
         //Скамейка
         let benchY = floorHeight;
-        let benchWidth = resourses.getSprite("bench").width;
-        let benchHeight = resourses.getSprite("bench").height;
+        let benchWidth = resourses.getSprite("car").width;
+        let benchHeight = resourses.getSprite("car").height;
         let benchSpeed = -this._gamespeed * 0.5;
-        let benchSprite = resourses.getSprite("bench");
+        let benchSprite = resourses.getSprite("car");
         let bench = new Bench(benchY, benchHeight, benchWidth, benchSpeed, undefined, benchSprite);
         //Уровень 1
         let level1Time = totalTime / 4;
-        let level1CoinTime = 4;
-        let level1EnemyTime = 2;
+        let level1CoinTime = 6;
+        let level1EnemyTime = 5;
         let level1Speed = gamespeed * 0.25;
         let level1Coins = [coin.clone()];
         let level1Enemies = [banana.clone(), garbage.clone()];
@@ -133,8 +134,8 @@ export class PlayState extends GameState {
         ];
         //Уровень 2
         let level2Time = totalTime / 4;
-        let level2CoinTime = 4;
-        let level2EnemyTime = 2.5;
+        let level2CoinTime = 6;
+        let level2EnemyTime = 3.5;
         let level2Speed = gamespeed * 0.35;
         let level2Coins = [coin.clone()];
         let level2Enemies = [banana.clone(), garbage.clone(), pigeon.clone()];
@@ -149,8 +150,8 @@ export class PlayState extends GameState {
         ];
         //Уровень 3
         let level3Time = totalTime / 2;
-        let level3CoinTime = 4;
-        let level3EnemyTime = 3;
+        let level3CoinTime = 6;
+        let level3EnemyTime = 2.3;
         let level3Speed = gamespeed * 0.45;
         let level3Coins = [coin.clone()];
         let level3Enemies = [banana.clone(), garbage.clone(), pigeon.clone(), bench.clone()];
@@ -191,6 +192,7 @@ export class PlayState extends GameState {
         this._levels.add(new Level(this._levels, level3Time, gamespeed, new FlyingObjects(level3Coins, true, level3CoinTime), new FlyingObjects(level3Enemies, true, level3EnemyTime), level3Background));
         this._levels.add(new Level(this._levels, levelfinalTime, gamespeed, new FlyingObjects(levelfinalCoins, true, levelfinalCoinTime), new FlyingObjects(levelfinalEnemies, true, levelfinalEnemyTime), levelfinalBackground));
         DOManager.show(this.play);
+        document.getElementsByTagName('body')[0].className = 'playbody';
     }
     update(dt) {
         if (keys.wasPressed("Escape")) {
@@ -214,7 +216,7 @@ export class PlayState extends GameState {
             this._player.update(dt);
             //Лавки
             for (let object of this._levels.current.obstacles.objects) {
-                if (object.sprite == resourses.getSprite("bench")) {
+                if (object.sprite == resourses.getSprite("car")) {
                     if (!object.canRun) {
                         object.canRunOnTop(this._player);
                     }

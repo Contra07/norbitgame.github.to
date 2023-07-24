@@ -3,19 +3,46 @@
   src: url(../resources/game/fonts/menu.ttf);
 }
 
-body{
+section{
+  margin: 0px;
+  padding: 0px;
+}
+
+
+.menubody{
   background-image: url(../resources/game/images/bgmenu.png);
-  background-size: max(100vw, 1500px) max(900px, 100vh);
-  background-position: left top;
+  background-size: max(100vw, 3000px) max(900px, 100vh);
+  background-position: center top;
   background-repeat: no-repeat;
   margin: 0px;
   padding: 0px;
 }
 
-section{
+.playbody{
+  background-image: url(../resources/game/images/bgmenu.png);
+  background-size: max(100vw, 3000px) max(900px, 100vh);
+  background-position: center top;
+  background-repeat: no-repeat;
   margin: 0px;
   padding: 0px;
 }
+
+
+.losebody{
+  background-image: url(../resources/game/images/bglose.png);
+  background-size: max(100vw, 3000px) max(900px, 100vh);
+  background-position: center calc(100vh - max(900px, 100vh));
+  background-repeat: no-repeat;
+}
+
+.winbody{
+  background-image: url(../resources/game/images/bgwin.png);
+  background-size: max(100vw, 3000px) max(900px, 100vh);
+  background-position: center calc(100vh - max(900px, 100vh));
+  background-repeat: no-repeat;
+}
+
+
 
 #mycanvas {
     position: absolute;
@@ -152,6 +179,33 @@ section{
   font-size: max(clamp(0.01vw,5rem,3vh), clamp(0.01vw,2.5rem,4vw));
   color: #e8a668;
 }
+
+.buttonend {
+  width: max(30vw, 23vh);
+  height: max(7.5vw, 10vh);
+  margin: 0 auto;
+  position: relative;
+  background-image: url(../resources/game/images/button.png);
+  background-position: center;
+  background-size: contain;
+  background-clip: border-box;
+  background-attachment: local;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0); 
+  background-repeat: no-repeat;
+  text-align: center;
+  font-family: 'Regular';
+  font-weight: bold;
+  font-size: max(clamp(0.01vw,5rem,3vh), clamp(0.01vw,2.5rem,4vw));
+  color: #e8a668;
+}
+
+.buttonend:hover {
+  background-image: url(../resources/game/images/button\ hover.png);
+  color: #526125;
+
+}
+
 
 .button:hover {
   background-image: url(../resources/game/images/button\ hover.png);

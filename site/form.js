@@ -6,12 +6,15 @@ document.getElementById("questionnaire").addEventListener("submit", function (e)
     fData.forEach( (value, key, parent )=> {
         obj[key] = value
     })
-    //console.log(fData.values())
-    postData("http://192.168.0.106:8888/form", obj)
+    postData("http://192.168.0.106:8888/form", JSON.stringify(obj))
     .then(fetchResponse => {
         console.log(fetchResponse)
     })
-    .catch()
+    .catch( fetchResponse =>{
+        console.log(fetchResponse)
+        console.log("Fetch error")
+    }
+    )
 })  
 
 const postData = async (url, fData) => {
@@ -24,5 +27,5 @@ const postData = async (url, fData) => {
     }
     
 	let fetchResponse = await fetch(url, options);
-	return await fetchResponse.statusText;
+	return fetchResponse.statusText;
 };

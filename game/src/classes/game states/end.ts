@@ -1,4 +1,4 @@
-import { keys, render } from "../../engine.js";
+import { keys, render, resourses } from "../../engine.js";
 import { GameState } from "../state machine/game state.js";
 import { StateMachine } from "../state machine/game machine.js";
 import { DOManager } from "../managers/dom.js";
@@ -30,7 +30,8 @@ export class EndState extends GameState{
                 this.messenge = this.mwin;
                 (<HTMLElement>(<HTMLElement>(<HTMLElement>this.win.children.namedItem("buttonwinlist")).children[0]).children.namedItem("button replay")).addEventListener('click', this.restartGame);
                 (<HTMLElement>(<HTMLElement>(<HTMLElement>this.win.children.namedItem("buttonwinlist")).children[1]).children.namedItem("button form")).addEventListener('click', this.form);
-                (<HTMLElement>(<HTMLElement>this.win.children.namedItem("end top box")).children.namedItem("end message")).innerText = this.messenge + " " + this.points
+                (<HTMLElement>(<HTMLElement>this.win.children.namedItem("end top box")).children.namedItem("end message")).innerText = this.messenge + " " + this.points;
+                document.getElementsByTagName('body')[0].className = 'winbody'
                 DOManager.show(this.win);
             }
             else{
@@ -38,6 +39,7 @@ export class EndState extends GameState{
                 (<HTMLElement>(<HTMLElement>(<HTMLElement>this.lose.children.namedItem("buttonloselist")).children[0]).children.namedItem("button replay")).addEventListener('click', this.restartGame);
                 (<HTMLElement>(<HTMLElement>(<HTMLElement>this.lose.children.namedItem("buttonloselist")).children[1]).children.namedItem("button exit")).addEventListener('click', this.exitGame);
                 (<HTMLElement>(<HTMLElement>this.lose.children.namedItem("end top box")).children.namedItem("end message")).innerText = this.messenge + " " + this.points
+                document.getElementsByTagName('body')[0].className = 'losebody'
                 DOManager.show(this.lose);
             }
         }

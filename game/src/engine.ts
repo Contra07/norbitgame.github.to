@@ -65,9 +65,14 @@ function init(): void {
             "coin4",
             "banana",
             "garbage",
-            "pigeon",
+            "pigeon1",
+            "pigeon2",
+            "car",
             "bench",
             "norbitclose",
+            "bgmenu",
+            "bglose",
+            "bgwin",
         ]
     )
     resize();

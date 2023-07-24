@@ -8,9 +8,10 @@ export class TitleState extends GameState {
         this.menu = document.getElementById('menu');
     }
     enter(params) {
-        DOManager.show(this.menu);
         this.menu.children.namedItem("buttonlist").children[0].children.namedItem("button start").addEventListener('click', this.startGame);
         this.menu.children.namedItem("buttonlist").children[1].children.namedItem("button exit").addEventListener('click', this.exitGame);
+        document.getElementsByTagName('body')[0].className = 'menubody';
+        DOManager.show(this.menu);
     }
     exit() {
         DOManager.hide(this.menu);

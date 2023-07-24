@@ -1,6 +1,6 @@
 import { StateMachine } from "../state machine/game machine.js";
 import { GameState } from "../state machine/game state.js";
-import { keys, render } from "../../engine.js";
+import { keys, render, resourses } from "../../engine.js";
 import { DOManager } from "../managers/dom.js";
 
 export class TitleState extends GameState{
@@ -13,9 +13,10 @@ export class TitleState extends GameState{
     }
 
     public enter(params: any): void {
-        DOManager.show(this.menu);
         (<HTMLElement>(<HTMLElement>(<HTMLElement>this.menu.children.namedItem("buttonlist")).children[0]).children.namedItem("button start")).addEventListener('click', this.startGame);
         (<HTMLElement>(<HTMLElement>(<HTMLElement>this.menu.children.namedItem("buttonlist")).children[1]).children.namedItem("button exit")).addEventListener('click', this.exitGame)
+        document.getElementsByTagName('body')[0].className = 'menubody'
+        DOManager.show(this.menu);
     }
 
     public exit(): void {
