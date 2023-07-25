@@ -84,7 +84,6 @@ function getDeltaTime(nowTime) {
 }
 //-----User Inputs-----
 function keyDown(e) {
-    e.preventDefault();
     keys.press(e.key);
 }
 function touchStart(evt) {

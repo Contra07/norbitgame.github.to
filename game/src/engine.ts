@@ -103,7 +103,6 @@ function getDeltaTime(nowTime: number): number {
 //-----User Inputs-----
 
 function keyDown(e: KeyboardEvent){
-    e.preventDefault()
     keys.press(e.key)
 }
 

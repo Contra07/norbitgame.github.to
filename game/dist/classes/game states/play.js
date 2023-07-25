@@ -200,8 +200,11 @@ export class PlayState extends GameState {
         document.getElementsByTagName('body')[0].className = 'playbody';
     }
     update(dt) {
-        if (keys.wasPressed("Escape")) {
-            this._pause = !this._pause;
+        if (document.hasFocus()) {
+            this._pause = false;
+        }
+        else {
+            this._pause = true;
         }
         if (keys.wasPressed("Enter")) {
             this._states.change("play");
