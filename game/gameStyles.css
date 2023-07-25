@@ -159,6 +159,26 @@ section{
   color: #e8a668;
 }
 
+.uiheader{
+  position: absolute;
+  margin: 0 auto;
+  left: max(0px,calc(50vw - 50vh));
+  
+}
+
+.uilist{
+  list-style: none;
+}
+
+.uielemet{
+  font-family: 'Regular';
+  font-weight: bold;
+  color :#e8a668 ;
+  text-shadow: 0.1rem -0.1rem 0 rgb(33, 49, 0),  -0.1rem 0.1rem 0 rgb(33, 49, 0), -0.1rem -0.1rem 0 rgb(33, 49, 0), 0.1rem 0.1rem 0 rgb(33, 49, 0);
+  font-size: 3rem;
+}
+
+
 
 .button {
   width: max(30vw, 23vh);

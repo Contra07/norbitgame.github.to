@@ -36,12 +36,18 @@ export class PlayState extends GameState{
     private _coinCounter!: number
     private _lifesCounter!: number
 
-    //Меню
+    //Состояние ui
     private play: HTMLElement
+
+    //UI елементы
+    private _coinui: HTMLElement
+    private _lifeui: HTMLElement
 
     constructor(states: StateMachine){
         super(states)
         this.play = <HTMLElement>document.getElementById('play')
+        this._coinui = <HTMLElement>document.getElementById("uicoinelemet")
+        this._lifeui = <HTMLElement>document.getElementById("uilifeelemet")
     }
 
     
@@ -410,8 +416,7 @@ export class PlayState extends GameState{
         this._levels.draw()
         this._floor.draw()
         this._player.draw()
-
-        render.drawMiddleText("Жизни: " + this._lifesCounter, 0, this._height - 180)
-        render.drawMiddleText("Монет: " + this._coinCounter, 0, this._height - 200)
+        this._coinui.childNodes[2].textContent = " x " + this._coinCounter
+        this._lifeui.childNodes[2].textContent = " x " + this._lifesCounter
     }
 }

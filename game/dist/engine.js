@@ -60,6 +60,8 @@ function init() {
         "bgmenu",
         "bglose",
         "bgwin",
+        "coinlogo",
+        "lifelogo",
     ]);
     resize();
     resourses.load().then(() => {

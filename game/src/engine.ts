@@ -73,6 +73,8 @@ function init(): void {
             "bgmenu",
             "bglose",
             "bgwin",
+            "coinlogo",
+            "lifelogo",
         ]
     )
     resize();
