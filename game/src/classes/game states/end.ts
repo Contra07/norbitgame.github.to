@@ -6,8 +6,8 @@ import { DOManager } from "../managers/dom.js";
 export class EndState extends GameState{
     private win: HTMLElement
     private lose: HTMLElement
-    private mwin: string = "Победа!!"
-    private mlose: string = "Поражение."
+    private mwin: string = "Победа!"
+    private mlose: string = "Игра окончена."
     private collected: string = "Очки: "
     private points: string = ""
     private messenge: string = ""

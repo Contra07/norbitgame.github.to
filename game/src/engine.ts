@@ -38,10 +38,10 @@ function init(): void {
     keys = new KeyManager()
     game = new GameManager()
     game.init()
-    window.addEventListener("keydown", keyDown, true);
-    window.addEventListener("touchstart", touchStart, true);
-    window.addEventListener("mousedown", mouseDown, true);
-    window.addEventListener("resize", resize, true)
+    window.addEventListener("keydown", keyDown, false);
+    //window.addEventListener("touchstart", touchStart, false);
+    window.addEventListener("mousedown", mouseDown, false);
+    window.addEventListener("resize", resize, false)
     resourses = new ResourcesManager(
         [
             "floor",
@@ -101,11 +101,14 @@ function getDeltaTime(nowTime: number): number {
 //-----User Inputs-----
 
 function keyDown(e: KeyboardEvent){
+    e.preventDefault()
     keys.press(e.key)
 }
 
 function touchStart(evt: TouchEvent) 
 {
+    window.removeEventListener("keydown", keyDown, false)
+    evt.preventDefault()
     keys.press(" ")
 }
 

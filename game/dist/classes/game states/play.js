@@ -46,7 +46,7 @@ export class PlayState extends GameState {
     enter() {
         //Типа константы
         let gamespeed = 600;
-        let totalTime = 1;
+        let totalTime = 120;
         let norbitSpeed = -(render.VIRTUAL_WIDTH + 150) / totalTime;
         //Счет и пауза
         let pause = false;

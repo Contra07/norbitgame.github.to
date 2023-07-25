@@ -26,10 +26,10 @@ function init() {
     keys = new KeyManager();
     game = new GameManager();
     game.init();
-    window.addEventListener("keydown", keyDown, true);
-    window.addEventListener("touchstart", touchStart, true);
-    window.addEventListener("mousedown", mouseDown, true);
-    window.addEventListener("resize", resize, true);
+    window.addEventListener("keydown", keyDown, false);
+    //window.addEventListener("touchstart", touchStart, false);
+    window.addEventListener("mousedown", mouseDown, false);
+    window.addEventListener("resize", resize, false);
     resourses = new ResourcesManager([
         "floor",
         "player run 1",
@@ -82,9 +82,12 @@ function getDeltaTime(nowTime) {
 }
 //-----User Inputs-----
 function keyDown(e) {
+    e.preventDefault();
     keys.press(e.key);
 }
 function touchStart(evt) {
+    window.removeEventListener("keydown", keyDown, false);
+    evt.preventDefault();
     keys.press(" ");
 }
 function mouseDown() {
