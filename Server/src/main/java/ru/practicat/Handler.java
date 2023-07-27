@@ -1,28 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package org.example;
+package ru.practicat;
 
 import java.io.*;
 import java.net.Socket;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 import rawhttp.core.*;
 
 public class Handler extends Thread {
     private static final String FAIL = "Fail";
     private static final String SUCCESS = "OK";
     private final String origin;
-    
-    private Socket socket;
-    private MailSender mail;
+    private final Socket socket;
+    private final MailSender mail;
 
     Handler(Socket socket, String origin, MailSender mail) {
-        System.out.print("Server accepted connection form: ");
-        System.out.println(socket.getInetAddress() + ":" + socket.getPort());
         this.socket = socket;
         this.mail = mail;
         this.origin = origin;
+        System.out.print("Server accepted connection form: ");
+        System.out.println(socket.getInetAddress() + ":" + socket.getPort());
     }
 
     @Override
@@ -31,6 +27,7 @@ public class Handler extends Thread {
         {
             RawHttpRequest response = GetResponse(input);
             String url = getRequestUrl(response);
+            System.out.println("Resource: " + url);
             if (
                 (url.equals("/form") || url.equals("/form.html")) 
                 && mail.sendForm(this.getRequestBody(response))
@@ -62,7 +59,7 @@ public class Handler extends Thread {
         String body = "";
         try {
             if(response.getBody().isPresent()){
-                body = response.getBody().get().decodeBodyToString(Charset.forName("UTF-8")); 
+                body = response.getBody().get().decodeBodyToString(StandardCharsets.UTF_8);
             }
         }
         catch(Exception ex)

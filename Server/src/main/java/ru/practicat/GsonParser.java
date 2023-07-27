@@ -1,4 +1,4 @@
-package org.example;
+package ru.practicat;
 
 import com.google.gson.Gson;
 

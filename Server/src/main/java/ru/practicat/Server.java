@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package org.example;
+package ru.practicat;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -22,8 +18,7 @@ public class Server {
 
     void start() {
         try (var server = new ServerSocket(this.port)) {
-            System.out.println("Server started");
-            System.out.println(server.getInetAddress());
+            System.out.println("Server started on port" + server.getLocalPort());
             while (true) {
                 System.out.println("Server waiting...");
                 var socket = server.accept();

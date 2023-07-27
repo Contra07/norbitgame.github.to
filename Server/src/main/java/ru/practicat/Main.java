@@ -1,5 +1,4 @@
-package org.example;
-import java.io.*;
+package ru.practicat;
 
 public class Main {
     public static void main(String[] args) {

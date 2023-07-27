@@ -1,4 +1,4 @@
-package org.example;
+package ru.practicat;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class MailSender {
-    private Properties properties;
-    private String username;
-    private String password;
-    private Session session;
+    private final Properties properties;
+    private final String username;
+    private final String password;
+    private final Session session;
 
     public MailSender(String configPath) {
         properties = getProperties(configPath);
@@ -28,8 +28,13 @@ public class MailSender {
         boolean result = false;
         try {
             Transport.send(message);
+            System.out.println("Message has been sent to: ");
+            for (Address Recipient : message.getAllRecipients()) {
+                System.out.print(Recipient+ " ");
+            }
             result = true;
         } catch (MessagingException ex) {
+            System.out.println("Error sending the message");
             ex.printStackTrace();
         }
         return result;
@@ -50,8 +55,10 @@ public class MailSender {
         }
         catch (MessagingException ex) {
             message = null;
+            System.out.println("Message build error");
             ex.printStackTrace();
         }
+        System.out.println("Message has been build");
         return message;
     }
 
@@ -72,7 +79,7 @@ public class MailSender {
         try (FileInputStream inputStream = new FileInputStream(filename)) {
             properties.load(inputStream);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
         return properties;
     }
