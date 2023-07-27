@@ -216,3 +216,7 @@ replay_pid*
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains,intellij,java
+
+Server/target/
+Server/.idea
+Server/pom.xml
