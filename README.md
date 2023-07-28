@@ -1,6 +1,6 @@
 # Practicat.ru
 ## Сайт практикантов в компании Норбит
-Репозиторий содержит исходный код сайта [practicat.ru](https://practicat.ru) и сервиса по отправки email писем.
+Репозиторий содержит исходный код сайта [practicat.ru](http://practicat.ru) и сервиса по отправки email писем.
 
 ## Структура сайта
 
@@ -58,7 +58,7 @@
 ```
 
 * Порт - номер порта (0-65555), котроый прослушивает сервер
-* Базовый адрес сайта - адрес сайта с которого будет поступать заявка. (https://practicat.ru)
+* Базовый адрес сайта - адрес сайта с которого будет поступать заявка. (http://practicat.ru)
 * Путь к конфиг файлу - путь к файлу .properties, содержащему информацию о SMTP сервере электронной почты.
 
 config.properties:
@@ -81,7 +81,7 @@ mail.smtp.port = <email SMTP server port>
 Например:
 
 ```
- <form class="container" id="questionnaire" action="https://practicat.ru:8888/form">
+ <form class="container" id="questionnaire" action="http://practicat.ru:8888/form">
 ```
 
 ### Как это работает
