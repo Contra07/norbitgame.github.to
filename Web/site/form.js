@@ -6,7 +6,6 @@ document.getElementById("questionnaire").addEventListener("submit", function (e)
     fData.forEach( (value, key, parent )=> {
         obj[key] = value
     })
-   //postData("http://192.168.0.106:8888/form", JSON.stringify(obj))
     postData(this.action, JSON.stringify(obj))
     .then(fetchResponse => {
         console.log(fetchResponse)
