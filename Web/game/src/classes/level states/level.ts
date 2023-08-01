@@ -23,8 +23,8 @@ export class Level{
         this._coins = coins
         this._obstacles = obstacles
         this._background = background
-        this._transitionBeginTime = render.VIRTUAL_WIDTH/gamespeed
-        this._transitionEndTime = render.VIRTUAL_WIDTH/gamespeed
+        this._transitionBeginTime = 0.5*render.VIRTUAL_WIDTH/gamespeed
+        this._transitionEndTime = 1.5*render.VIRTUAL_WIDTH/gamespeed
     }
 
     public get obstacles(): FlyingObjects{
