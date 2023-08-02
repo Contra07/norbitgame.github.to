@@ -28,9 +28,8 @@ public class MailSender {
         boolean result = false;
         try {
             Transport.send(message);
-            System.out.println("Message has been sent to: ");
             for (Address Recipient : message.getAllRecipients()) {
-                System.out.print(Recipient+ " ");
+                System.out.println("Message has been sent to: " + Recipient);
             }
             result = true;
         } catch (MessagingException ex) {

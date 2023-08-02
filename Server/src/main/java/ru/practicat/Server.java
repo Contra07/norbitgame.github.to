@@ -18,7 +18,7 @@ public class Server {
 
     void start() {
         try (var server = new ServerSocket(this.port)) {
-            System.out.println("Server started on port" + server.getLocalPort());
+            System.out.println("Server started on port: " + server.getLocalPort());
             while (true) {
                 System.out.println("Server waiting...");
                 var socket = server.accept();

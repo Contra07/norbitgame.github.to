@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Добеги до НОРБИТ</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="gameStyles.css">
+    </head>
+    <body>
+      <section id="menu" class="menu">
+          <h1 name="play message" class="title">Norbit Game</h1>
+          <ul name="buttonlist" class="buttonlist">
+            <li><button href="#" name="button start" class="button">Играть</button></li>
+            <li><button href="#" name="button exit" class="button">Выйти</button></li>
+          </ul>
+      </section>
+      <section id="play" class="play">
+        <canvas id="mycanvas" width="600" height="600"></canvas>
+        <h1 class="uiheader" id="uiheader">
+          <ul class="uilist" id="uilist">
+            <li class="uielemet" id="uilifeelemet">
+              <img src="../resources/game/images/lifelogo.png" class="uiimage"> x 0
+            </li>
+            <li class="uielemet" id="uicoinelemet">
+              <img src="../resources/game/images/coinlogo.png" class="uiimage"> x 0
+            </li> 
+          </ul>
+        </h1>
+      </section>
+      <section id="win" class="win">
+        <div name="end top box" class="endtopbox">
+          <h1 id="winmessage" name="end message" class="endmessage"></h1>
+        </div>
+        <img src="../resources/game/images/catlose.png" name="loseimg" class="loseimg">
+        <ul name="buttonwinlist" class="buttonendlist">
+          <li><button id="buttonreplay" href="#" name="button replay" class="buttonend">Заново</button></li>
+          <li><button id="buttonform" href="#" name="button form" class="buttonend">Присоединяйся!</button></li>
+        </ul>
+      </section>
+      <section id="lose" class="lose">
+        <div  name="end top box" class="endtopbox">
+          <h1 id="losemessage" name="end message" class="endmessage"></h1>
+        </div>
+        <img src="../resources/game/images/catwin.png" name="loseimg" class="loseimg">
+        <ul name="buttonloselist" class="buttonendlist" display="none">
+          <li><button id="buttonreplay" href="#" name="button replay" class="buttonend">Заново</button></li>
+          <li><button id="buttonexit" href="#" name="button exit" class="buttonend">Выйти</button></li>
+        </ul>
+      </section>
+      <!--Scripts. Do Not Touch Below.-->
+      <script type="module"  src="dist/engine.js" ></script>
+    </body>
+</html>
